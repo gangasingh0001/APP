@@ -4,131 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Continent {
-    /**
-     * continent ID.
-     */
-    Integer d_continentID;
+    private int d_id;
+    private String d_name;
+    private int d_value;
+    private String d_color;
+    private List<Country> d_countries;
 
-    /**
-     * continent name.
-     */
-    String d_continentName;
-
-    /**
-     * continent value.
-     */
-    Integer d_continentValue;
-
-    /**
-     * List of countries.
-     */
-    List<Country> d_countries;
-
-    /**
-     * constructor to this class.
-     *
-     * @param p_continentID continent ID
-     * @param p_continentName continent name
-     * @param p_continentValue continent value
-     */
-    public Continent(Integer p_continentID, String p_continentName, int p_continentValue) {
-        this.d_continentID=p_continentID;
-        this.d_continentName=p_continentName;
-        this.d_continentValue=p_continentValue;
+    public Continent(int p_id, String p_name,int p_value, String p_color) {
+        this.d_id = p_id;
+        this.d_name = p_name;
+        this.d_value = p_value;
+        this.d_color = p_color;
+        this.d_countries = new ArrayList<>();
     }
 
-    /**
-     * default contructor to the class.
-     */
-    public Continent(){
-
+    public int getId() {
+        return d_id;
     }
 
-    /**
-     * constructor to this class.
-     *
-     * @param p_continentName continent name
-     */
-    public Continent(String p_continentName) {
-        this.d_continentName = p_continentName;
+    public String getName() {
+        return d_name;
     }
 
-    /**
-     * getter method to get the continent ID.
-     *
-     * @return continent ID
-     */
-    public Integer get_continentID() {
-        return d_continentID;
+    public String getColor() {
+        return d_color;
     }
 
-    /**
-     * setter method to set the continenet ID.
-     *
-     * @param p_continentID continent ID
-     */
-    public void set_continentID(Integer p_continentID) {
-        this.d_continentID = p_continentID;
+    public int getValue() {
+        return d_value;
     }
 
-    /**
-     * getter method to get the continent name.
-     *
-     * @return continent name
-     */
-    public String get_continentName() {
-        return d_continentName;
-    }
-
-    /**
-     * setter method to set the continent name.
-     *
-     * @param p_continentName name of the continent
-     */
-    public void set_continentName(String p_continentName) {
-        this.d_continentName = p_continentName;
-    }
-
-    /**
-     * getter method to get the continent value.
-     *
-     * @return continent value
-     */
-    public Integer get_continentValue() {
-        return d_continentValue;
-    }
-
-    /**
-     * setter method to set the continent value.
-     *
-     * @param p_continentValue the continent value
-     */
-    public void set_continentValue(Integer p_continentValue) {
-        this.d_continentValue = p_continentValue;
-    }
-
-    /**
-     * getter method to get the countries.
-     *
-     * @return list of countries
-     */
-    public List<Country> get_countries() {
+    public List<Country> getCountries() {
         return d_countries;
     }
 
-    /**
-     * setter method to set the countries.
-     *
-     * @param p_countries list of countries
-     */
-    public void set_countries(List<Country> p_countries) {
-        this.d_countries = p_countries;
+    public void addCountry(Country country) {
+        d_countries.add(country);
     }
 
-    /**
-     * adds the specified country.
-     *
-     * @param p_country the country to be added
-     */
+    @Override
+    public String toString() {
+        return d_name;
+    }
 
 }
