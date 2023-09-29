@@ -62,6 +62,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
                     case ApplicationConstants.EDITCOUNTRY: {
                     }
@@ -100,6 +102,8 @@ public class GameEngineController {
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
                     case ApplicationConstants.GAMEPLAYER: {
                         addRemovePlayer(l_command);
@@ -144,6 +148,8 @@ public class GameEngineController {
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
 
                     case ApplicationConstants.SHOWMAP: {
