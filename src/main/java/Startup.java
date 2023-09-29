@@ -10,7 +10,7 @@ public class Startup {
     public static void main (String[] args) {
         IWorldMap worldMap = new WorldMap();
         IMapService mapService = new MapService(worldMap);
-        IPlayerService playerService = new PlayerService(mapService);
+        IPlayerService playerService = new PlayerService(mapService,worldMap);
         GameEngineController l_game = new GameEngineController(mapService,playerService,worldMap);
         l_game.initGame();
     }

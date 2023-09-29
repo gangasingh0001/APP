@@ -15,4 +15,6 @@ public class ApplicationConstants {
     public static final String EDITNEIGHBOR = "editneighbor";
     public static final String ASSIGNCOUNTRIES = "assigncountries";
     public static final String EXIT = "exit";
+    public static final String ISSUEORDER = "issueorder";
+    public static final int DEFAULtARMIES = 5;
 }

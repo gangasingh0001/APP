@@ -7,6 +7,7 @@ public class Country {
     private int d_id;
     private String d_name;
     private int d_continentId;
+    private int armies;
 
     public Country(int p_id, String p_name, int p_continentId) {
         this.d_id = p_id;
@@ -29,5 +30,13 @@ public class Country {
     @Override
     public String toString() {
         return d_name;
+    }
+
+    public void setD_Armies(int numberOfArmies) {
+        this.armies = numberOfArmies;
+    }
+
+    public int getD_Armies() {
+        return armies;
     }
 }

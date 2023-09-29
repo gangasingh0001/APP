@@ -9,6 +9,11 @@ public class Commands {
     String l_rootCommand;
     private String[] l_parameters;
 
+    private String l_firstParameter;
+    private String l_secondParameter;
+    private String l_thirdParameter;
+
+
     public Commands (String p_command) {
         getRootCommandWord(p_command);
     }
@@ -21,7 +26,10 @@ public class Commands {
         l_rootCommand = l_parameters[0];
         switch (l_rootCommand) {
             case ApplicationConstants.EDITMAP, ApplicationConstants.LOADMAP: {
-                if(!l_parameters[1].isEmpty()) return true;
+                if(!l_parameters[1].isEmpty()) {
+                    l_firstParameter = l_parameters[1];
+                    return true;
+                }
             }
             case ApplicationConstants.SHOWMAP, ApplicationConstants.VALIDATEMAP: {
                 return true;
@@ -29,7 +37,9 @@ public class Commands {
             case ApplicationConstants.GAMEPLAYER: {
                 switch (l_parameters[1]) {
                     case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
                         if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
                             return true;
                         }
                         break;
@@ -39,9 +49,14 @@ public class Commands {
             case ApplicationConstants.EDITCONTINENT: {
                 switch (l_parameters[1]) {
                     case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
                         if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
                             if(!isInteger(l_parameters[2])){
-                                return isInteger(l_parameters[3]);
+                                l_secondParameter = l_parameters[2];
+                                if(isInteger(l_parameters[3])) {
+                                    l_thirdParameter = l_parameters[3];
+                                    return true;
+                                }
                             }
                         }
                         break;
@@ -72,5 +87,17 @@ public class Commands {
 
     public String[] getL_parameters() {
         return l_parameters;
+    }
+
+    public String getL_firstParameter() {
+        return l_firstParameter;
+    }
+
+    public String getL_secondParameter() {
+        return l_secondParameter;
+    }
+
+    public String getL_thirdParameter() {
+        return l_thirdParameter;
     }
 }

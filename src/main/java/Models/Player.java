@@ -1,35 +1,50 @@
 package Models;
 
+import Constants.ApplicationConstants;
+import Order.Deploy;
+import Order.IOrders;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Player {
-    /**
-     * color to show details with on map.
-     */
     private String d_color;
 
-    /**
-     * Name of the player.
-     */
     private String d_name;
 
-    /**
-     * List of countries owned by player.
-     */
     List<Country> d_coutriesOwned;
 
-    /**
-     * List of Continents owned by player.
-     */
-    List<Continent> d_continentsOwned;
+    Queue<IOrders> d_orderList;
+    private int d_numberOfArmies = ApplicationConstants.DEFAULtARMIES;
 
-    /**
-     * List of orders of player.
-     */
-    //List<Order> d_orderList;
+    public Player(String p_playerName) {
+        this.d_name = p_playerName;
+        d_orderList = new LinkedList<>();
+    }
 
-    /**
-     * Number of armies allocated to player.
-     */
-    Integer d_noOfUnallocatedArmies;
+    public int getD_numberOfArmies() {
+        return d_numberOfArmies;
+    }
+
+    public void addCountriesOwned(Country p_country) {
+        this.d_coutriesOwned.add(p_country);
+    }
+
+    public List<Country> getD_coutriesOwned() {
+        return d_coutriesOwned;
+    }
+
+    public void add_deployInOrderList(Deploy object) {
+        this.d_orderList.add(object);
+    }
+
+    public Queue<IOrders> getD_orderList() {
+        return d_orderList;
+    }
+
+    public String getD_playerName() {
+        return d_name;
+    }
 }

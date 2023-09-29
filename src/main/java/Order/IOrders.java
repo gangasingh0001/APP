@@ -1,45 +1,13 @@
 package Order;
 
-public interface IOrders {
-    /**
-     * Method that will be called by the Receiver to execute the Order.
-     *
-     * @param p_gameState current state of the game.
-     */
-    public void execute(int p_gameState);
+import Models.Player;
 
-    /**
-     * Validates order.
-     *
-     * @return boolean true or false
-     * @param p_gameState GameState Instance
-     */
+public interface IOrders {
+    public void execute(Player player);
+
     public boolean valid(int p_gameState);
 
-    /**
-     * Print order information.
-     */
     public void printOrder();
 
-    /**
-     * Returns the Log to GameState with Execution Log.
-     *
-     * @return String containing log message
-     */
-    public String orderExecutionLog();
-
-    /**
-     * Prints and Sets the order execution log.
-     *
-     * @param p_orderExecutionLog String to be set as log
-     * @param p_logType           type of log : error, default
-     */
-    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_logType);
-
-    /**
-     * Return order name.
-     *
-     * @return String
-     */
     public String getOrderName();
 }

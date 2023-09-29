@@ -47,4 +47,13 @@ public class WorldMap implements IWorldMap{
         return borders.getOrDefault(country, new ArrayList<>());
     }
 
+    public String findCountryNameById(int countryId) {
+        Country country = getCountries().stream()
+                .filter(c -> c.getId() == countryId)
+                .findFirst()
+                .orElse(null);
+
+        return (country != null) ? country.getName() : "Country not found";
+    }
+
 }

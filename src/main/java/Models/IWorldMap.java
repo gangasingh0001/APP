@@ -10,4 +10,5 @@ public interface IWorldMap {
     public void addBorder(Country country, List<Country> neighborCountries);
     public void addContinent(Continent continent);
     public void addCountry(Country country);
+    public String findCountryNameById(int countryId);
 }
