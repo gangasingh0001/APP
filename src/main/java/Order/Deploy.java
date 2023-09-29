@@ -16,10 +16,11 @@ public class Deploy implements IOrders{
     @Override
     public void execute(Player player) {
         while (!player.getD_orderList().isEmpty()) {
+            IOrders deployObj = player.getD_orderList().poll();
             for(Country country: player.getD_coutriesOwned()) {
-                if(country.getName().equals(targetCountryName)) {
-                    country.setD_Armies(country.getD_Armies()+numberOfArmiesToDeploy);
-                    player.getD_orderList().poll();
+                assert deployObj != null;
+                if(country.getName().equals(deployObj.getTargetCountryName())) {
+                    country.setD_Armies(country.getD_Armies()+deployObj.getNumberOfArmies());
                     break;
                 }
             }
@@ -39,5 +40,17 @@ public class Deploy implements IOrders{
     @Override
     public String getOrderName() {
         return null;
+    }
+
+    public String getTargetCountryName() {
+        return targetCountryName;
+    }
+
+    public String getTargetCountryID() {
+        return targetCountryID;
+    }
+
+    public int getNumberOfArmies() {
+        return numberOfArmiesToDeploy;
     }
 }

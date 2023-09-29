@@ -16,6 +16,10 @@ public class Commands {
 
     public Commands (String p_command) {
         getRootCommandWord(p_command);
+        if(l_parameters.length>=3) l_secondParameter = l_parameters[2];
+        if(l_parameters.length>=2) l_firstParameter = l_parameters[1];
+        if(l_parameters.length>=4) l_thirdParameter = l_parameters[3];
+        if(l_parameters.length>=1) l_rootCommand = l_parameters[0];
     }
 
     public String getL_rootCommand() {
@@ -31,7 +35,10 @@ public class Commands {
                     return true;
                 }
             }
-            case ApplicationConstants.SHOWMAP, ApplicationConstants.VALIDATEMAP: {
+            case ApplicationConstants.EXIT: {
+                return true;
+            }
+            case ApplicationConstants.SHOWMAP, ApplicationConstants.VALIDATEMAP, ApplicationConstants.ASSIGNCOUNTRIES: {
                 return true;
             }
             case ApplicationConstants.GAMEPLAYER: {
@@ -75,6 +82,15 @@ public class Commands {
                     case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
                         return l_parameters[2] != null && !l_parameters[2].isEmpty();
                     }
+                }
+            }
+            case ApplicationConstants.DEPLOY: {
+                try {
+                    Integer.parseInt(l_parameters[1]);
+                    Integer.parseInt(l_parameters[2]);
+                    return true;
+                } catch (NumberFormatException ex) {
+                    return false;
                 }
             }
         }

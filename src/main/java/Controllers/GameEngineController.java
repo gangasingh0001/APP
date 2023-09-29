@@ -36,11 +36,12 @@ public class GameEngineController {
     }
 
     public void firstPhase() {
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 1 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -72,6 +73,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        exit = true;
+                        break;
                     }
                     default: {
                         System.out.println("Invalid Command");
@@ -83,11 +86,12 @@ public class GameEngineController {
     }
 
     public void secondPhase() {
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 2 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -110,6 +114,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        exit = true;
+                        break;
                     }
                     default: {
                         System.out.println("Invalid Command");
@@ -122,10 +128,14 @@ public class GameEngineController {
 
     public void thirdPhase() {
         while (true) {
+
+            issue_order();
+            next_order();
+
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 3 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -140,13 +150,15 @@ public class GameEngineController {
                         showMap();
                         break;
                     }
+
                     case ApplicationConstants.EXIT: {
                     }
-                    case ApplicationConstants.ISSUEORDER: {
-                        issue_order();
-                        next_order();
+
+                    case ApplicationConstants.DEPLOY: {
+
                         break;
                     }
+
                     default: {
                         System.out.println("Invalid Command");
                         break;

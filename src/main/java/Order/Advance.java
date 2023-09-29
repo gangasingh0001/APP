@@ -32,4 +32,19 @@ public class Advance implements IOrders{
     public String getOrderName() {
         return null;
     }
+
+    @Override
+    public String getTargetCountryName() {
+        return null;
+    }
+
+    @Override
+    public String getTargetCountryID() {
+        return null;
+    }
+
+    @Override
+    public int getNumberOfArmies() {
+        return 0;
+    }
 }

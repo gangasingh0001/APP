@@ -1,5 +1,6 @@
 package Services;
 
+import Constants.ApplicationConstants;
 import Models.Country;
 import Models.IWorldMap;
 import Models.Player;
@@ -30,7 +31,7 @@ public class PlayerService implements IPlayerService{
     }
 
     public void addPlayer(Commands p_command) {
-        Player player = new Player(p_command.getL_thirdParameter());
+        Player player = new Player(p_command.getL_secondParameter());
         this.players.add(player);
     }
 
@@ -57,7 +58,7 @@ public class PlayerService implements IPlayerService{
         int itemsPerArray = l_countryList.size() / n;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < itemsPerArray; j++) {
-                this.players.get(j).addCountriesOwned(l_countryList.get(currentItemIndex));
+                this.players.get(i).addCountriesOwned(l_countryList.get(currentItemIndex));
                 currentItemIndex++;
             }
         }
@@ -83,7 +84,7 @@ public class PlayerService implements IPlayerService{
                 }
                 Commands l_command = new Commands(l_commandEntered);
                 boolean deployFlag = false;
-                if (l_command.validateCommand()) {
+                if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     int countryID = Integer.parseInt(l_command.getL_firstParameter());
                     String countryName = worldMap.findCountryNameById(countryID);
                     for (Country country : player.getD_coutriesOwned()) {
@@ -92,11 +93,14 @@ public class PlayerService implements IPlayerService{
                             int numOfArmiesToDeploy = Integer.parseInt(l_command.getL_secondParameter());
                             defaultNumberOfArmies = defaultNumberOfArmies - numOfArmiesToDeploy;
                             player.getD_orderList().add(new Deploy(numOfArmiesToDeploy, l_command.getL_firstParameter(), countryName));
+                            break;
                         }
                     }
                     if (!deployFlag) {
                         // Write exception that country is not owned by this player.
                     }
+                } else if (l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
+                    break;
                 }
             }
         }
