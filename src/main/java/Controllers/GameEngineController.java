@@ -1,29 +1,32 @@
 package Controllers;
 
 import Constants.ApplicationConstants;
-import Exceptions.InvalidCommand;
-import Exceptions.InvalidMap;
-import Models.Country;
 import Models.IWorldMap;
-import Models.Player;
 import Services.IMapService;
 import Services.IPlayerService;
 import Utils.Commands;
 import Views.ShowMap;
+import Views.ShowPlayerInfo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
+import java.util.Scanner;
 
 public class GameEngineController {
     IMapService mapService;
     IWorldMap worldMap;
     IPlayerService playerService;
+    ShowMap mapView;
+    ShowPlayerInfo showPlayerInfo;
+    Scanner scanner;
     public GameEngineController(IMapService _mapService, IPlayerService _playerService, IWorldMap _worldMap) {
         mapService = _mapService;
         playerService = _playerService;
         worldMap = _worldMap;
+        mapView = new ShowMap(worldMap);
+        showPlayerInfo = new ShowPlayerInfo(playerService);
+        new Scanner(System.in);
     }
 
     public void initGame() {
@@ -158,20 +161,22 @@ public class GameEngineController {
     }
 
     public void showMap() {
-        ShowMap mapView = new ShowMap(worldMap);
         mapView.show();
     }
 
     public void addRemovePlayer(Commands p_command) {
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             playerService.addPlayer(p_command);
+            showPlayerInfo.displayPlayers();
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
             if(playerService.isPlayerRemoved(p_command)) System.out.println("Removed Successfully");
+            showPlayerInfo.displayPlayers();
         }
     }
 
     public void assignCountries(Commands p_command) {
         playerService.assignCountries(p_command);
+        showPlayerInfo.displayPlayerInfo();
     }
 
     public void issue_order() {
@@ -179,5 +184,6 @@ public class GameEngineController {
     }
     public void next_order() {
         playerService.next_order();
+        showPlayerInfo.displayPlayerInfo();
     }
 }
