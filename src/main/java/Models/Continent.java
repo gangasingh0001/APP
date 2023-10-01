@@ -94,7 +94,7 @@ public class Continent {
      * @param p_country add a country
      */
     public void addCountry(Country p_country) {
-        d_countries.add(country);
+        d_countries.add(p_country);
     }
 
     /**
