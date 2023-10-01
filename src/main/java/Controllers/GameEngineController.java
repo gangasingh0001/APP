@@ -1,29 +1,32 @@
 package Controllers;
 
 import Constants.ApplicationConstants;
-import Exceptions.InvalidCommand;
-import Exceptions.InvalidMap;
-import Models.Country;
 import Models.IWorldMap;
-import Models.Player;
 import Services.IMapService;
 import Services.IPlayerService;
 import Utils.Commands;
 import Views.ShowMap;
+import Views.ShowPlayerInfo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
+import java.util.Scanner;
 
 public class GameEngineController {
     IMapService mapService;
     IWorldMap worldMap;
     IPlayerService playerService;
+    ShowMap mapView;
+    ShowPlayerInfo showPlayerInfo;
+    Scanner scanner;
     public GameEngineController(IMapService _mapService, IPlayerService _playerService, IWorldMap _worldMap) {
         mapService = _mapService;
         playerService = _playerService;
         worldMap = _worldMap;
+        mapView = new ShowMap(worldMap);
+        showPlayerInfo = new ShowPlayerInfo(playerService);
+        new Scanner(System.in);
     }
 
     public void initGame() {
@@ -33,11 +36,12 @@ public class GameEngineController {
     }
 
     public void firstPhase() {
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 1 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -58,6 +62,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
                     case ApplicationConstants.EDITCOUNTRY: {
                     }
@@ -69,6 +75,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        exit = true;
+                        break;
                     }
                     default: {
                         System.out.println("Invalid Command");
@@ -80,11 +88,12 @@ public class GameEngineController {
     }
 
     public void secondPhase() {
-        while (true) {
+        boolean exit = false;
+        while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 2 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -93,6 +102,8 @@ public class GameEngineController {
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
                     case ApplicationConstants.GAMEPLAYER: {
                         addRemovePlayer(l_command);
@@ -107,6 +118,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        exit = true;
+                        break;
                     }
                     default: {
                         System.out.println("Invalid Command");
@@ -119,10 +132,14 @@ public class GameEngineController {
 
     public void thirdPhase() {
         while (true) {
+
+            issue_order();
+            next_order();
+
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
             String l_commandEntered = null;
             try {
-                System.out.println("Enter Game Commands / type 'exit' to quit");
+                System.out.println("Enter Game phase 3 Commands / type 'exit' to quit");
                 l_commandEntered = l_reader.readLine();
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
@@ -131,19 +148,23 @@ public class GameEngineController {
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     case ApplicationConstants.VALIDATEMAP: {
+                        mapService.validateGraph();
+                        break;
                     }
 
                     case ApplicationConstants.SHOWMAP: {
                         showMap();
                         break;
                     }
+
                     case ApplicationConstants.EXIT: {
                     }
-                    case ApplicationConstants.ISSUEORDER: {
-                        issue_order();
-                        next_order();
+
+                    case ApplicationConstants.DEPLOY: {
+
                         break;
                     }
+
                     default: {
                         System.out.println("Invalid Command");
                         break;
@@ -158,20 +179,22 @@ public class GameEngineController {
     }
 
     public void showMap() {
-        ShowMap mapView = new ShowMap(worldMap);
         mapView.show();
     }
 
     public void addRemovePlayer(Commands p_command) {
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             playerService.addPlayer(p_command);
+            showPlayerInfo.displayPlayers();
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
             if(playerService.isPlayerRemoved(p_command)) System.out.println("Removed Successfully");
+            showPlayerInfo.displayPlayers();
         }
     }
 
     public void assignCountries(Commands p_command) {
         playerService.assignCountries(p_command);
+        showPlayerInfo.displayPlayerInfo();
     }
 
     public void issue_order() {
@@ -179,5 +202,6 @@ public class GameEngineController {
     }
     public void next_order() {
         playerService.next_order();
+        showPlayerInfo.displayPlayerInfo();
     }
 }

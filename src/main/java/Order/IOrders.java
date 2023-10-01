@@ -10,4 +10,10 @@ public interface IOrders {
     public void printOrder();
 
     public String getOrderName();
+
+    public String getTargetCountryName();
+
+    public String getTargetCountryID();
+
+    public int getNumberOfArmies();
 }
