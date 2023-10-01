@@ -2,6 +2,8 @@ package Controllers;
 
 import Constants.ApplicationConstants;
 import Models.IWorldMap;
+import Services.IContinentService;
+import Services.ICountryService;
 import Services.IMapService;
 import Services.IPlayerService;
 import Utils.Commands;
@@ -17,6 +19,8 @@ public class GameEngineController {
     IMapService mapService;
     IWorldMap worldMap;
     IPlayerService playerService;
+    ICountryService continentService;
+    ICountryService countryService;
     ShowMap mapView;
     ShowPlayerInfo showPlayerInfo;
     Scanner scanner;
@@ -46,13 +50,18 @@ public class GameEngineController {
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
             }
+            System.out.println("l_commandEntered" + l_commandEntered);
             Commands l_command = new Commands(l_commandEntered);
+            System.out.println("l_command" + l_command);
+
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     case ApplicationConstants.EDITMAP: {
+                        mapEditor(l_command);
                         break;
                     }
                     case ApplicationConstants.EDITCONTINENT: {
+                        continentEditor(l_command);
                         break;
                     }
                     case ApplicationConstants.SAVEMAP: {
@@ -171,6 +180,27 @@ public class GameEngineController {
                     }
                 }
             }
+        }
+    }
+
+
+    public void continentEditor(Commands p_Command){
+        System.out.println("continentEditor");
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+            continentService.addCountry(p_command);
+        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
+            if(continentService.isCountryRemoved(p_command)) System.out.println("Removed Successfully");
+            // Remove country
+        }
+    }
+
+    public void mapEditor(Commands p_command){
+        System.out.println("MApEditor");
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+            countryService.addCountry(p_command);
+        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
+            if(countryService.isCountryRemoved(p_command)) System.out.println("Removed Successfully");
+            // Remove country
         }
     }
 
