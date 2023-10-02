@@ -38,7 +38,7 @@ public class MapService implements IMapService{
      */
     public void loadData(Commands commands) {
         String[] params = commands.getL_parameters();// split the command by " "
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/gangasingh/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1])))
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/shangmo/Desktop/SOEN 6441/Project/SOEN6441/src/main/java/Data/Maps/"+params[1])))
         //laod the information from text file, params[1]is the name of map
         {
             String line;
