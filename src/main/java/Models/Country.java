@@ -26,7 +26,7 @@ public class Country {
     /**
      * armies that deployed each term to this country
      */
-    private int armies;
+    private int d_armies;
 
     /**
      * This is a constructor of the country class
@@ -77,10 +77,10 @@ public class Country {
 
     /**
      * setter method to set number of armies to this country
-     * @param numberOfArmies number of armies assigned to this country
+     * @param p_numberOfArmies number of armies assigned to this country
      */
-    public void setD_Armies(int numberOfArmies) {
-        this.armies = numberOfArmies;
+    public void setD_Armies(int p_numberOfArmies) {
+        this.d_armies = p_numberOfArmies;
     }
 
     /**
@@ -88,6 +88,6 @@ public class Country {
      * @return number of armies in this country
      */
     public int getD_Armies() {
-        return armies;
+        return d_armies;
     }
 }
