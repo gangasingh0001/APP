@@ -34,4 +34,10 @@ public interface IOrders {
      */
 
     public String getOrderName();
+
+    public String getTargetCountryName();
+
+    public String getTargetCountryID();
+
+    public int getNumberOfArmies();
 }

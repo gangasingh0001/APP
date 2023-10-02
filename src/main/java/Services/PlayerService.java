@@ -1,5 +1,6 @@
 package Services;
 
+import Constants.ApplicationConstants;
 import Models.Country;
 import Models.IWorldMap;
 import Models.Player;
@@ -58,7 +59,7 @@ public class PlayerService implements IPlayerService{
      * @param p_command should provide playerID
      */
     public void addPlayer(Commands p_command) {
-        Player player = new Player(p_command.getL_thirdParameter());
+        Player player = new Player(p_command.getL_secondParameter());
         this.d_players.add(player);
     }
 
@@ -93,12 +94,10 @@ public class PlayerService implements IPlayerService{
         int currentItemIndex = 0;
         int n = this.d_players.size(); // Number of arrays to distribute items into
         int itemsPerArray = l_countryList.size() / n;
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < itemsPerArray; j++)
-            {
-                this.d_players.get(j).addCountriesOwned(l_countryList.get(currentItemIndex));
-                // should I replace j to i
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < itemsPerArray; j++) {
+                this.d_players.get(i).addCountriesOwned(l_countryList.get(currentItemIndex));
                 currentItemIndex++;
             }
         }
@@ -127,7 +126,7 @@ public class PlayerService implements IPlayerService{
                 }
                 Commands l_command = new Commands(l_commandEntered);
                 boolean deployFlag = false;
-                if (l_command.validateCommand()) {
+                if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     int countryID = Integer.parseInt(l_command.getL_firstParameter());
                     String countryName = d_worldMap.findCountryNameById(countryID);
                     for (Country country : player.getD_coutriesOwned()) {
@@ -136,11 +135,14 @@ public class PlayerService implements IPlayerService{
                             int numOfArmiesToDeploy = Integer.parseInt(l_command.getL_secondParameter());
                             defaultNumberOfArmies = defaultNumberOfArmies - numOfArmiesToDeploy;
                             player.getD_orderList().add(new Deploy(numOfArmiesToDeploy, l_command.getL_firstParameter(), countryName));
+                            break;
                         }
                     }
                     if (!deployFlag) {
                         // Write exception that country is not owned by this player.
                     }
+                } else if (l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
+                    break;
                 }
             }
         }

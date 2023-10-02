@@ -22,6 +22,7 @@ public class Player {
     public Player(String p_playerName) {
         this.d_name = p_playerName;
         d_orderList = new LinkedList<>();
+        d_coutriesOwned = new ArrayList<>();
     }
 
     public int getD_numberOfArmies() {

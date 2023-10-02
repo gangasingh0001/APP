@@ -11,7 +11,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.Queue;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 public class MapService implements IMapService{
     /**
@@ -87,4 +90,55 @@ public class MapService implements IMapService{
             e.printStackTrace();
         }
     }
+
+    public boolean validateGraph() {
+        // Step 1: Check if every country has at least one neighbor
+        if (!checkEveryCountryHasNeighbors()) {
+            System.out.println("Validation Error: Not every country has neighbors.");
+            return false;
+        }
+
+        // Step 2: Check if the graph is connected
+        if (!checkGraphConnected()) {
+            System.out.println("Validation Error: The graph is not connected.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkEveryCountryHasNeighbors() {
+        for (Country country : worldMap.getCountries()) {
+            List<Country> neighbors = worldMap.getNeighborsOfCountry(country);
+            if (neighbors.isEmpty()) {
+                return false; // Country has no neighbors
+            }
+        }
+        return true; // All countries have neighbors
+    }
+
+    private boolean checkGraphConnected() {
+        Set<Country> visitedCountries = new HashSet<>();
+        Queue<Country> queue = new LinkedList<>();
+
+        // Start the traversal from the first country (or any country)
+        Country startingCountry = worldMap.getCountries().get(0);
+        visitedCountries.add(startingCountry);
+        queue.add(startingCountry);
+
+        while (!queue.isEmpty()) {
+            Country currentCountry = queue.poll();
+            List<Country> neighbors = worldMap.getNeighborsOfCountry(currentCountry);
+            for (Country neighbor : neighbors) {
+                if (!visitedCountries.contains(neighbor)) {
+                    visitedCountries.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        // If all countries are visited, the graph is connected
+        return visitedCountries.size() == worldMap.getCountries().size();
+    }
+
 }

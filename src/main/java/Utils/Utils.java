@@ -1,5 +1,10 @@
 package Utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
 public class Utils {
     /**
      * check if the inout type is integer
