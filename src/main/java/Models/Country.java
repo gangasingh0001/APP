@@ -39,7 +39,7 @@ public class Country {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continentId = p_continentId;
-        this.armies = 0;
+        this.d_armies = 0;
     }
 
     /**
