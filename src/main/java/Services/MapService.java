@@ -14,13 +14,30 @@ import java.util.List;
 import java.util.Map;
 
 public class MapService implements IMapService{
+    /**
+     * Uesd to store game map
+     */
     IWorldMap worldMap;
+
+    /**
+     *  the constructor for Mapservice
+     * @param _worldMap
+     */
+
+
     public MapService(IWorldMap _worldMap) {
         worldMap = _worldMap;
     }
+
+    /**
+     * used to get the map information from text file and store all the information into worldMap instance
+     * @param commands including loadmap (the name of map)mapname
+     */
     public void loadData(Commands commands) {
-        String[] params = commands.getL_parameters();
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/gangasingh/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1]))) {
+        String[] params = commands.getL_parameters();// split the command by " "
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/gangasingh/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1])))
+        //laod the information from text file, params[1]is the name of map
+        {
             String line;
             String currentSection = "";
             int continentIndex = 0;
@@ -35,6 +52,7 @@ public class MapService implements IMapService{
 
                 if (line.startsWith("[")) {
                     currentSection = line.substring(1, line.indexOf("]"));
+                    //uesd to distinct between country and continent
                 } else {
                     String[] parts = line.split(" ");
                     if (parts.length >= 3) {
@@ -42,7 +60,7 @@ public class MapService implements IMapService{
                         if ("continents".equals(currentSection)) {
                             // Create and add a continent
                             String name = parts[0];
-                            Continent continent = new Continent(countryIndex++, name,Integer.parseInt(parts[1]), parts[2]);
+                            Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
                             worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country

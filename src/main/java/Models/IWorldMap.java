@@ -3,6 +3,7 @@ package Models;
 import java.util.List;
 
 public interface IWorldMap {
+
     public List<Country> getCountriesInContinent(int continentId);
     public List<Country> getNeighborsOfCountry(Country country);
     public List<Continent> getContinents();
