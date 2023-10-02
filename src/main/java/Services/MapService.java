@@ -23,7 +23,7 @@ public class MapService implements IMapService{
     }
     public void loadData(Commands commands) {
         String[] params = commands.getL_parameters();
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/gangasingh/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1]))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/amarta/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1]))) {
             String line;
             String currentSection = "";
             int continentIndex = 0;
