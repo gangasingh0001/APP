@@ -75,6 +75,7 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.EDITCOUNTRY: {
+                        countryEditor(l_command);
                     }
                     case ApplicationConstants.EDITNEIGHBOR: {
                     }
@@ -206,6 +207,16 @@ public class GameEngineController {
 
     public void mapLoader(Commands p_command) {
         mapService.loadData(p_command);
+    }
+
+    public void countryEditor(Commands p_command){
+        System.out.println("continentEditor");
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+            countryService.addCountry(p_command);
+        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
+            if(countryService.isCountryRemoved(p_command)) System.out.println("Removed Successfully");
+            // Remove country
+        }
     }
 
     public void showMap() {
