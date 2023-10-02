@@ -184,7 +184,7 @@ public class GameEngineController {
     }
 
 
-    public void continentEditor(Commands p_Command){
+    public void continentEditor(Commands p_command){
         System.out.println("continentEditor");
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             continentService.addCountry(p_command);
