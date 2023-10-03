@@ -6,8 +6,10 @@ import Services.IPlayerService;
 import Services.MapService;
 import Services.PlayerService;
 
+import java.io.FileNotFoundException;
+
 public class Startup {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws FileNotFoundException {
         IWorldMap worldMap = new WorldMap();
         IMapService mapService = new MapService(worldMap);
         IPlayerService playerService = new PlayerService(mapService,worldMap);

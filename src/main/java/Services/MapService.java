@@ -6,9 +6,7 @@ import Models.IWorldMap;
 import Models.WorldMap;
 import Utils.Commands;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,9 +19,11 @@ public class MapService implements IMapService{
     public MapService(IWorldMap _worldMap) {
         worldMap = _worldMap;
     }
-    public void loadData(Commands commands) {
+    public void loadData(Commands commands) throws FileNotFoundException {
         String[] params = commands.getL_parameters();
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/gangasingh/Desktop/Concordia/COMP6441/APP/src/main/java/Data/Maps/"+params[1]))) {
+        String currentDirectory = System.getProperty("user.dir");
+        File file = new File(currentDirectory);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1]))) {
             String line;
             String currentSection = "";
             int continentIndex = 0;
@@ -68,8 +68,12 @@ public class MapService implements IMapService{
                     }
                 }
             }
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File not found");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Null");
         }
     }
 

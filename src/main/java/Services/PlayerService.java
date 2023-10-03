@@ -4,10 +4,8 @@ import Constants.ApplicationConstants;
 import Models.Country;
 import Models.IWorldMap;
 import Models.Player;
-import Models.WorldMap;
-import Order.Advance;
-import Order.Deploy;
-import Order.IOrders;
+import Orders.Deploy;
+import Orders.IOrders;
 import Utils.Commands;
 
 import java.io.BufferedReader;

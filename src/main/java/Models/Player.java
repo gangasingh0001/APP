@@ -1,8 +1,8 @@
 package Models;
 
 import Constants.ApplicationConstants;
-import Order.Deploy;
-import Order.IOrders;
+import Orders.Deploy;
+import Orders.IOrders;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
