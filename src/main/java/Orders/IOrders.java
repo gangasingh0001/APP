@@ -1,4 +1,4 @@
-package Order;
+package Orders;
 
 import Models.Player;
 

@@ -6,9 +6,7 @@ import Models.IWorldMap;
 import Models.WorldMap;
 import Utils.Commands;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,9 +34,11 @@ public class MapService implements IMapService{
      * used to get the map information from text file and store all the information into worldMap instance
      * @param commands including loadmap (the name of map)mapname
      */
-    public void loadData(Commands commands) {
+    public void loadData(Commands commands) throws FileNotFoundException {
         String[] params = commands.getL_parameters();// split the command by " "
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/shangmo/Desktop/SOEN 6441/Project/SOEN6441/src/main/java/Data/Maps/"+params[1])))
+        String currentDirectory = System.getProperty("user.dir");
+        File file = new File(currentDirectory);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1])))
         //laod the information from text file, params[1]is the name of map
         {
             String line;
@@ -63,7 +63,7 @@ public class MapService implements IMapService{
                         if ("continents".equals(currentSection)) {
                             // Create and add a continent
                             String name = parts[0];
-                            Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
+                            Continent continent = new Continent(countryIndex++, name,Integer.parseInt(parts[1]), parts[2]);
                             worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country
@@ -86,8 +86,12 @@ public class MapService implements IMapService{
                     }
                 }
             }
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File not found");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Null");
         }
     }
 
