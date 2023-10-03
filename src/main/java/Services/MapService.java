@@ -15,15 +15,32 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MapService implements IMapService{
+    /**
+     * Uesd to store game map
+     */
     IWorldMap worldMap;
+
+    /**
+     *  the constructor for Mapservice
+     * @param _worldMap
+     */
+
+
     public MapService(IWorldMap _worldMap) {
         worldMap = _worldMap;
     }
+
+    /**
+     * used to get the map information from text file and store all the information into worldMap instance
+     * @param commands including loadmap (the name of map)mapname
+     */
     public void loadData(Commands commands) throws FileNotFoundException {
-        String[] params = commands.getL_parameters();
+        String[] params = commands.getL_parameters();// split the command by " "
         String currentDirectory = System.getProperty("user.dir");
         File file = new File(currentDirectory);
-        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1]))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1])))
+        //laod the information from text file, params[1]is the name of map
+        {
             String line;
             String currentSection = "";
             int continentIndex = 0;
@@ -38,6 +55,7 @@ public class MapService implements IMapService{
 
                 if (line.startsWith("[")) {
                     currentSection = line.substring(1, line.indexOf("]"));
+                    //uesd to distinct between country and continent
                 } else {
                     String[] parts = line.split(" ");
                     if (parts.length >= 3) {

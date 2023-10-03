@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class Utils {
+    /**
+     * check if the inout type is integer
+     * @param str input string
+     * @return true if it is integer,else return false
+     */
     public static boolean isInteger(String str) {
         try {
             int intValue = Integer.parseInt(str);
