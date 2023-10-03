@@ -3,6 +3,9 @@ package Order;
 import Models.Country;
 import Models.Player;
 
+/**
+ * a class used to store order information
+ */
 public class OrdreInformation
 {
     /**

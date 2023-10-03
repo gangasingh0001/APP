@@ -4,16 +4,35 @@ import Constants.ApplicationConstants;
 
 import static Utils.Utils.isInteger;
 
+/**
+ * a class used to store every word in the input command
+ */
 public class Commands {
-
+    /**
+     * the first word of input command
+     */
     String l_rootCommand;
+    /**
+     * used to store the word in command splited by space
+     */
     private String[] l_parameters;
-
+    /**
+     * the second word of input command
+     */
     private String l_firstParameter;
+    /**
+     * the third word of input command
+     */
     private String l_secondParameter;
+    /**
+     * the forth word of input command
+     */
     private String l_thirdParameter;
 
-
+    /**
+     * initial command object
+     * @param p_command the input command from consel
+     */
     public Commands (String p_command) {
         getRootCommandWord(p_command);
         if(l_parameters.length>=3) l_secondParameter = l_parameters[2];

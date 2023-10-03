@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+/**
+ * a class used to check if the input String is integer
+ */
 public class Utils {
     /**
      * check if the inout type is integer
