@@ -34,6 +34,7 @@ public class Commands {
         }
 
         l_rootCommand = l_parameters[0];
+        // use  l_rootCommand to check the type of command
         switch (l_rootCommand) {
 
             /*
@@ -153,6 +154,10 @@ public class Commands {
         }
     }
 
+    /**
+     * split the command by space
+     * @param p_command the command entered by user
+     */
     public void getRootCommandWord(String p_command) {
         try {
             this.l_parameters = p_command.split(" ");
@@ -162,18 +167,34 @@ public class Commands {
         }
     }
 
+    /**
+     * get the command array split by space
+     * @return the command array split by space
+     */
     public String[] getL_parameters() {
         return l_parameters;
     }
 
+    /**
+     * get the second word of command
+     * @return the second word of command
+     */
     public String getL_firstParameter() {
         return l_firstParameter;
     }
 
+    /**
+     * get the third word of command
+     * @return the third word of command
+     */
     public String getL_secondParameter() {
         return l_secondParameter;
     }
 
+    /**
+     * get the forth word of command
+     * @return the forth word of command
+     */
     public String getL_thirdParameter() {
         return l_thirdParameter;
     }

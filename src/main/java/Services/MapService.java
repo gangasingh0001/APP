@@ -17,10 +17,25 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MapService implements IMapService{
+    /**
+     * Uesd to store game map
+     */
     IWorldMap worldMap;
+
+    /**
+     *  the constructor for Mapservice
+     * @param _worldMap
+     */
+
+
     public MapService(IWorldMap _worldMap) {
         worldMap = _worldMap;
     }
+
+    /**
+     * used to get the map information from text file and store all the information into worldMap instance
+     * @param commands including loadmap (the name of map)mapname
+     */
     public void loadData(Commands commands) {
         String[] params = commands.getL_parameters();
         try (BufferedReader reader = new BufferedReader(new FileReader("D:/Academic/Concordia/Fall2023/SOEN6441/APP/src/main/java/Data/Maps/"+params[1]))) {
@@ -38,6 +53,7 @@ public class MapService implements IMapService{
 
                 if (line.startsWith("[")) {
                     currentSection = line.substring(1, line.indexOf("]"));
+                    //uesd to distinct between country and continent
                 } else {
                     String[] parts = line.split(" ");
                     if (parts.length >= 3) {
@@ -45,7 +61,7 @@ public class MapService implements IMapService{
                         if ("continents".equals(currentSection)) {
                             // Create and add a continent
                             String name = parts[0];
-                            Continent continent = new Continent(countryIndex++, name,Integer.parseInt(parts[1]), parts[2]);
+                            Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
                             worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country
