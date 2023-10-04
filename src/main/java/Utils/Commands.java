@@ -102,8 +102,24 @@ public class Commands {
                     return false;
                 }
                 switch (l_parameters[1]) {
-                    case "-" + ApplicationConstants.ADD:
+                    case "-" + ApplicationConstants.ADD:{
+                        l_firstParameter = l_parameters[1];
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            if(Utils.isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
+                                }
+                        }else {
+                            new InvalidCommand("Invalid command recieved: " + l_command);
+                            return false;
+                        }
+                    }
                     case "-" + ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
                         if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
                             return true;
                         } else {
