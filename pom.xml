@@ -8,17 +8,30 @@
     <artifactId>APP</artifactId>
     <version>1.1-SNAPSHOT</version>
 
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <name>App project packages</name>
+                    <url>https://maven.pkg.github.com/gangasingh0001/APP</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <distributionManagement>
-            <repository>
-                <id>github</id>
-                <name>App project packages</name>
-                <url>https://maven.pkg.github.com/gangasingh0001/App</url>
-            </repository>
-        </distributionManagement>
         <servers>
             <server>
                 <id>github</id>
