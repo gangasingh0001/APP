@@ -23,6 +23,18 @@ public class WorldMap implements IWorldMap{
         continentCountries.computeIfAbsent(continentId, k -> new ArrayList<>()).add(country);
     }
 
+    public void removeCountry(Country country) {
+       countries.remove(country);
+    }
+
+    public void removeContinent(Continent continent) {
+        continents.remove(continent);
+    }
+
+    public void removeAllCountriesWithContinentID(int continentId){
+        countries.removeIf(e -> e.getContinentId() == continentId);
+    }
+
     public void addContinent(Continent continent) {
         continents.add(continent);
     }

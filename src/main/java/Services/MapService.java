@@ -3,9 +3,7 @@ package Services;
 import Models.Continent;
 import Models.Country;
 import Models.IWorldMap;
-import Models.WorldMap;
 import Utils.Commands;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +21,7 @@ public class MapService implements IMapService{
     }
     public void loadData(Commands commands) {
         String[] params = commands.getL_parameters();
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/tanmay/Development/APP/src/main/java/Data/Maps/"+params[1]))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("./src/main/java/Data/Maps/"+params[1]))) {
             String line;
             String currentSection = "";
             int continentIndex = 0;

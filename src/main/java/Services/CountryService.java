@@ -1,20 +1,49 @@
 package Services;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import Models.Continent;
 import Models.Country;
+import Models.IWorldMap;
 import Utils.Commands;
 
 public class CountryService implements ICountryService{
-    private ArrayList<Country> countries = new ArrayList<>();
+    IMapService mapService;
+    IWorldMap worldMap;
 
-    public ArrayList<Country> getCountryList(){
-        return countries;
+    public CountryService(IMapService _mapService, IWorldMap _worldMap) {
+        mapService = _mapService;
+        worldMap = _worldMap;
     }
-    public void addCountry(Commands p_commands){
-
+    public List<Country> getCountryList(){
+        return worldMap.getCountries();
+    }
+    public boolean addCountry(Commands p_commands){
+        Country country = new Country(worldMap.getCountries().size() + 1, p_commands.getL_secondParameter(), Integer.parseInt(p_commands.getL_thirdParameter()));
+        boolean isValidContinent = false;
+        for(Continent continent: worldMap.getContinents()) {
+            if(continent.getId()==country.getContinentId()){
+                isValidContinent = true;
+            }
+        }
+        if(isValidContinent) {
+            worldMap.addCountry(country);
+        }
+        return isValidContinent;
     }
     public boolean isCountryRemoved(Commands p_commands){
+        Country countryToRemoveObj = null;
+        for(Country country: worldMap.getCountries()) {
+            if(country.getName().equals(p_commands.getL_secondParameter())) {
+                countryToRemoveObj = country;
+                break;
+            }
+        }
+        if(countryToRemoveObj!=null) {
+            worldMap.removeCountry(countryToRemoveObj);
             return true;
+        }
+        return false;
     }
 
     public void removeCountryNeighboursFromAll(Integer p_countryId){
