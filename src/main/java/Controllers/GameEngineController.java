@@ -94,7 +94,7 @@ public class GameEngineController {
                         break;
                     }
                     default: {
-                        System.out.println("Invalid Command");
+                        System.out.println("\nInvalid Command for Phase 1.");
                         break;
                     }
                 }
@@ -137,7 +137,7 @@ public class GameEngineController {
                         break;
                     }
                     default: {
-                        System.out.println("Invalid Command");
+                        System.out.println("\nInvalid Command for Phase 2.");
                         break;
                     }
                 }
@@ -181,7 +181,7 @@ public class GameEngineController {
                     }
 
                     default: {
-                        System.out.println("Invalid Command");
+                        System.out.println("\nInvalid Command for Phase 3.");
                         break;
                     }
                 }
