@@ -4,15 +4,19 @@ import Models.IWorldMap;
 import Models.WorldMap;
 import Utils.Commands;
 import org.junit.jupiter.api.*;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 class MapServiceTest {
     IWorldMap  worldMap;
     MapService mapService;
+
 
     @BeforeEach
     public void setup() {
@@ -32,7 +36,7 @@ class MapServiceTest {
 
     @Test
     @Order(2)
-    void validateDataAndGraph() {
+    void validateDataAndGraph() throws FileNotFoundException {
         String commandString = "loadmap google.map";
         Commands commands = new Commands(commandString);
         try {
@@ -40,6 +44,7 @@ class MapServiceTest {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        mapService.loadData(commands);
         assertEquals(5,mapService.worldMap.getContinents().size());
         assertTrue(mapService.validateGraph());
     }

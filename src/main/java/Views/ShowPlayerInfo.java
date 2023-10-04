@@ -4,15 +4,32 @@ import Models.Country;
 import Models.Player;
 import Services.IPlayerService;
 
+/**
+ * This is a show player info(view) class which prints
+ * players' information to the console
+ */
 public class ShowPlayerInfo {
-    IPlayerService playerService;
-    public ShowPlayerInfo(IPlayerService _playerService) {
-        playerService = _playerService;
+
+    /**
+     * player information
+     */
+    IPlayerService d_playerService;
+
+    /**
+     * Constructor of the ShowPlayerInfo class
+     * @param p_playerService player information
+     */
+    public ShowPlayerInfo(IPlayerService p_playerService) {
+        d_playerService = p_playerService;
     }
 
+    /**
+     * show method to print a player's information to the console
+     * information includes a player's name, countries owned, number of armies, and country names and IDs
+     */
     public void displayPlayerInfo() {
         System.out.println("Player Information:");
-        for(Player player: playerService.getPlayersList()) {
+        for(Player player: d_playerService.getPlayersList()) {
             System.out.println("+-----------------------+");
             System.out.println("| Player Name           |");
             System.out.println("+-----------------------+");
@@ -30,12 +47,15 @@ public class ShowPlayerInfo {
         }
     }
 
+    /**
+     * show method to print all the players in the game
+     */
     public void displayPlayers() {
         System.out.println("Players List:");
         System.out.println("+-----------------------+");
         System.out.println("| Player Name           |");
         System.out.println("+-----------------------+");
-        for(Player player: playerService.getPlayersList()) {
+        for(Player player: d_playerService.getPlayersList()) {
             System.out.printf("| %-21s |\n", player.getD_playerName());
             System.out.println("+-----------------------+");
         }
