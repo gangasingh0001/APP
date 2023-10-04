@@ -47,5 +47,14 @@ class MapServiceTest {
         mapService.loadData(commands);
         assertEquals(5,mapService.d_worldMap.getContinents().size());
         assertTrue(mapService.validateGraph());
+
+       commandString = "loadmap wrong.map";
+        Commands commandsWrong = new Commands(commandString);
+        try {
+            mapService.loadData(commandsWrong);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        mapService.loadData(commands);
     }
 }

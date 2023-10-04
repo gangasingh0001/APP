@@ -6,19 +6,19 @@ import Utils.Commands;
 import java.util.List;
 
 public class ContinentService implements IContinentService{
-    IMapService mapService;
-    IWorldMap worldMap;
+    IMapService d_mapService;
+    IWorldMap d_worldMap;
     public ContinentService(IMapService _mapService, IWorldMap _worldMap) {
-        mapService = _mapService;
-        worldMap = _worldMap;
+        d_mapService = _mapService;
+        d_worldMap = _worldMap;
     }
 
     public List<Continent> getContinentList(){
-        return worldMap.getContinents();
+        return d_worldMap.getContinents();
     }
     public boolean isContinentRemoved(Commands p_commands){
         Continent continentToRemoveObj = null;
-        for(Continent continent: worldMap.getContinents()) {
+        for(Continent continent: d_worldMap.getContinents()) {
             if(continent.getName().equals(p_commands.getL_secondParameter())) {
                 continentToRemoveObj = continent;
                 System.out.println(continentToRemoveObj.getId());
@@ -26,14 +26,14 @@ public class ContinentService implements IContinentService{
             }
         }
         if(continentToRemoveObj!=null) {
-            worldMap.removeAllCountriesWithContinentID(continentToRemoveObj.getId());
-            worldMap.removeContinent(continentToRemoveObj);
+            d_worldMap.removeAllCountriesWithContinentID(continentToRemoveObj.getId());
+            d_worldMap.removeContinent(continentToRemoveObj);
             return true;
         }
         return false;
     }
     public void addContinent(Commands p_continent){
-        Continent continent = new Continent(worldMap.getContinents().size() + 1, p_continent.getL_secondParameter(), Integer.parseInt(p_continent.getL_thirdParameter()), "");
-        worldMap.addContinent(continent);
+        Continent continent = new Continent(d_worldMap.getContinents().size() + 1, p_continent.getL_secondParameter(), Integer.parseInt(p_continent.getL_thirdParameter()), "");
+        d_worldMap.addContinent(continent);
     }
 }
