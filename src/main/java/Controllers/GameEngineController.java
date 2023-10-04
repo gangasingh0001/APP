@@ -184,7 +184,6 @@ public class GameEngineController {
 
     public void countryEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
-//            countryService.addCountry(p_command);
             if(countryService.addCountry(p_command)) {
                 System.out.println("Added Successfully");
             }else {
