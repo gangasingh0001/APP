@@ -32,13 +32,13 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <servers>
-            <server>
-                <id>github</id>
-                <username>gangasingh0001</username>
-                <password>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</password>
-            </server>
-        </servers>
+<!--        <servers>-->
+<!--            <server>-->
+<!--                <id>github</id>-->
+<!--                <username>gangasingh0001</username>-->
+<!--                <password>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</password>-->
+<!--            </server>-->
+<!--        </servers>-->
     </properties>
     <dependencies>
         <dependency>
