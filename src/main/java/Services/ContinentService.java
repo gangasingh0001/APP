@@ -21,7 +21,6 @@ public class ContinentService implements IContinentService{
         for(Continent continent: d_worldMap.getContinents()) {
             if(continent.getName().equals(p_commands.getL_secondParameter())) {
                 continentToRemoveObj = continent;
-                System.out.println(continentToRemoveObj.getId());
                 break;
             }
         }

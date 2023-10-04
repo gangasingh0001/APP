@@ -47,8 +47,7 @@ public class MapService implements IMapService{
         {
             String line;
             String currentSection = "";
-            int continentIndex = 0;
-            int countryIndex = 0;
+            int continentIndex = 1;
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
