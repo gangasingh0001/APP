@@ -9,6 +9,7 @@ import Views.ShowMap;
 import Views.ShowPlayerInfo;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
@@ -29,13 +30,13 @@ public class GameEngineController {
         new Scanner(System.in);
     }
 
-    public void initGame() {
+    public void initGame() throws FileNotFoundException {
         firstPhase();
         secondPhase();
         thirdPhase();
     }
 
-    public void firstPhase() {
+    public void firstPhase() throws FileNotFoundException {
         boolean exit = false;
         while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
@@ -174,7 +175,7 @@ public class GameEngineController {
         }
     }
 
-    public void mapLoader(Commands p_command) {
+    public void mapLoader(Commands p_command) throws FileNotFoundException {
         mapService.loadData(p_command);
     }
 
