@@ -68,21 +68,23 @@ public class Commands {
                     case "-" + ApplicationConstants.REMOVE: {
                         l_firstParameter = l_parameters[1];
                         if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
-                            if (!isInteger(l_parameters[2])) {
+                            if (Utils.isInteger(l_parameters[2])) {
                                 l_secondParameter = l_parameters[2];
-                                if (l_parameters.length >= 4 && isInteger(l_parameters[3])) {
+                                if (l_parameters.length >= 4 && Utils.isInteger(l_parameters[3])) {
                                     l_thirdParameter = l_parameters[3];
                                     return true;
                                 } else {
-                                    new InvalidCommand("Invalid command format for " + l_command);
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
                                     return false;
                                 }
                             }
                         } else {
-                            new InvalidCommand("Invalid command format for Add/Remove " + l_command);
+                            new InvalidCommand("Invalid command recieved: " + l_command);
                             return false;
                         }
-                    }
+                    } default:
+                        new InvalidCommand("\nInvalid command format for Add/Remove " + l_command);
+                        return false;
                 }
             }
             case ApplicationConstants.EDITCOUNTRY:
@@ -97,10 +99,13 @@ public class Commands {
                         if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
                             return true;
                         } else {
-                            new InvalidCommand("Invalid command format for Add/Remove " + l_command);
+                            new InvalidCommand("\nInvalid parameter recieved: " + l_command);
                             return false;
                         }
                     }
+                    default:
+                        new InvalidCommand("\nInvalid command format for Add/Remove " + l_command + " try '-add/-remove <parameter>' ");
+                        return false;
                 }
             }
             case ApplicationConstants.VALIDATEMAP:
@@ -131,11 +136,14 @@ public class Commands {
                             return false;
                         }
                     }
+                    default:
+                        new InvalidCommand("Invalid command format for GamePlayer, \ntry: 'gameplayer -add/-remove playername'");
+                        return false;
                 }
             }
             case ApplicationConstants.DEPLOY: {
                 if (l_parameters.length < 3) {
-                    new InvalidCommand("Invalid command format for " + l_command);
+                    new InvalidCommand("Invalid command format for  " + l_command + "\ntry: deploy countryID num");
                     return false;
                 }
                 try {
@@ -199,12 +207,4 @@ public class Commands {
         return l_thirdParameter;
     }
 
-    public static boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }
