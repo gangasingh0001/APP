@@ -6,12 +6,26 @@
 
     <groupId>org.example</groupId>
     <artifactId>APP</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <distributionManagement>
+            <repository>
+                <id>github</id>
+                <name>App project packages</name>
+                <url>https://maven.pkg.github.com/gangasingh0001/App</url>
+            </repository>
+        </distributionManagement>
+        <servers>
+            <server>
+                <id>github</id>
+                <username>gangasingh0001</username>
+                <password>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</password>
+            </server>
+        </servers>
     </properties>
     <dependencies>
         <dependency>
