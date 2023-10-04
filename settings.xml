@@ -6,7 +6,7 @@
         <server>
             <id>github</id>
             <username>gangasingh0001</username>
-            <password>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</password>
+            <password>${{ secrets.PASSWORD}</password>
         </server>
     </servers>
 
