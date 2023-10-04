@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class MapServiceTest {
-    IWorldMap  worldMap;
-    MapService mapService;
+    IWorldMap  d_worldMap;
+    MapService d_mapService;
 
 
     @BeforeEach
     public void setup() {
-        worldMap = new WorldMap();
-        mapService = new MapService(worldMap);
+        d_worldMap = new WorldMap();
+        d_mapService = new MapService(d_worldMap);
     }
 
     @org.junit.jupiter.api.Test
@@ -29,7 +29,7 @@ class MapServiceTest {
         String commandString = "loadmap hello.map";
         Commands commands = new Commands(commandString);
         assertThrows(FileNotFoundException.class,()->{
-            mapService.loadData(commands);
+            d_mapService.loadData(commands);
         });
     }
 
@@ -39,20 +39,29 @@ class MapServiceTest {
         String commandString = "loadmap google.map";
         Commands commands = new Commands(commandString);
         try {
-            mapService.loadData(commands);
+            d_mapService.loadData(commands);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(5,mapService.d_worldMap.getContinents().size());
-        assertTrue(mapService.validateGraph());
+        assertEquals(5,d_mapService.d_worldMap.getContinents().size());
+        assertTrue(d_mapService.validateGraph());
 
-       commandString = "loadmap wrong.map";
-        Commands commandsWrong = new Commands(commandString);
+        commandString = "loadmap disconnected.map";
+        Commands l_commandsDisconnected = new Commands(commandString);
+        IWorldMap  l_disconnectedWorldMap=new WorldMap();
+        MapService l_disconnectedMapService=new MapService(l_disconnectedWorldMap);
+
         try {
-            mapService.loadData(commandsWrong);
+            l_disconnectedMapService.loadData(l_commandsDisconnected);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        mapService.loadData(commands);
+       assertEquals(false,l_disconnectedMapService.validateGraph());
     }
+
+
+
+
+
+
 }

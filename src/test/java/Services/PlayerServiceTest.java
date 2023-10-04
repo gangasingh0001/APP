@@ -34,11 +34,7 @@ class PlayerServiceTest {
     /**
      * constructor for plauerService test
      */
-    public PlayerServiceTest(IPlayerService p_playerService, IWorldMap p_worldMap, ArrayList<Player> p_players) {
-        this.d_playerService = p_playerService;
-        this.d_worldMap = p_worldMap;
-        this.d_players = p_players;
-    }
+
 
     @Before
     void setUp(){
