@@ -64,25 +64,33 @@ public class Commands {
                     return false;
                 }
                 switch (l_parameters[1]) {
-                    case "-" + ApplicationConstants.ADD:
-                    case "-" + ApplicationConstants.REMOVE: {
+                    case "-"+ApplicationConstants.ADD:{
                         l_firstParameter = l_parameters[1];
-                        if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
-                            if (Utils.isInteger(l_parameters[2])) {
-                                l_secondParameter = l_parameters[2];
-                                if (l_parameters.length >= 4 && Utils.isInteger(l_parameters[3])) {
-                                    l_thirdParameter = l_parameters[3];
-                                    return true;
-                                } else {
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            if(Utils.isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }else {
                                     new InvalidCommand("Invalid parameter format for " + l_command);
                                     return false;
                                 }
-                            }
-                        } else {
+                        }else {
                             new InvalidCommand("Invalid command recieved: " + l_command);
                             return false;
                         }
-                    } default:
+                    }
+                    case "-"+ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            return true;
+                        }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
+                                }
+                        }
+                    default:
                         new InvalidCommand("\nInvalid command format for Add/Remove " + l_command);
                         return false;
                 }
