@@ -40,6 +40,13 @@
 <!--            </server>-->
 <!--        </servers>-->
     </properties>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/gangasingh0001/APP</url>
+        </repository>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
