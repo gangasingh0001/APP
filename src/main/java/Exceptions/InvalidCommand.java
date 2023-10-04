@@ -7,7 +7,7 @@ public class InvalidCommand extends Exception {
 
 	/**
 	 * InvalidCommand constructor is used to print message when exception is caught in
-	 * case command is invalid.
+	 * case command is invalid
 	 *
 	 * @param p_message message to print when command is invalid.
 	 */
