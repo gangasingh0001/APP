@@ -24,7 +24,6 @@ public class PlayerService implements IPlayerService{
      * world map pointer to the game map in d_mapService, we only have one map instance, and it is created in
      * d_mapService class, but in this class we will use map instance in d_mapService to initial the worldMap attribute in
      * PlayerService
-
      */
     IWorldMap d_worldMap;
     /**
