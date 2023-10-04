@@ -12,6 +12,10 @@ public class InvalidCommand extends Exception {
 	 * @param p_message message to print when command is invalid.
 	 */
 	public InvalidCommand(String p_message) {
-		super(p_message);
+		// super(p_message);
+		System.out.println(p_message);
+	}
+	public boolean printOutput() {	
+		return true;
 	}
 }

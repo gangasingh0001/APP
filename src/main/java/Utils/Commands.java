@@ -1,8 +1,7 @@
 package Utils;
 
 import Constants.ApplicationConstants;
-
-import static Utils.Utils.isInteger;
+import Exceptions.InvalidCommand;
 
 /**
  * a class used to store every word in the input command
@@ -28,103 +27,184 @@ public class Commands {
      * the forth word of input command
      */
     private String l_thirdParameter;
+    private String l_command;
 
     /**
      * initial command object
      * @param p_command the input command from consel
      */
-    public Commands (String p_command) {
-        getRootCommandWord(p_command);
-        if(l_parameters.length>=3) l_secondParameter = l_parameters[2];
-        if(l_parameters.length>=2) l_firstParameter = l_parameters[1];
-        if(l_parameters.length>=4) l_thirdParameter = l_parameters[3];
-        if(l_parameters.length>=1) l_rootCommand = l_parameters[0];
+    public Commands(String p_command ){
+        // if (p_command == " " || p_command == null || p_command.trim().isEmpty()) {
+        //     new InvalidCommand("Command cannot be null or empty.");
+        //     return;
+        // }
+        // else{
+            getRootCommandWord(p_command);
+            // validateCommand();
+        // }
     }
 
     public String getL_rootCommand() {
         return l_rootCommand;
     }
+    
+    public boolean validateCommand(){
+        if ( l_parameters == null || l_parameters.length < 1) {
+            new InvalidCommand("Command cannot be null or empty.");
+            return false;
+        }
 
-    /**
-     * check the format of command
-     * @return if the format of command is correct then return ture else return false
-     */
-    public boolean validateCommand() {
         l_rootCommand = l_parameters[0];
         // use  l_rootCommand to check the type of command
         switch (l_rootCommand) {
-            // for EDITMA and LOADMAP command,l_parameters[1] is the second word of inout command
-            //and it is the name of mao, so we just check the user has inout the name of command
-            case ApplicationConstants.EDITMAP, ApplicationConstants.LOADMAP: {
-                if(!l_parameters[1].isEmpty()) {
+
+            /*
+             * Game Phase 1:
+             */
+            case ApplicationConstants.EDITMAP:
+            case ApplicationConstants.LOADMAP: {
+                if (l_parameters.length >= 2 && !l_parameters[1].isEmpty()) {
                     l_firstParameter = l_parameters[1];
                     return true;
+                } else {
+                    new InvalidCommand("Recieved invalid command format for " + l_command);
+                    return false;
                 }
             }
-            //for SHOWMAP we do not check anything
-            case ApplicationConstants.SHOWMAP, ApplicationConstants.VALIDATEMAP, ApplicationConstants.ASSIGNCOUNTRIES: {
-                return true;
+            case ApplicationConstants.SHOWMAP:{ 
+                if (l_parameters.length == 1 && !l_parameters[0].isEmpty()) {
+                    return true;
+                } else {
+                    new InvalidCommand("Invalid command format for  \"" + l_command + "\" try 'showmap' instead.");
+                    return false;
+                }
             }
-            case ApplicationConstants.EXIT: {
-                return true;
-            }
-
-            // for game player we need check the if the second word is "-.add" or "+.add"
-                //then check the if third word stand for the name of player is empty
-            case ApplicationConstants.GAMEPLAYER: {
+            case ApplicationConstants.EDITCONTINENT: {
+                if (l_parameters.length < 2) {
+                    new InvalidCommand("Invalid command format for EditConotinent, \ntry: 'editcontinent -add continentID continentvalue/ -remove continentID'");
+                    return false;
+                }
                 switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
+                    case "-"+ApplicationConstants.ADD:{
+                        l_firstParameter = l_parameters[1];
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            if(Utils.isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
+                                }
+                        }else {
+                            new InvalidCommand("Invalid command recieved: " + l_command);
+                            return false;
+                        }
+                    }
+                    case "-"+ApplicationConstants.REMOVE: {
                         l_firstParameter = l_parameters[1];
                         if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
                             l_secondParameter = l_parameters[2];
                             return true;
+                        }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
+                                }
                         }
-                        break;
-                    }
+                    default:
+                        new InvalidCommand("\nInvalid command format for Add/Remove " + l_command);
+                        return false;
                 }
             }
-            case ApplicationConstants.EDITCONTINENT: {
+            case ApplicationConstants.EDITCOUNTRY:
+            case ApplicationConstants.EDITNEIGHBOR: {
+                if (l_parameters.length < 2) {
+                    new InvalidCommand("Invalid command format for " + l_command);
+                    return false;
+                }
                 switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
+                    case "-" + ApplicationConstants.ADD:{
                         l_firstParameter = l_parameters[1];
                         if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
-                            if(!isInteger(l_parameters[2])){
-                                l_secondParameter = l_parameters[2];
-                                if(isInteger(l_parameters[3])) {
-                                    l_thirdParameter = l_parameters[3];
-                                    return true;
+                            l_secondParameter = l_parameters[2];
+                            if(Utils.isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
                                 }
-                            }
+                        }else {
+                            new InvalidCommand("Invalid command recieved: " + l_command);
+                            return false;
                         }
-                        break;
                     }
+                    case "-" + ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
+                        if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
+                            return true;
+                        } else {
+                            new InvalidCommand("\nInvalid parameter recieved: " + l_command);
+                            return false;
+                        }
+                    }
+                    default:
+                        new InvalidCommand("\nInvalid command format for Add/Remove " + l_command + " try '-add/-remove <parameter>' ");
+                        return false;
                 }
             }
-            case ApplicationConstants.EDITCOUNTRY: {
-                switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
-                        return l_parameters[2] != null && !l_parameters[2].isEmpty();
-                    }
-                }
+            case ApplicationConstants.VALIDATEMAP:
+            case ApplicationConstants.EXIT:{
+                return true; 
             }
-            case ApplicationConstants.EDITNEIGHBOR: {
+
+            /*
+             * Game Phase 2:
+             */
+            case ApplicationConstants.ASSIGNCOUNTRIES:{
+                return true;
+            }
+            case ApplicationConstants.GAMEPLAYER: {
+                if (l_parameters.length < 2) {
+                    new InvalidCommand("Invalid command format for GamePlayer, \ntry: 'gameplayer -add/-remove playername'");
+                    return false;
+                }
                 switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
-                        return l_parameters[2] != null && !l_parameters[2].isEmpty();
+                    case "-" + ApplicationConstants.ADD:
+                    case "-" + ApplicationConstants.REMOVE: {
+                        l_firstParameter = l_parameters[1];
+                        if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            return true;
+                        } else {
+                            new InvalidCommand("Invalid command parameter for Add/Remove.");
+                            return false;
+                        }
                     }
+                    default:
+                        new InvalidCommand("Invalid command format for GamePlayer, \ntry: 'gameplayer -add/-remove playername'");
+                        return false;
                 }
             }
             case ApplicationConstants.DEPLOY: {
+                if (l_parameters.length < 3) {
+                    new InvalidCommand("Invalid command format for  " + l_command + "\ntry: deploy countryID num");
+                    return false;
+                }
                 try {
                     Integer.parseInt(l_parameters[1]);
                     Integer.parseInt(l_parameters[2]);
                     return true;
                 } catch (NumberFormatException ex) {
+                    new InvalidCommand("Invalid NumberFormate for " + l_command);
                     return false;
                 }
             }
+
+            default:
+                new InvalidCommand("Invalid command recieved: " + l_command);
+                return false;
         }
-        return false;
     }
 
     /**
@@ -132,7 +212,12 @@ public class Commands {
      * @param p_command the command entered by user
      */
     public void getRootCommandWord(String p_command) {
-        this.l_parameters = p_command.split(" ");
+        try {
+            this.l_parameters = p_command.split(" ");
+            this.l_command = p_command;
+        } catch (Exception e) {
+            new InvalidCommand(p_command);
+        }
     }
 
     /**
@@ -166,4 +251,5 @@ public class Commands {
     public String getL_thirdParameter() {
         return l_thirdParameter;
     }
+
 }
