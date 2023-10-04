@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>APP</groupId>
+    <groupId>org.example</groupId>
     <artifactId>APP</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
 
     <profiles>
         <profile>
@@ -32,14 +32,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<!--        <servers>-->
-<!--            <server>-->
-<!--                <id>github</id>-->
-<!--                <username>gangasingh0001</username>-->
-<!--                <password>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</password>-->
-<!--            </server>-->
-<!--        </servers>-->
     </properties>
+
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -47,17 +41,12 @@
             <url>https://maven.pkg.github.com/gangasingh0001/APP</url>
         </repository>
     </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
