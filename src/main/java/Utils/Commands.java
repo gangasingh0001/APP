@@ -121,6 +121,7 @@ public class Commands {
                     case "-" + ApplicationConstants.REMOVE: {
                         l_firstParameter = l_parameters[1];
                         if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
                             return true;
                         } else {
                             new InvalidCommand("\nInvalid parameter recieved: " + l_command);
