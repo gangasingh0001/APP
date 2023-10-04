@@ -66,16 +66,20 @@ public class Commands {
             }
             case ApplicationConstants.EDITCONTINENT: {
                 switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
-                        l_firstParameter = l_parameters[1];
+                    case "-"+ApplicationConstants.ADD:{
                         if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
-                            if(!isInteger(l_parameters[2])){
-                                l_secondParameter = l_parameters[2];
-                                if(isInteger(l_parameters[3])) {
-                                    l_thirdParameter = l_parameters[3];
-                                    return true;
-                                }
+                            l_secondParameter = l_parameters[2];
+                            if(isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
                             }
+                        }
+                        break;
+                    }
+                    case "-"+ApplicationConstants.REMOVE: {
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            return true;
                         }
                         break;
                     }
@@ -83,8 +87,22 @@ public class Commands {
             }
             case ApplicationConstants.EDITCOUNTRY: {
                 switch (l_parameters[1]) {
-                    case "-"+ApplicationConstants.ADD, "-"+ApplicationConstants.REMOVE: {
-                        return l_parameters[2] != null && !l_parameters[2].isEmpty();
+                    case "-"+ApplicationConstants.ADD:{
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            if(isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }
+                        }
+                        break;
+                    }
+                    case "-"+ApplicationConstants.REMOVE: {
+                        if(l_parameters[2]!=null && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                                return true;
+                        }
+                        break;
                     }
                 }
             }

@@ -52,6 +52,18 @@ public class WorldMap implements IWorldMap{
         d_continentCountries.computeIfAbsent(continentId, k -> new ArrayList<>()).add(p_country);
     }
 
+    public void removeCountry(Country country) {
+        d_countries.remove(country);
+    }
+
+    public void removeContinent(Continent continent) {
+        d_continents.remove(continent);
+    }
+
+    public void removeAllCountriesWithContinentID(int continentId){
+        d_countries.removeIf(e -> e.getContinentId() == continentId);
+    }
+
     /**
      * add method to add a new continent
      * @param p_continent continent class
