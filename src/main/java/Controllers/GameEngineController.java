@@ -60,7 +60,14 @@ public class GameEngineController {
      */
     Scanner d_scanner;
 
+    /**
+     * define countryService variable
+     */
     ICountryService d_countryService;
+
+    /**
+     * define continentService variable
+     */
     IContinentService d_continentService;
 
     /**
@@ -89,8 +96,11 @@ public class GameEngineController {
         thirdPhase();
     }
 
+    /**
+     * first phase of the game, read commands from the console
+     * @throws FileNotFoundException throws exception if file not found
+     */
     public void firstPhase() throws FileNotFoundException {
-    //first phase of the game, read commands from the console
         boolean exit = false;
         while (!exit) {
             //load map
@@ -168,7 +178,9 @@ public class GameEngineController {
         }
     }
 
-    //second phase of the game, read commands from the console
+    /**
+     * second phase of the game, read commands from the console
+     */
     public void secondPhase() {
         boolean exit = false;
         while (!exit) {
@@ -228,7 +240,9 @@ public class GameEngineController {
         }
     }
 
-    //third phase of the game, read commands from the console
+    /**
+     * third phase of the game, read commands from the console
+     */
     public void thirdPhase() {
         while (true) {
             //a phase to collect orders from all the players in round-robin fashion
@@ -290,6 +304,10 @@ public class GameEngineController {
         }
     }
 
+    /**
+     * read player input command to edit countries(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void countryEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             if(d_countryService.addCountry(p_command)) {
@@ -305,6 +323,11 @@ public class GameEngineController {
             }
         }
     }
+
+    /**
+     * read player input command to edit continents(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void continentEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             d_continentService.addContinent(p_command);
@@ -317,10 +340,19 @@ public class GameEngineController {
         }
     }
 
+    /**
+     * read player input command to edit neighbour countries(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void neighborEditor(Commands p_command){
         
     }
 
+    /**
+     * read player input command to edit a map, if map not exist,
+     * create a new one from scratch
+     * @param p_command command parameters from players
+     */
     public void mapEditor(Commands p_command){
         if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
@@ -336,7 +368,11 @@ public class GameEngineController {
             System.out.println("File name not found");
         }
     }
-    
+
+    /**
+     * method to save the map
+     * @param p_command command parameters from players
+     */
     public void saveMap(Commands p_command){
         if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
