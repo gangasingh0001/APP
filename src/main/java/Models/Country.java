@@ -72,7 +72,7 @@ public class Country {
      */
     @Override
     public String toString() {
-        return d_name;
+        return d_id + " " + d_name + " " + d_continentId;
     }
 
     /**
