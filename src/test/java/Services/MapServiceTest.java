@@ -12,13 +12,14 @@ import java.io.FileNotFoundException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public
 class MapServiceTest {
     IWorldMap  worldMap;
     MapService mapService;
 
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         worldMap = new WorldMap();
         mapService = new MapService(worldMap);
     }
