@@ -98,10 +98,23 @@ public class MapService implements IMapService{
         }
     }
 
+
     /**
      *
      * @return true if all the country connected together, else return false
      */
+    public void saveMap(Commands commands){
+        String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Write the text to the file
+            for(String str : d_worldMap.formatWorldMap()){
+                writer.write(str);
+            }   
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
     public boolean validateGraph() {
         // Step 1: Check if every country has at least one neighbor
         if (!checkEveryCountryHasNeighbors()) {

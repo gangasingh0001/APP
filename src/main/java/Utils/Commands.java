@@ -62,6 +62,7 @@ public class Commands {
              * Game Phase 1:
              */
             case ApplicationConstants.EDITMAP:
+            case ApplicationConstants.SAVEMAP:
             case ApplicationConstants.LOADMAP: {
                 if (l_parameters.length >= 2 && !l_parameters[1].isEmpty()) {
                     l_firstParameter = l_parameters[1];

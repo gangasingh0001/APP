@@ -19,6 +19,7 @@ public interface IMapService {
      * @return true if all the countries are connected
      */
 
+    public void saveMap(Commands commands);
     public boolean validateGraph();
 
 }

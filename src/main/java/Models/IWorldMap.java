@@ -60,7 +60,8 @@ public interface IWorldMap {
      */
     public String findCountryNameById(int p_countryId);
 
-    public void removeCountry(Country country);
-    public void removeContinent(Continent country);
-    public void removeAllCountriesWithContinentID(int continrntId);
+    public void removeCountry(Country p_country);
+    public void removeContinent(Continent p_country);
+    public void removeAllCountriesWithContinentID(int p_continentId);
+    public List<String> formatWorldMap();
 }
