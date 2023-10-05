@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
 class MapServiceTest {
     IWorldMap  worldMap;
     MapService mapService;
@@ -40,7 +39,7 @@ class MapServiceTest {
         String commandString = "loadmap google.map";
         Commands commands = new Commands(commandString);
         try {
-             mapService.loadData(commands);
+            mapService.loadData(commands);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
