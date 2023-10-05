@@ -34,12 +34,7 @@ public interface IPlayerService {
 
     /**
      * assign country to the player
-     * @param commands assign country to players
      */
-    public void assignCountries(Commands commands);
-
-    /**
-     * used to execute deploy order
-     */
+    public void assignCountries();
     public void next_order();
 }

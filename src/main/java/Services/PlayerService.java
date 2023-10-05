@@ -85,7 +85,7 @@ public class PlayerService implements IPlayerService{
      * @param commands assign country to players
      */
 
-    public void assignCountries(Commands commands) {
+    public void assignCountries() {
         List<Country> l_countryList = d_worldMap.getCountries();
         Collections.shuffle(l_countryList);
         int currentItemIndex = 0;
