@@ -4,6 +4,8 @@ import Models.IWorldMap;
 import Models.WorldMap;
 import Utils.Commands;
 import org.junit.jupiter.api.*;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.FileNotFoundException;
 
@@ -14,15 +16,16 @@ class MapServiceTest {
     IWorldMap  worldMap;
     MapService mapService;
 
+
     @BeforeEach
     public void setup() {
         worldMap = new WorldMap();
         mapService = new MapService(worldMap);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Order(1)
-    void loadDataIfFileNotFound() {
+    void loadData() {
         String commandString = "loadmap hello.map";
         Commands commands = new Commands(commandString);
         assertThrows(FileNotFoundException.class,()->{
@@ -30,13 +33,13 @@ class MapServiceTest {
         });
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Order(2)
-    void validateDataAndGraph() {
+    void validateGraph() throws FileNotFoundException {
         String commandString = "loadmap google.map";
         Commands commands = new Commands(commandString);
         try {
-             mapService.loadData(commands);
+            mapService.loadData(commands);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

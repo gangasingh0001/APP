@@ -59,4 +59,9 @@ public interface IWorldMap {
      * @return country name
      */
     public String findCountryNameById(int p_countryId);
+
+    public void removeCountry(Country p_country);
+    public void removeContinent(Continent p_country);
+    public void removeAllCountriesWithContinentID(int p_continentId);
+    public List<String> formatWorldMap();
 }

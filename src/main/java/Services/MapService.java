@@ -43,8 +43,7 @@ public class MapService implements IMapService{
         {
             String line;
             String currentSection = "";
-            int continentIndex = 0;
-            int countryIndex = 0;
+            int continentIndex = 1;
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
@@ -63,7 +62,7 @@ public class MapService implements IMapService{
                         if ("continents".equals(currentSection)) {
                             // Create and add a continent
                             String name = parts[0];
-                            Continent continent = new Continent(countryIndex++, name,Integer.parseInt(parts[1]), parts[2]);
+                            Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
                             worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country
@@ -92,6 +91,18 @@ public class MapService implements IMapService{
             e.printStackTrace();
         } catch (NullPointerException e) {
             throw new NullPointerException("Null");
+        }
+    }
+
+    public void saveMap(Commands commands){
+        String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Write the text to the file
+            for(String str : worldMap.formatWorldMap()){
+                writer.write(str);
+            }   
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
 
