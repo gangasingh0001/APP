@@ -90,18 +90,25 @@ class CountryServiceTest
     void addCountry()
     {
         Commands l_addCountry_1=new Commands("editcountry -add England 1");
+        l_addCountry_1.validateCommand();
         d_countryService.addCountry(l_addCountry_1);
-        assertEquals(37,d_countryService.getCountryList().size());
-        Commands l_addCountry_2=new Commands("editcountry -add French 2");
         assertEquals(38,d_countryService.getCountryList().size());
+        Commands l_addCountry_2=new Commands("editcountry -add French 2");
+        l_addCountry_2.validateCommand();
+        d_countryService.addCountry(l_addCountry_2);
+        assertEquals(39,d_countryService.getCountryList().size());
     }
 
     @Test
     void isCountryRemoved()
     {
         Commands l_removeCountry=new Commands("editcountry -remove England");
-        assertEquals(true,d_countryService.isCountryRemoved(l_removeCountry));
-        assertEquals(37,d_countryService.getCountryList().size());
+        l_removeCountry.validateCommand();
+        assertEquals(false,d_countryService.isCountryRemoved(l_removeCountry));
+        Commands l_removeCountry_2=new Commands("editcountry -remove Schweiz");
+        l_removeCountry_2.validateCommand();
+        assertEquals(true,d_countryService.isCountryRemoved(l_removeCountry_2));
+        assertEquals(36,d_countryService.getCountryList().size());
     }
 
 }
