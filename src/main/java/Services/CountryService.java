@@ -32,6 +32,7 @@ public class CountryService implements ICountryService{
         return isValidContinent;
     }
     public boolean isCountryRemoved(Commands p_commands){
+        System.out.println(p_commands.getL_firstParameter() + p_commands.getL_secondParameter());
         Country countryToRemoveObj = null;
         for(Country country: worldMap.getCountries()) {
             if(country.getName().equals(p_commands.getL_secondParameter())) {
