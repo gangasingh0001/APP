@@ -48,20 +48,28 @@ public class WorldMap implements IWorldMap{
      */
     public void addCountry(Country p_country) {
         d_countries.add(p_country);
-        int continentId = p_country.getContinentId();
-        d_continentCountries.computeIfAbsent(continentId, k -> new ArrayList<>()).add(p_country);
+        int p_continentId = p_country.getContinentId();
+        d_continentCountries.computeIfAbsent(p_continentId, k -> new ArrayList<>()).add(p_country);
+        d_borders.computeIfAbsent(p_country, k -> new ArrayList<>()).add(p_country);
     }
 
-    public void removeCountry(Country country) {
-        d_countries.remove(country);
+    public void removeCountry(Country p_country) {
+        d_countries.remove(p_country);
+        d_borders.remove(p_country);
     }
 
-    public void removeContinent(Continent continent) {
-        d_continents.remove(continent);
+    public void removeContinent(Continent p_continent) {
+        d_continents.remove(p_continent);
     }
 
-    public void removeAllCountriesWithContinentID(int continentId){
-        d_countries.removeIf(e -> e.getContinentId() == continentId);
+    public void removeAllCountriesWithContinentID(int p_continentId){
+        List<Country> c = d_countries.stream().filter(e -> e.getContinentId() == p_continentId).toList();
+        for(Country country: c){
+            if(country.getContinentId() == p_continentId){
+                d_borders.remove(country);
+            }
+        }
+        d_countries.removeIf(e -> e.getContinentId() == p_continentId);
     }
 
     /**
@@ -130,5 +138,28 @@ public class WorldMap implements IWorldMap{
 
         return (country != null) ? country.getName() : "Country not found";
     }
+
+   public List<String> formatWorldMap(){
+    List<String> worldMap = new ArrayList<>();
+    worldMap.add("[continents]\n");
+    d_continents.forEach(
+        e -> worldMap.add(e.toString()+"\n")
+        );
+    worldMap.add("[countries]\n");  
+    d_countries.forEach(
+        e -> worldMap.add(e.toString()+"\n")
+        );
+    worldMap.add("[borders]\n");  
+    d_borders.forEach((Country country, List<Country> list)->{
+        // List<String> countryIdList = new ArrayList<String>();
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Country c: list) {
+            // countryIdList.add();
+            stringBuilder.append(" " + c.getId());
+        }
+        worldMap.add(country.getId() + stringBuilder.toString() + "\n");
+    });
+    return worldMap;
+   }
 
 }
