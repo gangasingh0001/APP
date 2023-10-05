@@ -29,6 +29,10 @@ public interface IPlayerService {
      */
     public boolean isPlayerRemoved(Commands p_commands);
 
+    /**
+     * used to create deploy order
+     */
+
     public void issue_order();
     //public IOrders next_order();
 
@@ -36,5 +40,9 @@ public interface IPlayerService {
      * assign country to the player
      */
     public void assignCountries();
+
+    /**
+     * used to execute deploy order for all the players
+     */
     public void next_order();
 }

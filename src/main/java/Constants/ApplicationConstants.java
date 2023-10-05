@@ -84,5 +84,6 @@ public class ApplicationConstants {
      * default armies that assigned to each player each term is 5
      */
     public static final int DEFAULTARMIES = 5;
+
     public static final String DEPLOY = "deploy";
 }

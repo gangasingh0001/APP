@@ -82,7 +82,7 @@ public class PlayerService implements IPlayerService{
 
     /**
      * Assign all the countries to all players as far as fair
-     * @param commands assign country to players
+     *
      */
 
     public void assignCountries() {
