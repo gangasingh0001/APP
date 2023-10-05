@@ -102,7 +102,21 @@ public class GameEngineController {
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
             }
-            Commands l_command = new Commands(l_commandEntered);
+            String[] list = l_commandEntered.split("-");
+            for(int i = 0; i<list.length; i++){
+                String str;
+                if(list.length>1)
+                {
+                    if(i>0)
+                    {
+                        str = list[0] + "-" + list[i];
+                    }else{
+                        continue;
+                    }
+                }else{
+                    str = list[0];
+                }
+                Commands l_command = new Commands(str);
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
@@ -149,6 +163,8 @@ public class GameEngineController {
                     }
                 }
             }
+            }
+            
         }
     }
 
@@ -164,7 +180,21 @@ public class GameEngineController {
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
             }
-            Commands l_command = new Commands(l_commandEntered);
+            String[] list = l_commandEntered.split("-");
+            for(int i = 0; i<list.length; i++){
+                String str;
+                if(list.length>1)
+                {
+                    if(i>0)
+                    {
+                        str = list[0] + "-" + list[i];
+                    }else{
+                        continue;
+                    }
+                }else{
+                    str = list[0];
+                }
+                Commands l_command = new Commands(str);
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
@@ -195,6 +225,7 @@ public class GameEngineController {
                 }
             }
         }
+        }
     }
 
     //third phase of the game, read commands from the console
@@ -213,7 +244,21 @@ public class GameEngineController {
             } catch (IOException l_ioException) {
                 l_ioException.printStackTrace();
             }
-            Commands l_command = new Commands(l_commandEntered);
+            String[] list = l_commandEntered.split("-");
+            for(int i = 0; i<list.length; i++){
+                String str;
+                if(list.length>1)
+                {
+                    if(i>0)
+                    {
+                        str = list[0] + "-" + list[i];
+                    }else{
+                        continue;
+                    }
+                }else{
+                    str = list[0];
+                }
+                Commands l_command = new Commands(str);
             if (l_command.validateCommand()) {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
@@ -241,6 +286,7 @@ public class GameEngineController {
                     }
                 }
             }
+        }
         }
     }
 
