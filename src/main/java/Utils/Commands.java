@@ -3,15 +3,36 @@ package Utils;
 import Constants.ApplicationConstants;
 import Exceptions.InvalidCommand;
 
+/**
+ * a class used to store every word in the input command
+ */
 public class Commands {
-
-    private String l_rootCommand;
+    /**
+     * the first word of input command
+     */
+    String l_rootCommand;
+    /**
+     * used to store the word in command splited by space
+     */
     private String[] l_parameters;
+    /**
+     * the second word of input command
+     */
     private String l_firstParameter;
+    /**
+     * the third word of input command
+     */
     private String l_secondParameter;
+    /**
+     * the forth word of input command
+     */
     private String l_thirdParameter;
     private String l_command;
 
+    /**
+     * initial command object
+     * @param p_command the input command from consel
+     */
     public Commands(String p_command ){
         // if (p_command == " " || p_command == null || p_command.trim().isEmpty()) {
         //     new InvalidCommand("Command cannot be null or empty.");
