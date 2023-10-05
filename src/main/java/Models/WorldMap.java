@@ -50,7 +50,7 @@ public class WorldMap implements IWorldMap{
         d_countries.add(p_country);
         int p_continentId = p_country.getContinentId();
         d_continentCountries.computeIfAbsent(p_continentId, k -> new ArrayList<>()).add(p_country);
-        d_borders.computeIfAbsent(p_country, k -> new ArrayList<>()).add(p_country);
+        d_borders.computeIfAbsent(p_country, k -> new ArrayList<>());
     }
 
     public void removeCountry(Country p_country) {
