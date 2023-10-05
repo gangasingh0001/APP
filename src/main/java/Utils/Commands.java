@@ -44,10 +44,18 @@ public class Commands {
         // }
     }
 
+    /**
+     * get the first word of command
+     * @return the first word of command
+     */
     public String getL_rootCommand() {
         return l_rootCommand;
     }
-    
+
+    /**
+     *  check if the format of command is correct
+     * @return true if the format of command is correct
+     */
     public boolean validateCommand(){
         if ( l_parameters == null || l_parameters.length < 1) {
             new InvalidCommand("Command cannot be null or empty.");

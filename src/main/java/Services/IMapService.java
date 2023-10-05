@@ -15,11 +15,16 @@ public interface IMapService {
     public void loadData(Commands commands) throws FileNotFoundException;
 
     /**
-     * check if all the countries are connected
-     * @return true if all the countries are connected
+     * save the map into txt file
      */
 
     public void saveMap(Commands commands);
+
+
+    /**
+     * check if all the countries are connected
+     * @return true if all the countries are connected
+     */
     public boolean validateGraph();
 
 }
