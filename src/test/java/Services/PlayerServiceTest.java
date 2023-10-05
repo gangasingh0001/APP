@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * this is a playerServiceTest class to test playerService class
  */
-public class PlayerServiceTest {
+class PlayerServiceTest {
 
     /**
      * a class used to store game map and manipulate game map
