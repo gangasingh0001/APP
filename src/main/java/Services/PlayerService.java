@@ -14,11 +14,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ * a class used to store game map and manipulate game map
+ */
 public class PlayerService implements IPlayerService{
-    /**
-     * a class used to store game map and manipulate game map
-     */
+
     IMapService d_mapService;
     /**
      * world map pointer to the game map in d_mapService, we only have one map instance, and it is created in
@@ -85,7 +85,7 @@ public class PlayerService implements IPlayerService{
      * @param commands assign country to players
      */
 
-    public void assignCountries(Commands commands) {
+    public void assignCountries() {
         List<Country> l_countryList = d_worldMap.getCountries();
         Collections.shuffle(l_countryList);
         int currentItemIndex = 0;
@@ -107,7 +107,7 @@ public class PlayerService implements IPlayerService{
     }
 
     /**
-     *
+     *Used to create deploy order for player
      */
     public void issue_order() {
         for(Player player : this.d_players) {
@@ -146,7 +146,7 @@ public class PlayerService implements IPlayerService{
     }
 
     /**
-     *
+     *used to execute deploy order
      */
     public void next_order() {
         for(Player player: d_players) {

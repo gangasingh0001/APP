@@ -5,6 +5,10 @@ import Utils.Commands;
 
 import java.util.ArrayList;
 
+/**
+ * interface for PlayerService
+ */
+
 public interface IPlayerService {
     /**
      * get all the palyers in this map
@@ -30,8 +34,7 @@ public interface IPlayerService {
 
     /**
      * assign country to the player
-     * @param commands assign country to players
      */
-    public void assignCountries(Commands commands);
+    public void assignCountries();
     public void next_order();
 }
