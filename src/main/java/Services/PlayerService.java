@@ -107,7 +107,7 @@ public class PlayerService implements IPlayerService{
     }
 
     /**
-     *Used to creat deply order for player
+     *Used to create deploy order for player
      */
     public void issue_order() {
         for(Player player : this.d_players) {
