@@ -318,7 +318,19 @@ public class GameEngineController {
     }
 
     public void neighborEditor(Commands p_command){
-        
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+            if(d_countryService.addCountry(p_command)) {
+                System.out.println("Added Successfully");
+            }else {
+                System.out.println("Invalid Input");
+            }
+        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
+            if(d_countryService.isCountryRemoved(p_command)) {
+                System.out.println("Removed Successfully");
+            }else {
+                System.out.println("Invalid Input");
+            }
+        }
     }
 
     public void mapEditor(Commands p_command){
