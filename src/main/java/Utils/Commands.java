@@ -173,8 +173,8 @@ public class Commands {
                     return false;
                 }
                 try {
-                    Integer.parseInt(l_parameters[1]);
-                    Integer.parseInt(l_parameters[2]);
+                    l_firstParameter = (l_parameters[1]);
+                    l_secondParameter = (l_parameters[2]);
                     return true;
                 } catch (NumberFormatException ex) {
                     new InvalidCommand("Invalid NumberFormate for " + l_command);

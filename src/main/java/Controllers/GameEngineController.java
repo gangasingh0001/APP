@@ -207,7 +207,7 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.ASSIGNCOUNTRIES: {
-                        assignCountries(l_command);
+                        assignCountries();
                         break;
                     }
                     case ApplicationConstants.SHOWMAP: {
@@ -383,10 +383,9 @@ public class GameEngineController {
 
     /**
      * a method to assign countries to the player
-     * @param p_command read player's input command from the console
      */
-    public void assignCountries(Commands p_command) {
-        d_playerService.assignCountries(p_command);
+    public void assignCountries() {
+        d_playerService.assignCountries();
         d_showPlayerInfo.displayPlayerInfo();
     }
 
