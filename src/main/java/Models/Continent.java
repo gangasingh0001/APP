@@ -103,7 +103,7 @@ public class Continent {
      */
     @Override
     public String toString() {
-        return d_name;
+        return d_name + " " + d_value + " " + d_color;
     }
 
 }
