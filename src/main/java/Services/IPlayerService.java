@@ -5,6 +5,10 @@ import Utils.Commands;
 
 import java.util.ArrayList;
 
+/**
+ * interface for PlayerService
+ */
+
 public interface IPlayerService {
     /**
      * get all the palyers in this map
@@ -25,13 +29,20 @@ public interface IPlayerService {
      */
     public boolean isPlayerRemoved(Commands p_commands);
 
+    /**
+     * used to create deploy order
+     */
+
     public void issue_order();
     //public IOrders next_order();
 
     /**
      * assign country to the player
-     * @param commands assign country to players
      */
     public void assignCountries();
+
+    /**
+     * used to execute deploy order for all the players
+     */
     public void next_order();
 }

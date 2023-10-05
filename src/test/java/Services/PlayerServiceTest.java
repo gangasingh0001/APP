@@ -165,7 +165,7 @@ class PlayerServiceTest {
             throw new RuntimeException(e);
         }
         //get a list of countries in the map
-        d_countryList = d_mapService.worldMap.getCountries();
+        d_countryList = d_mapService.d_worldMap.getCountries();
         //shuffle the list
         Collections.shuffle(d_countryList);
 

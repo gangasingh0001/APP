@@ -14,31 +14,35 @@ import java.util.Queue;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+/**
+ * a class used to store game class and manipulate game class
+ */
 public class MapService implements IMapService{
     /**
-     * Uesd to store game map
+     * Used to store game map
      */
-    IWorldMap worldMap;
+    IWorldMap d_worldMap;
 
     /**
      *  the constructor for Mapservice
-     * @param _worldMap
+     * @param p_worldMap
      */
 
 
-    public MapService(IWorldMap _worldMap) {
-        worldMap = _worldMap;
+    public MapService(IWorldMap p_worldMap) {
+        d_worldMap = p_worldMap;
     }
 
     /**
      * used to get the map information from text file and store all the information into worldMap instance
-     * @param commands including loadmap (the name of map)mapname
+     * @param d_commands including loadmap (the name of map)mapname
      */
-    public void loadData(Commands commands) throws FileNotFoundException {
-        String[] params = commands.getL_parameters();// split the command by " "
+    public void loadData(Commands d_commands) throws FileNotFoundException {
+        String[] params = d_commands.getL_parameters();// split the command by " "
         String currentDirectory = System.getProperty("user.dir");
         File file = new File(currentDirectory);
         try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1])))
+
         //laod the information from text file, params[1]is the name of map
         {
             String line;
@@ -63,24 +67,24 @@ public class MapService implements IMapService{
                             // Create and add a continent
                             String name = parts[0];
                             Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
-                            worldMap.addContinent(continent);
+                            d_worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country
                             int id =Integer.parseInt(parts[0]);
                             String name = parts[1];
                             int continentId = Integer.parseInt(parts[2]);
                             Country country = new Country(id, name, continentId);
-                            worldMap.addCountry(country);
+                            d_worldMap.addCountry(country);
                         } else if ("borders".equals(currentSection)) {
                             // Add borders (neighbors) to a country
                             int id =Integer.parseInt(parts[0]);
-                            Country country = worldMap.getCountries().get(id - 1); // Assuming ids start from 1
+                            Country country = d_worldMap.getCountries().get(id - 1); // Assuming ids start from 1
                             List<Country> neighbors = new ArrayList<>();
                             for (int i = 1; i < parts.length; i++) {
                                 int neighborId = Integer.parseInt(parts[i]);
-                                neighbors.add(worldMap.getCountries().get(neighborId - 1)); // Assuming ids start from 1
+                                neighbors.add(d_worldMap.getCountries().get(neighborId - 1)); // Assuming ids start from 1
                             }
-                            worldMap.addBorder(country, neighbors);
+                            d_worldMap.addBorder(country, neighbors);
                         }
                     }
                 }
@@ -94,18 +98,26 @@ public class MapService implements IMapService{
         }
     }
 
+
+    /**
+     * save map in to a txt file
+     */
     public void saveMap(Commands commands){
         String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write the text to the file
-            for(String str : worldMap.formatWorldMap()){
+            for(String str : d_worldMap.formatWorldMap()){
                 writer.write(str);
             }   
         } catch (IOException e) {
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
-
+    /**
+     * check if the countries all connected
+     *
+     * @return true if all the country connected together, else return false
+     */
     public boolean validateGraph() {
         // Step 1: Check if every country has at least one neighbor
         if (!checkEveryCountryHasNeighbors()) {
@@ -122,9 +134,13 @@ public class MapService implements IMapService{
         return true;
     }
 
+    /**
+     * check if all the countries are connected
+     * @return if every country has neighbor then return true else return false
+     */
     private boolean checkEveryCountryHasNeighbors() {
-        for (Country country : worldMap.getCountries()) {
-            List<Country> neighbors = worldMap.getNeighborsOfCountry(country);
+        for (Country l_country : d_worldMap.getCountries()) {
+            List<Country> neighbors = d_worldMap.getNeighborsOfCountry(l_country);
             if (neighbors.isEmpty()) {
                 return false; // Country has no neighbors
             }
@@ -132,18 +148,22 @@ public class MapService implements IMapService{
         return true; // All countries have neighbors
     }
 
+    /**
+     * use DFS to travel all the country, if we can visit all the country, the return true, else return false
+     * @return true if all the countries are connected
+     */
     private boolean checkGraphConnected() {
         Set<Country> visitedCountries = new HashSet<>();
         Queue<Country> queue = new LinkedList<>();
 
         // Start the traversal from the first country (or any country)
-        Country startingCountry = worldMap.getCountries().get(0);
+        Country startingCountry = d_worldMap.getCountries().get(0);
         visitedCountries.add(startingCountry);
         queue.add(startingCountry);
 
         while (!queue.isEmpty()) {
             Country currentCountry = queue.poll();
-            List<Country> neighbors = worldMap.getNeighborsOfCountry(currentCountry);
+            List<Country> neighbors = d_worldMap.getNeighborsOfCountry(currentCountry);
             for (Country neighbor : neighbors) {
                 if (!visitedCountries.contains(neighbor)) {
                     visitedCountries.add(neighbor);
@@ -153,7 +173,7 @@ public class MapService implements IMapService{
         }
 
         // If all countries are visited, the graph is connected
-        return visitedCountries.size() == worldMap.getCountries().size();
+        return visitedCountries.size() == d_worldMap.getCountries().size();
     }
 
 }

@@ -10,15 +10,15 @@ public class Deploy implements IOrders{
     /**
      * Number of Armies to deploy
      */
-    private int numberOfArmiesToDeploy;
+    private int d_numberOfArmiesToDeploy;
     /**
      * The name of country the armies deployed to
      */
-    private String targetCountryName ;
+    private String d_targetCountryName ;
     /**
      * The ID of country the armies deployed to
      */
-    private String targetCountryID ;
+    private String d_targetCountryID ;
 
     /**
      *Parameterized Constructor for Deploy
@@ -27,9 +27,9 @@ public class Deploy implements IOrders{
      * @param _targetCountryName      The name of country the armies deployed to
      */
     public Deploy(int _numberOfArmiesToDeploy,String _targetCountryID, String _targetCountryName) {
-        this.numberOfArmiesToDeploy = _numberOfArmiesToDeploy;
-        this.targetCountryName = _targetCountryName;
-        this.targetCountryID = _targetCountryID;
+        this.d_numberOfArmiesToDeploy = _numberOfArmiesToDeploy;
+        this.d_targetCountryName = _targetCountryName;
+        this.d_targetCountryID = _targetCountryID;
     }
 
     /**
@@ -77,15 +77,30 @@ public class Deploy implements IOrders{
         return "Deploy";
     }
 
+    /**
+     * the country name deploy to
+     * @return the country name deploy to
+     */
+
     public String getTargetCountryName() {
-        return targetCountryName;
+        return d_targetCountryName;
     }
+
+    /**
+     * get the country ID deploy to
+     * @return the country ID deploy to
+     */
 
     public String getTargetCountryID() {
-        return targetCountryID;
+        return d_targetCountryID;
     }
 
+    /**
+     * get the number of armies we need to deploy
+     * @return the number of armies we need to deploy
+     */
+
     public int getNumberOfArmies() {
-        return numberOfArmiesToDeploy;
+        return d_numberOfArmiesToDeploy;
     }
 }
