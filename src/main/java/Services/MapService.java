@@ -100,8 +100,7 @@ public class MapService implements IMapService{
 
 
     /**
-     *
-     * @return true if all the country connected together, else return false
+     * save map in to a txt file
      */
     public void saveMap(Commands commands){
         String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
@@ -114,7 +113,11 @@ public class MapService implements IMapService{
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
-
+    /**
+     * check if the countries all connected
+     *
+     * @return true if all the country connected together, else return false
+     */
     public boolean validateGraph() {
         // Step 1: Check if every country has at least one neighbor
         if (!checkEveryCountryHasNeighbors()) {
