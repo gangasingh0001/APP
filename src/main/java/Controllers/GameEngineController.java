@@ -15,6 +15,7 @@ import Views.ShowMap;
 import Views.ShowPlayerInfo;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -114,6 +115,8 @@ public class GameEngineController {
                         break;
                     }
                     case ApplicationConstants.SAVEMAP: {
+                        saveMap(l_command);
+                        break;
                     }
                     case ApplicationConstants.LOADMAP: {
                         mapLoader(l_command);
@@ -225,10 +228,10 @@ public class GameEngineController {
                     }
 
                     case ApplicationConstants.EXIT: {
+                        break;
                     }
 
                     case ApplicationConstants.DEPLOY: {
-
                         break;
                     }
 
@@ -269,18 +272,40 @@ public class GameEngineController {
     }
 
     public void neighborEditor(Commands p_command){
-
+        
     }
 
     public void mapEditor(Commands p_command){
-        System.out.println("MApEditor");
-        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
-            d_countryService.addCountry(p_command);
-        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
-            if(d_countryService.isCountryRemoved(p_command)) System.out.println("Removed Successfully");
-            // Remove country
+        if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
+            String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
+            File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        }else{
+            System.out.println("File name not found");
         }
     }
+    
+    public void saveMap(Commands p_command){
+        if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
+            String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
+            File file = new File(filePath);
+        if (file.exists()) {
+            System.out.println("File exists");
+            d_mapService.saveMap(p_command);
+        }else{
+            System.out.println("File not found");
+        }
+        }else{
+            System.out.println("File name not found");
+        }
+    }
+
     /**
      * load map
      * @param p_command read player's input command from the console

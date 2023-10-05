@@ -23,9 +23,9 @@ class MapServiceTest {
         mapService = new MapService(worldMap);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Order(1)
-    void loadDataIfFileNotFound() {
+    void loadData() {
         String commandString = "loadmap hello.map";
         Commands commands = new Commands(commandString);
         assertThrows(FileNotFoundException.class,()->{
@@ -33,9 +33,9 @@ class MapServiceTest {
         });
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Order(2)
-    void validateDataAndGraph() throws FileNotFoundException {
+    void validateGraph() throws FileNotFoundException {
         String commandString = "loadmap google.map";
         Commands commands = new Commands(commandString);
         try {
@@ -43,7 +43,6 @@ class MapServiceTest {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        mapService.loadData(commands);
         assertEquals(5,mapService.worldMap.getContinents().size());
         assertTrue(mapService.validateGraph());
     }
