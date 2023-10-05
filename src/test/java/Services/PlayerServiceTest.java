@@ -227,47 +227,38 @@ class PlayerServiceTest {
         //load map
         String l_commandString = "loadmap google.map";
         Commands l_commands = new Commands(l_commandString);
+        l_commands.validateCommand();
         try {
             d_mapService.loadData(l_commands);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        //get a list of countries in the map
-        d_countryList = d_mapService.worldMap.getCountries();
-        //shuffle the list
-        Collections.shuffle(d_countryList);
 
         //add first player
         String l_commandString2 = "gameplayer -add Yang";
         Commands l_commands2 = new Commands(l_commandString2);
-        Player l_player = new Player(l_commands.getL_secondParameter());
-        d_players.add(l_player);
+        d_playerService.addPlayer(l_commands2);
 
         //add second player to the list
         String l_commandString3 = "gameplayer -add Ganga";
         Commands l_commands3 = new Commands(l_commandString3);
-        Player l_player2 = new Player(l_commands3.getL_secondParameter());
-        d_players.add(l_player2);
+        l_commands3.validateCommand();
+        d_playerService.addPlayer(l_commands3);
 
         //assign countries to players
-        int currentItemIndex = 0;
-        int l_n = this.d_players.size(); // Number of arrays to distribute items into
-        int l_itemsPerArray = d_countryList.size() / l_n;
-
-        for (int l_i = 0; l_i < l_n; l_i++) {
-            for (int j = 0; j < l_itemsPerArray; j++) {
-                this.d_players.get(l_i).addCountriesOwned(d_countryList.get(currentItemIndex));
-                currentItemIndex++;
-            }
-        }
-        Country country = this.d_players.get(0).getD_coutriesOwned().get(1);
+        d_playerService.assignCountries();
+        Country country = this.d_playerService.getPlayersList().get(0).getD_coutriesOwned().get(1);
         String l_commandString4 = "deploy "+country.getId()+" 5";
         Commands l_commands4 = new Commands(l_commandString4);
-
-//        l_player.getD_coutriesOwned().get(country.getId()).setD_Armies(l_player.getD_coutriesOwned().get(country.getId()).getD_Armies() +
-//                Integer.parseInt(String.valueOf(l_commands.getL_secondParameter())));
-        //l_player.getD_coutriesOwned().get(country.getId()).getD_Armies();
-        assertEquals(5,l_player.getD_coutriesOwned().get(country.getId()).getD_Armies() + 5);
+        l_commands4.validateCommand();
+        int armies = 0;
+        for(Country country3 : d_playerService.getPlayersList().get(0).getD_coutriesOwned()) {
+            if(country3.getId()==country.getId()) {
+                armies = country3.getD_Armies();
+                break;
+            }
+        }
+        assertEquals(5,armies + Integer.parseInt(String.valueOf(l_commands4.getL_secondParameter())));
     }
 
 
