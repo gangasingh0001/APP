@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -103,48 +105,53 @@ public class GameEngineController {
             }
             Commands l_command = new Commands(l_commandEntered);
             if (l_command.validateCommand()) {
-                switch (l_command.getL_rootCommand()) {
-                    //read different commands then perform regarding methods
-                    case ApplicationConstants.EDITMAP: {
-                        mapEditor(l_command);
-                        break;
-                    }
-                    case ApplicationConstants.EDITCONTINENT: {
-                        continentEditor(l_command);
-                        break;
-                    }
-                    case ApplicationConstants.SAVEMAP: {
-                    }
-                    case ApplicationConstants.LOADMAP: {
-                        mapLoader(l_command);
-                        break;
-                    }
-                    case ApplicationConstants.VALIDATEMAP: {
-                        d_mapService.validateGraph();
-                        break;
-                    }
-                    case ApplicationConstants.EDITCOUNTRY: {
-                        countryEditor(l_command);
-                        break;
-                    }
-                    case ApplicationConstants.EDITNEIGHBOR: {
-                        neighborEditor(l_command);
-                        break;
-                    }
+                // List<String> l_startCommand = Arrays.asList(ApplicationConstants.EDITMAP, ApplicationConstants.EXIT, ApplicationConstants.SHOWMAP, ApplicationConstants.LOADMAP);
+                // if (l_startCommand.contains(l_command)) {
+                    switch (l_command.getL_rootCommand()) {
+                        //read different commands then perform regarding methods
+                        case ApplicationConstants.EDITMAP: {
+                            mapEditor(l_command);
+                            break;
+                        }
+                        case ApplicationConstants.EDITCONTINENT: {
+                            continentEditor(l_command);
+                            break;
+                        }
+                        case ApplicationConstants.SAVEMAP: {
+                        }
+                        case ApplicationConstants.LOADMAP: {
+                            mapLoader(l_command);
+                            break;
+                        }
+                        case ApplicationConstants.VALIDATEMAP: {
+                            d_mapService.validateGraph();
+                            break;
+                        }
+                        case ApplicationConstants.EDITCOUNTRY: {
+                            countryEditor(l_command);
+                            break;
+                        }
+                        case ApplicationConstants.EDITNEIGHBOR: {
+                            neighborEditor(l_command);
+                            break;
+                        }
 
-                    case ApplicationConstants.SHOWMAP: {
-                        showMap();
-                        break;
+                        case ApplicationConstants.SHOWMAP: {
+                            showMap();
+                            break;
+                        }
+                        case ApplicationConstants.EXIT: {
+                            exit = true;
+                            break;
+                        }
+                        default: {
+                            System.out.println("\nInvalid Command for Phase 1.");
+                            break;
+                        }
                     }
-                    case ApplicationConstants.EXIT: {
-                        exit = true;
-                        break;
-                    }
-                    default: {
-                        System.out.println("\nInvalid Command for Phase 1.");
-                        break;
-                    }
-                }
+                // } else {
+                        // System.out.println("\nInvalid Command for Phase 1.");
+                // }
             }
         }
     }
