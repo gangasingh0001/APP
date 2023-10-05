@@ -134,7 +134,6 @@ public class Commands {
                         
                     }
                     case "-" + ApplicationConstants.REMOVE: {
-<<<<<<< HEAD
                         try {
                             l_firstParameter = l_parameters[1];
                             if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
@@ -146,15 +145,6 @@ public class Commands {
                         } catch (Exception e) {
                                 new InvalidCommand("\nInvalid parameter recieved: " + l_command);
                                 return false;
-=======
-                        l_firstParameter = l_parameters[1];
-                        if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
-                            l_secondParameter = l_parameters[2];
-                            return true;
-                        } else {
-                            new InvalidCommand("\nInvalid parameter recieved: " + l_command);
-                            return false;
->>>>>>> 8539f10169a19c05d69871e21b49711614f558f3
                         }
                     }
                     default:
