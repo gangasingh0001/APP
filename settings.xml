@@ -6,7 +6,7 @@
         <server>
             <id>github</id>
             <username>gangasingh0001</username>
-            <password>${{ secrets.PASSWORD}</password>
+            <password>${{secrets.PASSWORD}</password>
         </server>
     </servers>
 
