@@ -3,29 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>APP</artifactId>
+    <packaging>pom</packaging>
     <version>1.4-SNAPSHOT</version>
-<!--    <profiles>-->
-<!--        <profile>-->
-<!--            <id>github</id>-->
-<!--            <repositories>-->
-<!--                <repository>-->
-<!--                    <id>central</id>-->
-<!--                    <url>https://repo1.maven.org/maven2</url>-->
-<!--                </repository>-->
-<!--                <repository>-->
-<!--                    <id>github</id>-->
-<!--                    <name>App project packages</name>-->
-<!--                    <url>https://maven.pkg.github.com/gangasingh0001/APP</url>-->
-<!--                    <snapshots>-->
-<!--                        <enabled>true</enabled>-->
-<!--                    </snapshots>-->
-<!--                </repository>-->
-<!--            </repositories>-->
-<!--        </profile>-->
-<!--    </profiles>-->
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <name>App project packages</name>
+                    <url>https://maven.pkg.github.com/gangasingh0001/APP</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
