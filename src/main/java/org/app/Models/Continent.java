@@ -11,7 +11,7 @@ public class Continent {
     /**
      * continent ID
      */
-    private int d_id
+    private int d_id;
 
     /**
      * continent name
