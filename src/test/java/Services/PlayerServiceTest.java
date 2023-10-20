@@ -104,6 +104,7 @@ class PlayerServiceTest {
     void playerNameCheck(){
         String l_commandString = "gameplayer -add Yang";
         Commands l_commands = new Commands(l_commandString);
+        l_commands.validateCommand();
         Player l_player = new Player(l_commands.getL_secondParameter());
         d_players.add(l_player);
 
@@ -164,7 +165,7 @@ class PlayerServiceTest {
             throw new RuntimeException(e);
         }
         //get a list of countries in the map
-        d_countryList = d_mapService.worldMap.getCountries();
+        d_countryList = d_mapService.d_worldMap.getCountries();
         //shuffle the list
         Collections.shuffle(d_countryList);
 
@@ -219,6 +220,7 @@ class PlayerServiceTest {
     void cannotAssignMoreThan5(){
         String l_commandString = "deploy 12 6";
         Commands l_commands = new Commands(l_commandString);
+        l_commands.validateCommand();
         assertFalse(Integer.parseInt(String.valueOf(l_commands.getL_secondParameter())) <= ApplicationConstants.DEFAULTARMIES);
     }
 
