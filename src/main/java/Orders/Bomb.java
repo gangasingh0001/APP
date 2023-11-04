@@ -1,11 +1,36 @@
 package Orders;
 
+import Models.Card;
+import Models.CardType;
 import Models.Player;
+import Models.WorldMap;
 
 /**
  * This is a bomb class which implements the bomb order card
  */
-public class Bomb implements IOrders{
+public class Bomb implements IOrders {
+
+
+    /**
+     * The name of country the armies deployed to
+     */
+    private String d_targetCountryName ;
+    /**
+     * The ID of country the armies deployed to
+     */
+    private String d_targetCountryID ;
+
+    /**
+     * Parameterized Constructor for bomb card
+     * @param p_targetCountryID target country id
+     * @param p_targetCountryName target country name
+     */
+    public Bomb(String p_targetCountryID, String p_targetCountryName){
+        Card card = new Card();
+        card.setCardType(CardType.BOMB);
+        d_targetCountryID = p_targetCountryID;
+        d_targetCountryName = p_targetCountryName;
+    }
 
     /**
      * override method of execute orders from players

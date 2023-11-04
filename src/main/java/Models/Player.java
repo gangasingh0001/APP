@@ -40,6 +40,47 @@ public class Player {
     private int d_numberOfArmies = ApplicationConstants.DEFAULTARMIES;
 
     /**
+     * a list of cards for the player
+     */
+    private List<Card> d_PlayerCards = new ArrayList<>();
+
+    /**
+     * getter method to get this player's cards
+     * @return a list of cards for the player
+     */
+    public List<Card> getD_PlayerCards() {
+        return d_PlayerCards;
+    }
+
+    /**
+     * check if this card is available in the list
+     * @param p_CardType card type
+     * @return true if the card is exist otherwise false
+     */
+    public boolean checkIfCardExists(CardType p_CardType){
+        return d_PlayerCards.stream().anyMatch(p_card -> p_card.getCardType().equals(p_CardType));
+    }
+
+    /**
+     * remove the card after using it
+     * @param p_CardType card type
+     * @return true if the used card is removed otherwise false
+     */
+    public boolean removeCard(CardType p_CardType){
+        return d_PlayerCards.remove(new Card(p_CardType));
+    }
+
+    /**
+     * add the card to the player's card list
+     * @param p_card card to be added
+     */
+    public void addPlayerCard(Card p_card){
+        d_PlayerCards.add(p_card);
+    }
+
+
+
+    /**
      * player constructor
      * @param p_playerName player name
      */
