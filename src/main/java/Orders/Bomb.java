@@ -3,36 +3,9 @@ package Orders;
 import Models.Player;
 
 /**
- * This is the advance class which implements IOrders interface
+ * This is a bomb class which implements the bomb order card
  */
-public class Advance implements IOrders{
-
-    /**
-     * number of armies assigned each term
-     */
-    private int d_numberOfArmiesToDeploy;
-
-    /**
-     * target country name
-     */
-    private String d_targetCountryName ;
-
-    /**
-     * target country ID
-     */
-    private String d_targetCountryID ;
-
-    /**
-     * constructor class of Advance
-     * @param p_numberOfArmiesToDeploy parameter of  number of armies to assign
-     * @param p_targetCountryID  parameter of target country ID
-     * @param p_targetCountryName parameter of target country name
-     */
-    public Advance(int p_numberOfArmiesToDeploy,String p_targetCountryID, String p_targetCountryName) {
-        this.d_numberOfArmiesToDeploy = p_numberOfArmiesToDeploy;
-        this.d_targetCountryName = p_targetCountryName;
-        this.d_targetCountryID = p_targetCountryID;
-    }
+public class Bomb implements IOrders{
 
     /**
      * override method of execute orders from players
