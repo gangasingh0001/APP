@@ -61,6 +61,7 @@ public class Player {
         return d_PlayerCards.stream().anyMatch(p_card -> p_card.getCardType().equals(p_CardType));
     }
 
+
     /**
      * remove the card after using it
      * @param p_CardType card type
