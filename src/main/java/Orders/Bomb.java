@@ -52,6 +52,7 @@ public class Bomb implements IOrders {
                 int l_newArmies = d_TargetCountry.getD_Armies() / 2;
                 d_TargetCountry.setD_Armies(l_newArmies);
                 p_player.removeCard(CardType.BOMB);
+                break;
             }
 
         }

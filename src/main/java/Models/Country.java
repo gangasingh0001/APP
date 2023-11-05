@@ -29,6 +29,11 @@ public class Country {
     private int d_armies;
 
     /**
+     * a list of neutral countries
+     */
+    private List<Country> d_NeutralCountry;
+
+    /**
      * This is a constructor of the country class
      *
      * @param p_id country ID
@@ -89,5 +94,23 @@ public class Country {
      */
     public int getD_Armies() {
         return d_armies;
+    }
+
+    /**
+     * getter method to get the list of neutral countries
+     * @return a list of neutral countries
+     */
+    public List<Country> getD_NeutralCountry(){
+        return d_NeutralCountry;
+    }
+
+    public void addNeutralCountry(Country p_NeutralCountry){
+        if (d_NeutralCountry == null){
+            d_NeutralCountry = new ArrayList<>();
+        }
+
+        if (!d_NeutralCountry.contains(p_NeutralCountry)){
+            d_NeutralCountry.add(p_NeutralCountry);
+        }
     }
 }

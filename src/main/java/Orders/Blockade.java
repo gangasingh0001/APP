@@ -31,9 +31,26 @@ public class Blockade implements IOrders{
      */
     @Override
     public void execute(Player p_player) {
+        while (!p_player.getD_PlayerCards().isEmpty()){
+            if (validateCard(p_player,this.d_TargetCountry)){
+                //if select country pass all the conditions
+                //triple the armies
+                d_TargetCountry.setD_Armies(d_TargetCountry.getD_Armies() * 3);
+                d_TargetCountry.addNeutralCountry(d_TargetCountry);
+                p_player.getD_coutriesOwned().remove(d_TargetCountry);
+                p_player.removeCard(CardType.BLOCKADE);
+                break;
+            }
 
+        }
     }
 
+    /**
+     * this is a method to validate correctness of blockade card
+     * @param p_player variable of the current player
+     * @param p_TargetCountry country that current want to blockade
+     * @return true if pass all the conditions else return false
+     */
     public boolean validateCard(Player p_player, Country p_TargetCountry) {
 
         //validate if the player is exist
