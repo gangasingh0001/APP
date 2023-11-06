@@ -20,6 +20,8 @@ public class Deploy implements IOrders{
      * The ID of country the armies deployed to
      */
     private String d_targetCountryID ;
+    private Player d_sourcePlayer;
+
 
     /**
      *Parameterized Constructor for Deploy
@@ -27,10 +29,11 @@ public class Deploy implements IOrders{
      * @param _targetCountryID         The ID of country the armies deployed to
      * @param _targetCountryName      The name of country the armies deployed to
      */
-    public Deploy(int _numberOfArmiesToDeploy,String _targetCountryID, String _targetCountryName) {
+    public Deploy(Player p_sourcePlayer,int _numberOfArmiesToDeploy,String _targetCountryID, String _targetCountryName) {
         this.d_numberOfArmiesToDeploy = _numberOfArmiesToDeploy;
         this.d_targetCountryName = _targetCountryName;
         this.d_targetCountryID = _targetCountryID;
+        this.d_sourcePlayer=p_sourcePlayer;
     }
 
     /**
@@ -39,16 +42,16 @@ public class Deploy implements IOrders{
      */
     @Override
     public void execute(Player player) {
-        while (!player.getD_orderList().isEmpty() && player.getD_orderList().poll().getOrderName()== ApplicationConstants.DEPLOY) {
             IOrders deployObj = player.getD_orderList().poll();
-            for(Country country: player.getD_coutriesOwned()) {
+            for(Country country: player.getD_coutriesOwned())
+            {
                 assert deployObj != null;
                 if(country.getName().equals(deployObj.getTargetCountryName())) {
                     country.setD_Armies(country.getD_Armies()+deployObj.getNumberOfArmies());
                     break;
                 }
             }
-        }
+
     }
 
     /**
@@ -57,7 +60,8 @@ public class Deploy implements IOrders{
      */
     @Override
     public boolean valid() {
-        return false;
+        for (Country i:)
+
     }
 
     /**

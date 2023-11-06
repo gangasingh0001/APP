@@ -11,7 +11,7 @@ public interface IOrders {
      *
      * @param player
      */
-    public void execute(Player player);
+    public void execute();
 
     /**
      * valid the states of game
