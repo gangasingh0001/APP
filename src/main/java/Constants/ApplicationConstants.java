@@ -85,6 +85,9 @@ public class ApplicationConstants {
      */
     public static final int DEFAULTARMIES = 5;
 
+    /**
+     * player's deploy order
+     */
     public static final String DEPLOY = "deploy";
     public static final String ADVANCE = "Advance";
 
