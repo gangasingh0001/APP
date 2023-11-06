@@ -15,13 +15,18 @@ public class Blockade implements IOrders{
     private Country d_TargetCountry;
 
     /**
-     * Parameterized Constructor for blockade card
-     * @param p_TargetCountry target country
+     * country ID
      */
-    public Blockade(Country p_TargetCountry){
+    private int d_TargetID;
+
+    /**
+     * Parameterized Constructor for blockade card
+     * @param p_TargetID target country ID
+     */
+    public Blockade(int p_TargetID){
         Card card = new Card();
         card.setCardType(CardType.BLOCKADE);
-        d_TargetCountry = p_TargetCountry;
+        d_TargetID = p_TargetID;
     }
 
 

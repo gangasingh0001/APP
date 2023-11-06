@@ -14,11 +14,11 @@ public class Deploy implements IOrders{
     /**
      * The name of country the armies deployed to
      */
-    private String d_targetCountryName ;
+    private String d_targetCountryName;
     /**
      * The ID of country the armies deployed to
      */
-    private String d_targetCountryID ;
+    private String d_targetCountryID;
 
     /**
      *Parameterized Constructor for Deploy

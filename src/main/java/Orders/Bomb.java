@@ -15,6 +15,11 @@ public class Bomb implements IOrders {
     private WorldMap d_worldMap;
 
     /**
+     * country ID
+     */
+    private int d_TargetID;
+
+    /**
      * target country
      */
     private Country d_TargetCountry;
@@ -23,19 +28,17 @@ public class Bomb implements IOrders {
      * The name of country the armies deployed to
      */
     private String d_targetCountryName ;
-    /**
-     * The ID of country the armies deployed to
-     */
-    private String d_targetCountryID ;
+
 
     /**
      * Parameterized Constructor for bomb card
-     * @param p_TargetCountry target country to bomb
+     * @param p_TargetID target country to bomb
      */
-    public Bomb(Country p_TargetCountry){
+    public Bomb(int p_TargetID){
         Card card = new Card();
         card.setCardType(CardType.BOMB);
-        d_TargetCountry = p_TargetCountry;
+        d_TargetID = p_TargetID;
+
     }
 
     /**

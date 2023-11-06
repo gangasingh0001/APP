@@ -4,10 +4,7 @@ import Constants.ApplicationConstants;
 import Orders.Deploy;
 import Orders.IOrders;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * This is a player class which manages data of added players
@@ -23,6 +20,11 @@ public class Player {
      * player name
      */
     private String d_name;
+
+    /**
+     * a list of negotiated players
+     */
+    List<Player> d_negotiateWith = new ArrayList<>();
 
     /**
      * player owned countries
@@ -138,4 +140,30 @@ public class Player {
     public String getD_playerName() {
         return d_name;
     }
+
+    /**
+     * add player to the negotiated player list
+     * @param p_NegotiatedPlayer
+     */
+    public void addNegotiatedPlayer(Player p_NegotiatedPlayer){
+        this.d_negotiateWith.add(p_NegotiatedPlayer);
+    }
+
+    /**
+     * get the list of players that are negotiated
+     * @return list of players
+     */
+    public List<Player> getNegotiatePlayers() {
+        return d_negotiateWith;
+    }
+
+    /**
+     * clear the negotiate player list
+     */
+    public void removeNegotiatePlayer(){
+        d_negotiateWith.clear();
+    }
+
+
+
 }
