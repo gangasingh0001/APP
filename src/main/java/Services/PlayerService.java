@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 /**
- * a class used to store game map and manipulate game map
+ * a class used to store players and manipulate players
  */
 public class PlayerService implements IPlayerService{
-
+    /**
+     * a class used to store game map and manipulate game map
+     */
     IMapService d_mapService;
     /**
      * world map pointer to the game map in d_mapService, we only have one map instance, and it is created in
@@ -96,6 +98,7 @@ public class PlayerService implements IPlayerService{
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < itemsPerArray; j++) {
                 this.d_players.get(i).addCountriesOwned(l_countryList.get(currentItemIndex));
+                l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(i));
                 currentItemIndex++;
             }
         }
@@ -103,6 +106,7 @@ public class PlayerService implements IPlayerService{
         // Distribute any remaining items
         while (currentItemIndex < l_countryList.size()) {
             this.d_players.get(currentItemIndex % n).addCountriesOwned(l_countryList.get(currentItemIndex));
+            l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(currentItemIndex % n));
             currentItemIndex++;
         }
     }

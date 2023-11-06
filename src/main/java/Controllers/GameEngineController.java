@@ -273,7 +273,7 @@ public class GameEngineController {
                     str = list[0];
                 }
                 Commands l_command = new Commands(str);
-            if (l_command.validateCommand()) {
+            if (l_command.validate[Command()) {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
                     case ApplicationConstants.VALIDATEMAP: {

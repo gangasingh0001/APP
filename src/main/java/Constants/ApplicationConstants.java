@@ -89,4 +89,6 @@ public class ApplicationConstants {
      * player's deploy order
      */
     public static final String DEPLOY = "deploy";
+    public static final String ADVANCE = "Advance";
+
 }
