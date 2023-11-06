@@ -4,6 +4,7 @@ import Constants.ApplicationConstants;
 import Models.Country;
 import Models.IWorldMap;
 import Models.Player;
+import Orders.Advance;
 import Orders.Deploy;
 import Orders.IOrders;
 import Utils.Commands;
@@ -112,11 +113,11 @@ public class PlayerService implements IPlayerService{
     public void issue_order() {
         for(Player player : this.d_players) {
             int defaultNumberOfArmies = player.getD_numberOfArmies();
-            while (defaultNumberOfArmies>0) {
+            while (defaultNumberOfArmies>0) { // Deploy command code
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
                 String l_commandEntered = null;
                 try {
-                    System.out.println(player.getD_playerName() + ": Please enter issue order / type 'exit' to quit");
+                    System.out.println(player.getD_playerName() + ": Please enter Deploy order or type 'exit' to quit");
                     l_commandEntered = l_reader.readLine();
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
@@ -135,8 +136,32 @@ public class PlayerService implements IPlayerService{
                             break;
                         }
                     }
-                    if (!deployFlag) {
-                        // Write exception that country is not owned by this player.
+                } else if (l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
+                    break;
+                }
+            } // Creation of deploy commands completed
+
+
+            // Start for advance commands
+            while(true) {
+                BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+                String l_commandEntered = null;
+                try {
+                    System.out.println(player.getD_playerName() + ": Please enter Advance order or type 'exit' to quit");
+                    l_commandEntered = l_reader.readLine();
+                } catch (IOException l_ioException) {
+                    l_ioException.printStackTrace();
+                }
+                Commands l_command = new Commands(l_commandEntered);
+                if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
+                    String countryNameFrom = l_command.getL_firstParameter();
+                    for (Country country : player.getD_coutriesOwned()) {
+                        if (country.getName().equals(countryNameFrom)) {
+                            int numOfArmiesToDeploy = Integer.parseInt(l_command.getL_secondParameter());
+                            defaultNumberOfArmies = defaultNumberOfArmies - numOfArmiesToDeploy;
+                            player.getD_orderList().add(new Advance(numOfArmiesToDeploy, l_command.getL_firstParameter(), countryName));
+                            break;
+                        }
                     }
                 } else if (l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     break;
