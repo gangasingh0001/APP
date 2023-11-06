@@ -11,15 +11,15 @@ public interface IOrders {
      *
      * @param player
      */
-    public void execute(Player player);
+    public void execute();
 
     /**
      * valid the states of game
-     * @param p_gameState show the states of game
+
      * @return boolean
      */
 
-    public boolean valid(int p_gameState);
+    public boolean valid();
 
     /**
      * print out the current command
