@@ -1,5 +1,6 @@
 package Orders;
 
+import Constants.ApplicationConstants;
 import Models.Country;
 import Models.Player;
 
@@ -38,7 +39,7 @@ public class Deploy implements IOrders{
      */
     @Override
     public void execute(Player player) {
-        while (!player.getD_orderList().isEmpty()) {
+        while (!player.getD_orderList().isEmpty() && player.getD_orderList().poll().getOrderName()== ApplicationConstants.DEPLOY) {
             IOrders deployObj = player.getD_orderList().poll();
             for(Country country: player.getD_coutriesOwned()) {
                 assert deployObj != null;
@@ -52,11 +53,10 @@ public class Deploy implements IOrders{
 
     /**
      * valid the current game state
-     * @param p_gameState show the states of game
      * @return boolean
      */
     @Override
-    public boolean valid(int p_gameState) {
+    public boolean valid() {
         return false;
     }
 

@@ -28,6 +28,18 @@ public class Country {
      */
     private int d_armies;
 
+    public void setD_ownedBy(Player d_ownedBy)
+    {
+        this.d_ownedBy = d_ownedBy;
+    }
+
+    public Player getD_ownedBy()
+    {
+        return d_ownedBy;
+    }
+
+    private Player d_ownedBy=null;
+
     /**
      * This is a constructor of the country class
      *

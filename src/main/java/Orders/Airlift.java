@@ -2,27 +2,26 @@ package Orders;
 
 import Models.Country;
 import Models.Player;
-import Models.WorldMap;
 import Services.CountryService;
 
 import java.util.Random;
 
-public class Advance implements IOrders{
-
+public class Airlift implements IOrders
+{
     private int d_numberOfArmiesToAdvance;
     private String d_targetCountryName ;
     private String d_sourceConuntryName;
     private Player d_SourcePlayer;
-    private WorldMap d_myWordMap;
+    private CountryService d_myCountryService;
     private Country d_sourceCountry;
     private Country d_targetCountry;
 
-    public Advance(int p_numberOfArmiesToDeploy, String p_targetCountryName, String p_sourceConuntryName, Player p_sourcePlayer, WorldMap p_temp) {
+    public Airlift(int p_numberOfArmiesToDeploy, String p_targetCountryName, String p_sourceConuntryName, Player p_sourcePlayer, CountryService p_temp) {
         d_numberOfArmiesToAdvance=p_numberOfArmiesToDeploy;
         d_targetCountryName=p_targetCountryName;
         d_sourceConuntryName=p_sourceConuntryName;
         d_SourcePlayer=p_sourcePlayer;
-        d_myWordMap=p_temp;
+        d_myCountryService=p_temp;
     }
     @Override
     public void execute(Player player) {
@@ -34,8 +33,8 @@ public class Advance implements IOrders{
             d_sourceCountry.setD_Armies(l_temp-this.d_numberOfArmiesToAdvance);
             if (d_targetCountry.getD_ownedBy().equals(d_SourcePlayer))
             {
-                 l_temp=d_targetCountry.getD_Armies();
-                 d_targetCountry.setD_Armies(l_temp+this.d_numberOfArmiesToAdvance);
+                l_temp=d_targetCountry.getD_Armies();
+                d_targetCountry.setD_Armies(l_temp+this.d_numberOfArmiesToAdvance);
             } else
             {
                 while (this.d_numberOfArmiesToAdvance != 0 && d_targetCountry.getD_Armies() != 0)
@@ -44,7 +43,7 @@ public class Advance implements IOrders{
                     int l_attcakRandom = random.nextInt(0, 10);
                     int l_defenceRandom = random.nextInt(0, 10);
                     if (l_attcakRandom <= 5) this.d_numberOfArmiesToAdvance--;
-                     l_temp = d_targetCountry.getD_Armies();
+                    l_temp = d_targetCountry.getD_Armies();
                     if (l_defenceRandom <= 4) d_targetCountry.setD_Armies(l_temp-1);
                 }
                 if (d_targetCountry.getD_Armies() == 0&&this.d_numberOfArmiesToAdvance!=0)
@@ -59,57 +58,58 @@ public class Advance implements IOrders{
     }
     @Override
     public boolean valid() {
-        for(Country i:d_myWordMap.getCountries())
+        for(Country i:d_myCountryService.getCountryList())
         {
             if (d_sourceConuntryName==i.getName()) {d_sourceCountry=i;break;}
             System.out.println("Source Country Name is not exist");
             return  false;
         }
-     for(Country i:d_myWordMap.getCountries())
-     {
-         if (d_targetCountryName==i.getName()) {d_targetCountry=i;break;}
-         System.out.println("Target Country Name is not exist");
-         return false;
-     }
-     if(!d_myWordMap.getNeighborsOfCountry(d_targetCountry).contains(d_sourceCountry))
-     {
-         System.out.println("Two countries is not connected");
-     }
-     if(d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
-     {
-         return true;
-     }
-     else if (!d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer))
-     {
-         System.out.println("Current Country is not belong to Source Player");
-         return false;
-     }
-     else
-     {
-         System.out.println("We Do not Have Enough Arimes yo Attack");
-         return false;
-     }
+        for(Country i:d_myCountryService.getCountryList())
+        {
+            if (d_targetCountryName==i.getName()) {d_targetCountry=i;break;}
+            System.out.println("Target Country Name is not exist");
+            return false;
+        }
+
+        if(d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
+        {
+            return true;
+        }
+        else if (!d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer))
+        {
+            System.out.println("Current Country is not belong to Source Player");
+            return false;
+        }
+        else
+        {
+            System.out.println("We Do not Have Enough Arimes yo Attack");
+            return false;
+        }
     }
     @Override
     public void printOrder() {
         if (!valid())System.out.println("the current order is invalid");
         else
         {
-            System.out.println(d_SourcePlayer.getD_playerName()+" will attack country "+d_targetCountry.getName()+" form country "+d_sourceCountry.getName()+" with the number of arimes "+d_numberOfArmiesToAdvance);
+            System.out.println(d_SourcePlayer.getD_playerName()+" will Airlift to country "+d_targetCountry.getName()+" form country "+d_sourceCountry.getName()+" with the number of arimes "+d_numberOfArmiesToAdvance);
         }
     }
+
     @Override
     public String getOrderName() {
-        return "Advance";
+        return "Airlift";
     }
+
     @Override
     public String getTargetCountryName() {
         return d_targetCountryName;
     }
+
     @Override
     public String getTargetCountryID() {
         return d_targetCountryName;
     }
+
     @Override
     public int getNumberOfArmies() {
         return d_numberOfArmiesToAdvance;
