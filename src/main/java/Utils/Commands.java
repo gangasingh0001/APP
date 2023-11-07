@@ -210,6 +210,21 @@ public class Commands {
                     return false;
                 }
             }
+            case ApplicationConstants.ADVANCE: {
+                if (l_parameters.length < 4) {
+                    new InvalidCommand("Invalid command format for  " + l_command + "\ntry: advance countryFrom countryTo numOfArmies");
+                    return false;
+                }
+                try {
+                    l_firstParameter = (l_parameters[1]);
+                    l_secondParameter = (l_parameters[2]);
+                    l_thirdParameter = (l_parameters[3]);
+                    return true;
+                } catch (NumberFormatException ex) {
+                    new InvalidCommand("Invalid NumberFormat for " + l_command);
+                    return false;
+                }
+            }
 
             default:
                 new InvalidCommand("Invalid command recieved: " + l_command);

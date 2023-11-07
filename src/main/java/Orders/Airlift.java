@@ -24,36 +24,36 @@ public class Airlift implements IOrders
         d_myCountryService=p_temp;
     }
     @Override
-    public void execute(Player player) {
+    public void execute() {
 
         if (valid())
         {
 
             int l_temp=d_sourceCountry.getD_Armies();
             d_sourceCountry.setD_Armies(l_temp-this.d_numberOfArmiesToAdvance);
-            if (d_targetCountry.getD_ownedBy().equals(d_SourcePlayer))
-            {
-                l_temp=d_targetCountry.getD_Armies();
-                d_targetCountry.setD_Armies(l_temp+this.d_numberOfArmiesToAdvance);
-            } else
-            {
-                while (this.d_numberOfArmiesToAdvance != 0 && d_targetCountry.getD_Armies() != 0)
-                {
-                    Random random = new Random();
-                    int l_attcakRandom = random.nextInt(0, 10);
-                    int l_defenceRandom = random.nextInt(0, 10);
-                    if (l_attcakRandom <= 5) this.d_numberOfArmiesToAdvance--;
-                    l_temp = d_targetCountry.getD_Armies();
-                    if (l_defenceRandom <= 4) d_targetCountry.setD_Armies(l_temp-1);
-                }
-                if (d_targetCountry.getD_Armies() == 0&&this.d_numberOfArmiesToAdvance!=0)
-                {
-                    d_SourcePlayer.getD_coutriesOwned().add(d_targetCountry);
-                    d_targetCountry.getD_ownedBy().getD_coutriesOwned().remove(d_sourceCountry);
-                    d_targetCountry.setD_ownedBy(d_SourcePlayer);
-                    d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
-                }
-            }
+//            if (d_targetCountry.getD_ownedBy().equals(d_SourcePlayer))
+//            {
+//                l_temp=d_targetCountry.getD_Armies();
+//                d_targetCountry.setD_Armies(l_temp+this.d_numberOfArmiesToAdvance);
+//            } else
+//            {
+//                while (this.d_numberOfArmiesToAdvance != 0 && d_targetCountry.getD_Armies() != 0)
+//                {
+//                    Random random = new Random();
+//                    int l_attcakRandom = random.nextInt(0, 10);
+//                    int l_defenceRandom = random.nextInt(0, 10);
+//                    if (l_attcakRandom <= 5) this.d_numberOfArmiesToAdvance--;
+//                    l_temp = d_targetCountry.getD_Armies();
+//                    if (l_defenceRandom <= 4) d_targetCountry.setD_Armies(l_temp-1);
+//                }
+//                if (d_targetCountry.getD_Armies() == 0&&this.d_numberOfArmiesToAdvance!=0)
+//                {
+//                    d_SourcePlayer.getD_coutriesOwned().add(d_targetCountry);
+//                    d_targetCountry.getD_ownedBy().getD_coutriesOwned().remove(d_sourceCountry);
+//                    d_targetCountry.setD_ownedBy(d_SourcePlayer);
+//                    d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
+//                }
+//            }
         }
     }
     @Override
@@ -71,20 +71,21 @@ public class Airlift implements IOrders
             return false;
         }
 
-        if(d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
-        {
-            return true;
-        }
-        else if (!d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer))
-        {
-            System.out.println("Current Country is not belong to Source Player");
-            return false;
-        }
-        else
-        {
-            System.out.println("We Do not Have Enough Arimes yo Attack");
-            return false;
-        }
+//        if(d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
+//        {
+//            return true;
+//        }
+//        else if (!d_sourceCountry.getD_ownedBy().equals(d_SourcePlayer))
+//        {
+//            System.out.println("Current Country is not belong to Source Player");
+//            return false;
+//        }
+//        else
+//        {
+//            System.out.println("We Do not Have Enough Arimes yo Attack");
+//            return false;
+//        }
+        return true;
     }
     @Override
     public void printOrder() {
