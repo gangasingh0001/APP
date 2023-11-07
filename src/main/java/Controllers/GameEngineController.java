@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * This is the controller class which contains console commands
@@ -29,7 +30,6 @@ import java.util.Scanner;
  * third phase: main game loop and map info
  */
 public class GameEngineController {
-
     /**
      * define mapservice variable
      */
@@ -69,7 +69,7 @@ public class GameEngineController {
      * define continentService variable
      */
     IContinentService d_continentService;
-
+    private Logger logger;
     /**
      * this is a GameEngineController constructor
      * @param p_mapService mapService object
@@ -90,7 +90,8 @@ public class GameEngineController {
     /**
      * initiate three game phases by order, type exit to leave current phase
      */
-    public void initGame() throws FileNotFoundException {
+    public void initGame(Logger logger) throws FileNotFoundException {
+        this.logger = logger;
         firstPhase();
         secondPhase();
         thirdPhase();
@@ -101,6 +102,7 @@ public class GameEngineController {
      * @throws FileNotFoundException throws exception if file not found
      */
     public void firstPhase() throws FileNotFoundException {
+        logger.severe("Phase 1");
         boolean exit = false;
         while (!exit) {
             //load map
