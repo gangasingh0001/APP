@@ -4,6 +4,12 @@ package Constants;
  * This is a class with all the defined constants
  */
 public class ApplicationConstants {
+    /**
+ * This is a constructor with all the defined constants
+ */
+    ApplicationConstants(){
+
+    }
 
     /**
      * edit map command from a player
@@ -84,5 +90,9 @@ public class ApplicationConstants {
      * default armies that assigned to each player each term is 5
      */
     public static final int DEFAULTARMIES = 5;
+
+    /**
+     * to deploy current game phase
+     */
     public static final String DEPLOY = "deploy";
 }

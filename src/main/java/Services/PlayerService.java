@@ -68,7 +68,7 @@ public class PlayerService implements IPlayerService{
     public boolean isPlayerRemoved(Commands p_command) {
         Player l_playerToRemoveObj = null;
         for(Player player: this.d_players) {
-            if(player.getD_playerName().equals(p_command.getL_thirdParameter())) {
+            if(player.getD_playerName().equals(p_command.getL_secondParameter())) {
                 l_playerToRemoveObj = player;
                 break;
             }
@@ -116,7 +116,7 @@ public class PlayerService implements IPlayerService{
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
                 String l_commandEntered = null;
                 try {
-                    System.out.println(player.getD_playerName() + ": Please enter issue order / type 'exit' to quit");
+                    System.out.println(player.getD_playerName().toUpperCase() + ": Please enter issue order / type 'exit' to quit");
                     l_commandEntered = l_reader.readLine();
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
@@ -130,6 +130,10 @@ public class PlayerService implements IPlayerService{
                         if (country.getName().equals(countryName)) {
                             deployFlag = true;
                             int numOfArmiesToDeploy = Integer.parseInt(l_command.getL_secondParameter());
+                            if(numOfArmiesToDeploy>defaultNumberOfArmies){
+                                System.out.println("Please enter armies less than or equal to " + defaultNumberOfArmies);
+                                break;
+                            }
                             defaultNumberOfArmies = defaultNumberOfArmies - numOfArmiesToDeploy;
                             player.getD_orderList().add(new Deploy(numOfArmiesToDeploy, l_command.getL_firstParameter(), countryName));
                             break;

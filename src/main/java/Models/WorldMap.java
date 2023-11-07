@@ -89,6 +89,13 @@ public class WorldMap implements IWorldMap{
         d_borders.put(p_country, p_neighborCountries);
     }
 
+    public void removeBorder(Country p_country, List<Country> p_neighborCountries) {
+        for(Country c : p_neighborCountries){
+            d_borders.get(p_country).remove(c);
+        }
+        
+    }
+
     /**
      * getter method to get a list of countries
      * @return a list of countries

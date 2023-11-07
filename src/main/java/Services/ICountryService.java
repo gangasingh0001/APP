@@ -10,5 +10,6 @@ public interface ICountryService {
     public List<Country> getCountryList();
     public boolean addCountry(Commands p_commands);
     public boolean isCountryRemoved(Commands p_commands);
-    public void removeCountryNeighboursFromAll(Integer p_countryId);
+    public boolean removeNeighbouringCountry(Commands p_commands);
+    public boolean addNeighbouringCountry(Commands p_commands);
 }

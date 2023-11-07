@@ -118,8 +118,7 @@ public class Commands {
                 }
             }
             case ApplicationConstants.EDITCOUNTRY:
-            case ApplicationConstants.EDITNEIGHBOR: {
-                if (l_parameters.length < 2) {
+            if (l_parameters.length < 2) {
                     new InvalidCommand("Invalid command format for " + l_command);
                     return false;
                 }
@@ -147,6 +146,33 @@ public class Commands {
                             return true;
                         } else {
                             new InvalidCommand("\nInvalid parameter recieved: " + l_command);
+                            return false;
+                        }
+                    }
+                    default:
+                        new InvalidCommand("\nInvalid command format for Add/Remove " + l_command + " try '-add/-remove <parameter>' ");
+                        return false;
+                }
+            case ApplicationConstants.EDITNEIGHBOR: {
+                if (l_parameters.length < 2) {
+                    new InvalidCommand("Invalid command format for " + l_command);
+                    return false;
+                }
+                switch (l_parameters[1]) {
+                    case "-" + ApplicationConstants.ADD:
+                    case "-" + ApplicationConstants.REMOVE:{
+                        l_firstParameter = l_parameters[1];
+                        if(Utils.isInteger(l_parameters[2])) {
+                            l_secondParameter = l_parameters[2];
+                            if(Utils.isInteger(l_parameters[3])) {
+                                l_thirdParameter = l_parameters[3];
+                                return true;
+                            }else {
+                                    new InvalidCommand("Invalid parameter format for " + l_command);
+                                    return false;
+                                }
+                        }else {
+                            new InvalidCommand("Invalid command recieved: " + l_command);
                             return false;
                         }
                     }
