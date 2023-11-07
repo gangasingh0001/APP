@@ -1,9 +1,6 @@
 package Services;
 
-import Models.Continent;
-import Models.Country;
-import Models.IWorldMap;
-import Models.WorldMap;
+import Models.*;
 import Utils.Commands;
 
 import java.io.*;
