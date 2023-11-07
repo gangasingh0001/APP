@@ -25,11 +25,6 @@ public class Player {
     private String d_name;
 
     /**
-     * player owned countries
-     */
-    List<Country> d_coutriesOwned;
-
-    /**
      * a list of orders that played by players
      */
     Queue<IOrders> d_orderList;
@@ -46,7 +41,7 @@ public class Player {
     public Player(String p_playerName) {
         this.d_name = p_playerName;
         d_orderList = new LinkedList<>();
-        d_coutriesOwned = new ArrayList<>();
+        //d_coutriesOwned = new ArrayList<>();
     }
 
     /**
@@ -55,22 +50,6 @@ public class Player {
      */
     public int getD_numberOfArmies() {
         return d_numberOfArmies;
-    }
-
-    /**
-     * add method to add a country to a player owned countries
-     * @param p_country country
-     */
-    public void addCountriesOwned(Country p_country) {
-        this.d_coutriesOwned.add(p_country);
-    }
-
-    /**
-     * getter method to get a list of player owned countries
-     * @ a list of countries a player owned
-     */
-    public List<Country> getD_coutriesOwned() {
-        return d_coutriesOwned;
     }
 
     /**
