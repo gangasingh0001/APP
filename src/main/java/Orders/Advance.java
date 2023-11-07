@@ -68,15 +68,15 @@ public class Advance implements IOrders{
     public void execute() {
         if (valid())
         {
-            for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
-                Country country = entry.getKey();
-                if(country.getName().equals(d_sourceConuntryName)) {
-                    d_targetCountry = country;
-                }
-                if(country.getName().equals(d_sourceConuntryName)) {
-                    d_sourceCountry = country;
-                }
-            }
+//            for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
+//                Country country = entry.getKey();
+//                if(country.getName().equals(d_sourceConuntryName)) {
+//                    d_targetCountry = country;
+//                }
+//                if(country.getName().equals(d_sourceConuntryName)) {
+//                    d_sourceCountry = country;
+//                }
+//            }
             d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies()-this.d_numberOfArmiesToAdvance);
             if(d_countryOwnerMap.get(d_targetCountry).equals(d_SourcePlayer))
             {
@@ -92,55 +92,63 @@ public class Advance implements IOrders{
 
                 if (d_targetCountry.getD_Armies() == 0&&this.d_numberOfArmiesToAdvance!=0)
                 {
-                    //d_SourcePlayer.getD_coutriesOwned().add(d_targetCountry);
                     d_countryOwnerMap.put(d_targetCountry,d_SourcePlayer);
-                    //d_targetCountry.getD_ownedBy().getD_coutriesOwned().remove(d_sourceCountry);
-                    //d_targetCountry.setD_ownedBy(d_SourcePlayer);
                     d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
                 }
             }
         }
     }
 
-    //    /**
-//     * boolean method to check the game state
-//     * @param p_gameState show the states of game
-//     * @return
-//     */
+    /**
+     * boolean method to check the game state
+     * @return true if the current order can be executed, else return false
+     */
     @Override
     public boolean valid() {
-//        for(Country i:d_WorldMap.getCountries())
-//        {
-//            if (d_sourceConuntryName.equals(i.getName())) {d_sourceCountry=i;break;}
-//            System.out.println("Source Country Name is not exist");
-//            return  false;
-//        }
-//     for(Country i:d_WorldMap.getCountries())
-//     {
-//         if (d_targetCountryName.equals(i.getName())) {d_targetCountry=i;break;}
-//         System.out.println("Target Country Name is not exist");
-//         return false;
-//     }
-//     if(!d_countryOwnerMap.containsKey(d_targetCountry)) return false;
-//     if(!d_WorldMap.getNeighborsOfCountry(d_targetCountry).contains(d_sourceCountry))
-//     {
-//         System.out.println("Two countries is not connected");
-//     }
-//     if(d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
-//     {
-//         return true;
-//     }
-//     else if (!d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer))
-//     {
-//         System.out.println("Current Country is not belong to Source Player");
-//         return false;
-//     }
-//     else
-//     {
-//         System.out.println("We Do not Have Enough Arimes yo Attack");
-//         return false;
-//     }
-        return true;
+        Boolean sourceCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
+        {
+        Country temp=entry.getKey();
+        if (temp.getName().equals(d_sourceConuntryName)){
+            d_sourceCountry=temp;
+            sourceCountryFind=true;
+            break;
+        }
+        }
+        if (sourceCountryFind==false){;System.out.println("source country is not exist");return false;}
+        Boolean targetCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
+        {
+            Country temp=entry.getKey();
+            if (temp.getName().equals(d_targetCountryName)){
+                d_targetCountry=temp;
+                targetCountryFind=true;
+                break;
+            }
+        }
+        if (targetCountryFind==false){System.out.println("target country is not exist");return false;}
+
+
+     if(!d_WorldMap.getNeighborsOfCountry(d_targetCountry).contains(d_sourceCountry))
+     {
+         System.out.println("Two countries is not connected");
+     }
+
+     if(d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
+     {
+         return true;
+     }
+     else if (!d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer))
+     {
+         System.out.println("Current Country is not belong to Source Player");
+         return false;
+     }
+     else
+     {
+         System.out.println("We Do not Have Enough Arimes yo Attack");
+         return false;
+     }
+
     }
     /**
      * override method to print the order from players

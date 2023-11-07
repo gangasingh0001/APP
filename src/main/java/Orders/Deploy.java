@@ -25,7 +25,7 @@ public class Deploy implements IOrders{
     private String d_targetCountryID ;
     private Player d_sourcePlayer;
     private HashMap<Country,Player> d_countryOwnerMap;
-
+    private Country d_targetCountry;
     /**
      *Parameterized Constructor for Deploy
      * @param p_numberOfArmiesToDeploy  The number of armies ued to deploy
@@ -38,12 +38,10 @@ public class Deploy implements IOrders{
         this.d_targetCountryID = p_targetCountryID;
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_countryOwnerMap = p_countryOwnerMap;
-        //this.d_sourcePlayer=p_sourcePlayer;
     }
 
     /**
      *  Execute this Deploy order
-     * @param player The player to execute current order
      */
     @Override
     public void execute() {
@@ -66,6 +64,23 @@ public class Deploy implements IOrders{
      */
     @Override
     public boolean valid() {
+
+        Boolean targetCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
+        {
+            Country temp=entry.getKey();
+            if (temp.getName().equals(d_targetCountryName)){
+                d_targetCountry=temp;
+                targetCountryFind=true;
+                break;
+            }
+        }
+        if (targetCountryFind==false){System.out.println("target country is not exist");return false;}
+        if(!d_countryOwnerMap.get(d_targetCountry).equals(d_sourcePlayer))
+        {
+            System.out.println("the source country is not belong to source player");
+            return false;
+        }
         return true;
     }
 
@@ -74,7 +89,14 @@ public class Deploy implements IOrders{
      */
     @Override
     public void printOrder() {
-
+     if (valid())
+     {
+         System.out.println("player "+d_sourcePlayer+" will deploy "+d_numberOfArmiesToDeploy+" to country "+d_targetCountry);
+     }
+     else
+     {
+         System.out.println("");
+     }
     }
 
     /**
