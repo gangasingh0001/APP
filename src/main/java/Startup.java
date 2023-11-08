@@ -21,16 +21,16 @@ public class Startup {
     public static void main (String[] args) throws FileNotFoundException {
         ILogging logging;
         Logger logger = Logger.getLogger(ApplicationConstants.LOG);
+        logging = new Logging(ApplicationConstants.LOG);
+        logger = logging.attachFileHandlerToLogger(logger);
         //define and initiate a map instance to store map information
         IWorldMap l_worldMap = new WorldMap();
         //define and initiate commands and business logics to ingrate commands with the map
         IMapService l_mapService = new MapService(l_worldMap);
         //define and initiate a PlayerService instance to ingrate player's input commands from the console
-        IPlayerService playerService = new PlayerService(l_mapService,l_worldMap);
+        IPlayerService playerService = new PlayerService(logger,l_mapService,l_worldMap);
         //define and initiate a controller which receives commands and redirect them to their respective services
         GameEngineController l_game = new GameEngineController(l_mapService,playerService,l_worldMap);
-        logging = new Logging(ApplicationConstants.LOG);
-        logger = logging.attachFileHandlerToLogger(logger);
         //to stark the game
         l_game.initGame(logger);
     }
