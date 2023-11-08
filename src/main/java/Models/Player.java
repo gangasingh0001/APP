@@ -21,13 +21,34 @@ public class Player {
      * player name
      */
     private String d_name;
-    private Player negotiatewith;
+
+    public List<String> getD_diplomacyWith()
+    {
+        return d_diplomacyWith;
+    }
+
+    public void setD_diplomacyWith(List<String> d_diplomacyWith)
+    {
+        this.d_diplomacyWith = d_diplomacyWith;
+    }
+
+    private List<String> d_diplomacyWith;
     /**
      * a list of orders that played by players
      */
     Queue<IOrders> d_orderList = null;
 
-    List<Country> countryAcquired;
+    public List<Country> getCountryAcquired()
+    {
+        return countryAcquired;
+    }
+
+    public void setCountryAcquired(List<Country> countryAcquired)
+    {
+        this.countryAcquired = countryAcquired;
+    }
+
+    private List<Country> countryAcquired;
     /**
      * number of armies assigned by players each turn
      */
@@ -40,7 +61,7 @@ public class Player {
     public Player(String p_playerName) {
         this.d_name = p_playerName;
         d_orderList = new LinkedList<>();
-        //d_coutriesOwned = new ArrayList<>();
+        d_diplomacyWith=new ArrayList<>();
     }
 
     /**

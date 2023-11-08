@@ -137,7 +137,11 @@ public class Advance implements IOrders{
      {
          System.out.println("Two countries is not connected");
      }
-
+        if (d_SourcePlayer.getD_diplomacyWith().contains(d_countryOwnerMap.get(d_targetCountry)))
+        {
+            System.out.println("the advance order can is invalid, because two player has diplomacy");
+            return false;
+        }
      if(d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
      {
          return true;

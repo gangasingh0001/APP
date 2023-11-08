@@ -224,15 +224,22 @@ public class PlayerService implements IPlayerService{
                                 blockade.execute();
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.BOMB)) {
                                 //TODO: Add Bomb functionality
-                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
-                                logger.severe(player.getD_playerName() + " is using Bomb card!");
+
+                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_worldMap,d_playerOwnedCountriesMap);
                                 bomb.execute();
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
                                 //TODO: Add Negotiate/Diplomacy functionality
-                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter());
-                                logger.severe(player.getD_playerName() + " is using Diplomacy card!");
+                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter(),player,d_players);
+//                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
+                                logger.severe(player.getD_playerName() + " is using Bomb card!");
                                 diplomacy.execute();
                             }
+//                            else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
+//                                //TODO: Add Negotiate/Diplomacy functionality
+//                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter());
+//                                logger.severe(player.getD_playerName() + " is using Diplomacy card!");
+//                                diplomacy.execute();
+//                            }
                         }
                     }
                     System.out.println(player.getD_playerName().toUpperCase() + ": Please enter Advance order or type 'exit' to quit");
