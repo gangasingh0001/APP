@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.Queue;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 /**
  * a class used to store game class and manipulate game class
@@ -25,7 +26,11 @@ public class MapService implements IMapService{
      * @param p_worldMap
      */
 
-
+    private Logger d_logger;
+    public MapService(Logger p_logger,IWorldMap p_worldMap) {
+        d_logger = p_logger;
+        d_worldMap = p_worldMap;
+    }
     public MapService(IWorldMap p_worldMap) {
         d_worldMap = p_worldMap;
     }

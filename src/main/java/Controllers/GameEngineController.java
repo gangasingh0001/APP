@@ -134,42 +134,52 @@ public class GameEngineController {
                     //read different commands then perform regarding methods
                     case ApplicationConstants.EDITMAP: {
                         mapEditor(l_command);
+                        logger.severe(l_command.toString());
                         break;
                     }
                     case ApplicationConstants.EDITCONTINENT: {
+                        logger.severe(l_command.getL_rootCommand());
                         continentEditor(l_command);
                         break;
                     }
                     case ApplicationConstants.SAVEMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         saveMap(l_command);
                         break;
                     }
                     case ApplicationConstants.LOADMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         mapLoader(l_command);
                         break;
                     }
                     case ApplicationConstants.VALIDATEMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         d_mapService.validateGraph();
                         break;
                     }
                     case ApplicationConstants.EDITCOUNTRY: {
+                        logger.severe(l_command.getL_rootCommand());
                         countryEditor(l_command);
                         break;
                     }
                     case ApplicationConstants.EDITNEIGHBOR: {
+                        logger.severe(l_command.getL_rootCommand());
                         neighborEditor(l_command);
                         break;
                     }
 
                     case ApplicationConstants.SHOWMAP: {
+                        logger.severe("Showing map...");
                         showMap();
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        logger.severe("Exit phase 1...");
                         exit = true;
                         break;
                     }
                     default: {
+                        logger.severe("Invalid Command for Phase 1.");
                         System.out.println("\nInvalid Command for Phase 1.");
                         break;
                     }
@@ -184,6 +194,7 @@ public class GameEngineController {
      * second phase of the game, read commands from the console
      */
     public void secondPhase() {
+        logger.severe("Phase 2");
         boolean exit = false;
         while (!exit) {
             BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
@@ -213,26 +224,32 @@ public class GameEngineController {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
                     case ApplicationConstants.VALIDATEMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         d_mapService.validateGraph();
                         break;
                     }
                     case ApplicationConstants.GAMEPLAYER: {
+                        logger.severe(l_command.getL_rootCommand());
                         addRemovePlayer(l_command);
                         break;
                     }
                     case ApplicationConstants.ASSIGNCOUNTRIES: {
+                        logger.severe(l_command.getL_rootCommand());
                         assignCountries();
                         break;
                     }
                     case ApplicationConstants.SHOWMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         showMap();
                         break;
                     }
                     case ApplicationConstants.EXIT: {
+                        logger.severe("Exit phase 2...");
                         exit = true;
                         break;
                     }
                     default: {
+                        logger.severe("Invalid Command for Phase 2.");
                         System.out.println("\nInvalid Command for Phase 2.");
                         break;
                     }
@@ -246,6 +263,7 @@ public class GameEngineController {
      * third phase of the game, read commands from the console
      */
     public void thirdPhase() {
+        logger.severe("Phase 3");
         boolean continueGame = true;
         while (continueGame) {
             //a phase to collect orders from all the players in round-robin fashion
@@ -280,21 +298,25 @@ public class GameEngineController {
                 switch (l_command.getL_rootCommand()) {
                     //read different commands then perform regarding methods
                     case ApplicationConstants.VALIDATEMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         d_mapService.validateGraph();
                         break;
                     }
 
                     case ApplicationConstants.SHOWMAP: {
+                        logger.severe(l_command.getL_rootCommand());
                         showMap();
                         break;
                     }
 
                     case ApplicationConstants.EXIT: {
+                        logger.severe("Exit phase 3...");
                         continueGame = false;
                         break;
                     }
 
                     default: {
+                        logger.severe("Invalid Command for Phase 3.");
                         System.out.println("\nInvalid Command for Phase 3.");
                         break;
                     }
@@ -311,14 +333,18 @@ public class GameEngineController {
     public void countryEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             if(d_countryService.addCountry(p_command)) {
+                logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
                 System.out.println("Added Successfully");
             }else {
+                logger.severe("Invalid Input...");
                 System.out.println("Invalid Input");
             }
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
             if(d_countryService.isCountryRemoved(p_command)) {
+                logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
                 System.out.println("Removed Successfully");
             }else {
+                logger.severe("Invalid Input...");
                 System.out.println("Invalid Input");
             }
         }
@@ -330,11 +356,14 @@ public class GameEngineController {
      */
     public void continentEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+            logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
             d_continentService.addContinent(p_command);
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
             if(d_continentService.isContinentRemoved(p_command)) {
+                logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
                 System.out.println("Removed Successfully");
             }else{
+                logger.severe("Invalid Continent...");
                 System.out.println("Invalid Continent");
             }
         }
@@ -345,16 +374,20 @@ public class GameEngineController {
      * @param p_command command parameters from players
      */
     public void neighborEditor(Commands p_command){
-        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {z
             if(d_countryService.addNeighbouringCountry(p_command)) {
+                logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
                 System.out.println("Added Successfully");
             }else {
+                logger.severe("Invalid Command, cannot add country...");
                 System.out.println("Invalid Input");
             }
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
             if(d_countryService.removeNeighbouringCountry(p_command)) {
+                logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
                 System.out.println("Removed Successfully");
             }else {
+                logger.severe("Invalid Command, cannot remove country...");
                 System.out.println("Invalid Input");
             }
         }
@@ -367,16 +400,19 @@ public class GameEngineController {
      */
     public void mapEditor(Commands p_command){
         if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
+            logger.severe("Reading file...");
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
             File file = new File(filePath);
         if (!file.exists()) {
             try {
+                logger.severe("File not found...Create a new one.");
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         }else{
+            logger.severe("File not found");
             System.out.println("File name not found");
         }
     }
@@ -390,11 +426,15 @@ public class GameEngineController {
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
             File file = new File(filePath);
         if (file.exists()) {
+            logger.severe("Saving file...");
+            System.out.println("File exists");
             d_mapService.saveMap(p_command);
         }else{
+            logger.severe("File not found");
             System.out.println("File not found");
         }
         }else{
+            logger.severe("Filename not found");
             System.out.println("File name not found");
         }
     }
@@ -421,9 +461,14 @@ public class GameEngineController {
     public void addRemovePlayer(Commands p_command) {
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             d_playerService.addPlayer(p_command);
+            logger.severe("Player " + p_command.getL_secondParameter() + " added successfully！");
+            logger.severe("Showing players...");
             d_showPlayerInfo.displayPlayers();
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
-            if(d_playerService.isPlayerRemoved(p_command)) System.out.println("Removed Successfully");
+            if(d_playerService.isPlayerRemoved(p_command))
+                System.out.println("Removed Successfully");
+            logger.severe("Player " + p_command.getL_secondParameter() + " removed successfully.");
+            logger.severe("Showing players...");
             d_showPlayerInfo.displayPlayers();
         }
     }
