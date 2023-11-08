@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * This is the controller class which contains console commands
@@ -29,7 +30,6 @@ import java.util.Scanner;
  * third phase: main game loop and map info
  */
 public class GameEngineController {
-
     /**
      * define mapservice variable
      */
@@ -60,9 +60,16 @@ public class GameEngineController {
      */
     Scanner d_scanner;
 
+    /**
+     * define countryService variable
+     */
     ICountryService d_countryService;
-    IContinentService d_continentService;
 
+    /**
+     * define continentService variable
+     */
+    IContinentService d_continentService;
+    private Logger logger;
     /**
      * this is a GameEngineController constructor
      * @param p_mapService mapService object
@@ -83,14 +90,19 @@ public class GameEngineController {
     /**
      * initiate three game phases by order, type exit to leave current phase
      */
-    public void initGame() throws FileNotFoundException {
+    public void initGame(Logger logger) throws FileNotFoundException {
+        this.logger = logger;
         firstPhase();
         secondPhase();
         thirdPhase();
     }
 
+    /**
+     * first phase of the game, read commands from the console
+     * @throws FileNotFoundException throws exception if file not found
+     */
     public void firstPhase() throws FileNotFoundException {
-    //first phase of the game, read commands from the console
+        logger.severe("Phase 1");
         boolean exit = false;
         while (!exit) {
             //load map
@@ -168,7 +180,9 @@ public class GameEngineController {
         }
     }
 
-    //second phase of the game, read commands from the console
+    /**
+     * second phase of the game, read commands from the console
+     */
     public void secondPhase() {
         boolean exit = false;
         while (!exit) {
@@ -228,9 +242,12 @@ public class GameEngineController {
         }
     }
 
-    //third phase of the game, read commands from the console
+    /**
+     * third phase of the game, read commands from the console
+     */
     public void thirdPhase() {
-        while (true) {
+        boolean continueGame = true;
+        while (continueGame) {
             //a phase to collect orders from all the players in round-robin fashion
             issue_order();
             //execute orders from issue_order phase
@@ -273,10 +290,7 @@ public class GameEngineController {
                     }
 
                     case ApplicationConstants.EXIT: {
-                        break;
-                    }
-
-                    case ApplicationConstants.DEPLOY: {
+                        continueGame = false;
                         break;
                     }
 
@@ -290,6 +304,10 @@ public class GameEngineController {
         }
     }
 
+    /**
+     * read player input command to edit countries(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void countryEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             if(d_countryService.addCountry(p_command)) {
@@ -305,6 +323,11 @@ public class GameEngineController {
             }
         }
     }
+
+    /**
+     * read player input command to edit continents(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void continentEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             d_continentService.addContinent(p_command);
@@ -317,6 +340,10 @@ public class GameEngineController {
         }
     }
 
+    /**
+     * read player input command to edit neighbour countries(add or remove) on a map
+     * @param p_command command parameters from players
+     */
     public void neighborEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             if(d_countryService.addNeighbouringCountry(p_command)) {
@@ -333,6 +360,11 @@ public class GameEngineController {
         }
     }
 
+    /**
+     * read player input command to edit a map, if map not exist,
+     * create a new one from scratch
+     * @param p_command command parameters from players
+     */
     public void mapEditor(Commands p_command){
         if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();
@@ -348,7 +380,11 @@ public class GameEngineController {
             System.out.println("File name not found");
         }
     }
-    
+
+    /**
+     * method to save the map
+     * @param p_command command parameters from players
+     */
     public void saveMap(Commands p_command){
         if(p_command.getL_firstParameter()!=null && !p_command.getL_firstParameter().isEmpty()){
             String filePath = "./src/main/java/Data/Maps/" + p_command.getL_firstParameter();

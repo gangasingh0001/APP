@@ -15,6 +15,12 @@ public class CountryService implements ICountryService{
      * used to manipulate map
      */
     IMapService mapService;
+
+    public IWorldMap getWorldMap()
+    {
+        return worldMap;
+    }
+
     /**
      * used to store map
      */

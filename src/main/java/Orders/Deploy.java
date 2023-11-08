@@ -1,7 +1,11 @@
 package Orders;
 
+import Constants.ApplicationConstants;
 import Models.Country;
 import Models.Player;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The command class of deploy order
@@ -19,45 +23,65 @@ public class Deploy implements IOrders{
      * The ID of country the armies deployed to
      */
     private String d_targetCountryID ;
-
+    private Player d_sourcePlayer;
+    private HashMap<Country,Player> d_countryOwnerMap;
+    private Country d_targetCountry;
     /**
      *Parameterized Constructor for Deploy
-     * @param _numberOfArmiesToDeploy  The number of armies ued to deploy
-     * @param _targetCountryID         The ID of country the armies deployed to
-     * @param _targetCountryName      The name of country the armies deployed to
+     * @param p_numberOfArmiesToDeploy  The number of armies ued to deploy
+     * @param p_targetCountryID         The ID of country the armies deployed to
+     * @param p_targetCountryName      The name of country the armies deployed to
      */
-    public Deploy(int _numberOfArmiesToDeploy,String _targetCountryID, String _targetCountryName) {
-        this.d_numberOfArmiesToDeploy = _numberOfArmiesToDeploy;
-        this.d_targetCountryName = _targetCountryName;
-        this.d_targetCountryID = _targetCountryID;
+    public Deploy(int p_numberOfArmiesToDeploy,String p_targetCountryID, String p_targetCountryName, Player p_sourcePlayer, HashMap<Country,Player> p_countryOwnerMap) {
+        this.d_numberOfArmiesToDeploy = p_numberOfArmiesToDeploy;
+        this.d_targetCountryName = p_targetCountryName;
+        this.d_targetCountryID = p_targetCountryID;
+        this.d_sourcePlayer = p_sourcePlayer;
+        this.d_countryOwnerMap = p_countryOwnerMap;
     }
 
     /**
      *  Execute this Deploy order
-     * @param player The player to execute current order
      */
     @Override
-    public void execute(Player player) {
-        while (!player.getD_orderList().isEmpty()) {
-            IOrders deployObj = player.getD_orderList().poll();
-            for(Country country: player.getD_coutriesOwned()) {
-                assert deployObj != null;
-                if(country.getName().equals(deployObj.getTargetCountryName())) {
-                    country.setD_Armies(country.getD_Armies()+deployObj.getNumberOfArmies());
-                    break;
+    public void execute() {
+            IOrders deploy = d_sourcePlayer.getD_orderList().poll();
+            Country country = null;
+            for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
+                Country countryKey = entry.getKey();
+                assert deploy != null;
+                if(countryKey.getName().equals(deploy.getTargetCountryName())) {
+                    country = countryKey;
                 }
             }
-        }
+        assert country != null;
+        country.setD_Armies(country.getD_Armies()+deploy.getNumberOfArmies());
     }
 
     /**
      * valid the current game state
-     * @param p_gameState show the states of game
      * @return boolean
      */
     @Override
-    public boolean valid(int p_gameState) {
-        return false;
+    public boolean valid() {
+
+        Boolean targetCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
+        {
+            Country temp=entry.getKey();
+            if (temp.getName().equals(d_targetCountryName)){
+                d_targetCountry=temp;
+                targetCountryFind=true;
+                break;
+            }
+        }
+        if (targetCountryFind==false){System.out.println("target country is not exist");return false;}
+        if(!d_countryOwnerMap.get(d_targetCountry).equals(d_sourcePlayer))
+        {
+            System.out.println("the source country is not belong to source player");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -65,7 +89,14 @@ public class Deploy implements IOrders{
      */
     @Override
     public void printOrder() {
-
+     if (valid())
+     {
+         System.out.println("player "+d_sourcePlayer+" will deploy "+d_numberOfArmiesToDeploy+" to country "+d_targetCountry);
+     }
+     else
+     {
+         System.out.println("");
+     }
     }
 
     /**

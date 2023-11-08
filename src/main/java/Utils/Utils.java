@@ -1,9 +1,14 @@
 package Utils;
 
+import Models.Country;
+import Models.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * a class used to check if the input String is integer
@@ -25,4 +30,16 @@ public class Utils {
         }
         return false;
     }
+
+//    public static String readCommand(Player player) {
+//        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+//        String l_commandEntered = null;
+//        try {
+//            System.out.println(player.getD_playerName() + ": Please enter Deploy order or type 'exit' to quit");
+//            return l_commandEntered = l_reader.readLine();
+//        } catch (IOException l_ioException) {
+//            l_ioException.printStackTrace();
+//        }
+//        return null;
+//    }
 }

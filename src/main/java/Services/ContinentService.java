@@ -58,7 +58,7 @@ public class ContinentService implements IContinentService{
     }
 
     /**
-     * add new continent to the map
+     * add new continent to the mapQ1
      * @param p_continent the name of new continent
      */
     public void addContinent(Commands p_continent){
@@ -66,3 +66,4 @@ public class ContinentService implements IContinentService{
         d_worldMap.addContinent(continent);
     }
 }
+

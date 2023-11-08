@@ -44,10 +44,18 @@ public class Commands {
         // }
     }
 
+    /**
+     * get the first word of command
+     * @return the first word of command
+     */
     public String getL_rootCommand() {
         return l_rootCommand;
     }
-    
+
+    /**
+     *  check if the format of command is correct
+     * @return true if the format of command is correct
+     */
     public boolean validateCommand(){
         if ( l_parameters == null || l_parameters.length < 1) {
             new InvalidCommand("Command cannot be null or empty.");
@@ -225,6 +233,21 @@ public class Commands {
                     return true;
                 } catch (NumberFormatException ex) {
                     new InvalidCommand("Invalid NumberFormate for " + l_command);
+                    return false;
+                }
+            }
+            case ApplicationConstants.ADVANCE: {
+                if (l_parameters.length < 4) {
+                    new InvalidCommand("Invalid command format for  " + l_command + "\ntry: advance countryFrom countryTo numOfArmies");
+                    return false;
+                }
+                try {
+                    l_firstParameter = (l_parameters[1]);
+                    l_secondParameter = (l_parameters[2]);
+                    l_thirdParameter = (l_parameters[3]);
+                    return true;
+                } catch (NumberFormatException ex) {
+                    new InvalidCommand("Invalid NumberFormat for " + l_command);
                     return false;
                 }
             }

@@ -1,9 +1,11 @@
 package Services;
 
+import Models.Country;
 import Models.Player;
 import Utils.Commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * interface for PlayerService
@@ -29,6 +31,10 @@ public interface IPlayerService {
      */
     public boolean isPlayerRemoved(Commands p_commands);
 
+    /**
+     * used to create deploy order
+     */
+
     public void issue_order();
     //public IOrders next_order();
 
@@ -36,5 +42,11 @@ public interface IPlayerService {
      * assign country to the player
      */
     public void assignCountries();
+
+    /**
+     * used to execute deploy order for all the players
+     */
     public void next_order();
+
+    public HashMap<Country,Player> getD_playerOwnedCountriesMap();
 }
