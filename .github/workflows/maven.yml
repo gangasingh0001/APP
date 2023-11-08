@@ -27,6 +27,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Cache Maven dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ runner.os }}-${{ hashFiles('**/*.xml') }}
+        restore-keys: |
+          maven-${{ runner.os }}-
     - name: Increment Snapshot Version
       run: mvn versions:set -DnewVersion=1.0.0-SNAPSHOT
     - name: Set environment variables
