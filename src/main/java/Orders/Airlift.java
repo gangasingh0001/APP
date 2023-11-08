@@ -1,5 +1,6 @@
 package Orders;
 
+import Models.CardType;
 import Models.Country;
 import Models.Player;
 import Services.CountryService;
@@ -24,6 +25,7 @@ public class Airlift implements IOrders
         d_sourceConuntryName=p_sourceConuntryName;
         d_SourcePlayer=p_sourcePlayer;
         d_countryOwnerMap=p_countryOwnerMap;
+        d_SourcePlayer.removeCard(CardType.AIRLIFT);
     }
     @Override
     public void execute() {
@@ -89,6 +91,11 @@ public class Airlift implements IOrders
             }
         }
         if (!targetCountryFind){System.out.println("target country is not exist");return false;}
+        if (d_SourcePlayer.getD_diplomacyWith().contains(d_countryOwnerMap.get(d_targetCountry)))
+        {
+            System.out.println("the advance order can is invalid, because two player has diplomacy");
+            return false;
+        }
         if(d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
         {
             return true;

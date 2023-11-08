@@ -20,7 +20,6 @@ public class Blockade implements IOrders{
     /**
      * country ID
      */
-    private int d_TargetID;
 
     private Player d_player;
 
@@ -33,8 +32,8 @@ public class Blockade implements IOrders{
      * @param p_sourceConuntryName target country ID
      */
     public Blockade(String p_sourceConuntryName, Player p_player, HashMap<Country,Player> p_countryOwnerMap){
-        Card card = new Card();
-        card.setCardType(CardType.BLOCKADE);
+//        Card card = new Card();
+//        card.setCardType(CardType.BLOCKADE);
         d_sourceCountryName = p_sourceConuntryName;
         d_player = p_player;
         d_countryOwnerMap = p_countryOwnerMap;
@@ -47,63 +46,18 @@ public class Blockade implements IOrders{
      */
     @Override
     public void execute() {
-        while (!d_player.getD_PlayerCards().isEmpty()){
-//            if (validateCard(d_player,this.d_TargetCountry)){
-//                //if select country pass all the conditions
-//                //triple the armies
-//                d_TargetCountry.setD_Armies(d_TargetCountry.getD_Armies() * 3);
-//                d_TargetCountry.setD_NeutralCountry(true);
-//                //d_TargetCountry.addNeutralCountry(d_TargetCountry);
-//
-////                d_countryOwnerMap.remove(d_TargetCountry);
-////                d_player.removeCard(CardType.BLOCKADE);
-//                break;
-//            }
+        //while (!d_player.getD_PlayerCards().isEmpty()){
+            if (valid()){
+                d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies() * 3);
+                d_sourceCountry.setD_NeutralCountry(true);
+                d_player.removeCard(CardType.BLOCKADE);
+               // break;
+            }
 
-        }
+       // }
     }
 
-    /**
-     * this is a method to validate correctness of blockade card
-     * @param p_player variable of the current player
-     * @param p_TargetCountry country that current want to blockade
-     * @return true if pass all the conditions else return false
-     */
-    public boolean validateCard(Player p_player, Country p_TargetCountry) {
 
-
-        boolean sourceCountryFind=false;
-        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
-            Country temp=entry.getKey();
-            if (temp.getName().equals(d_sourceCountryName)){
-                d_sourceCountry=temp;
-                sourceCountryFind=true;
-                break;
-            }
-        }
-        //validate if the player exist
-        if (p_player == null) {
-            System.err.println("This player is not valid.");
-            return false;
-        }
-
-        //validate if this country is onwed by the plater
-//        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
-//            Country l_country=entry.getKey();
-//            if (l_country.getName().equals(d_TargetCountry.getName())){
-//                System.err.println("Current country is not belong to you!");
-//                return false;
-//            }
-//        }
-
-            //validate if the player's card is bomb type
-        if (!p_player.checkIfCardExists(CardType.BLOCKADE)) {
-            System.err.println("You do not have the Blockade card.");
-            return false;
-        }
-
-        return true;
-        }
 
     /**
      * boolean method to check the game state
@@ -111,7 +65,25 @@ public class Blockade implements IOrders{
      */
     @Override
     public boolean valid() {
-        return false;
+        boolean sourceCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
+            Country l_country=entry.getKey();
+            if (l_country.getName().equals(d_sourceCountryName)){
+                d_sourceCountry=l_country;
+                sourceCountryFind=true;
+                break;
+            }
+        }
+        if (!sourceCountryFind){;System.out.println("source country"+d_sourceCountryName+" is not exist");return false;}
+        if(!d_countryOwnerMap.get(d_sourceCountry).equals(d_player))
+        {
+            System.out.println("the country "+d_sourceCountryName+" is not belong to "+d_player.getD_playerName()+"so blockade is not valid");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /**
@@ -119,7 +91,14 @@ public class Blockade implements IOrders{
      */
     @Override
     public void printOrder() {
-
+     if (valid())
+     {
+        System.out.println("player "+d_player.getD_playerName()+" will blockade "+d_sourceCountryName);
+     }
+     else
+     {
+         System.out.println("the blockade is not valid");
+     }
     }
 
     /**

@@ -185,11 +185,11 @@ public class PlayerService implements IPlayerService{
                                 blockade.execute();
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.BOMB)) {
                                 //TODO: Add Bomb functionality
-                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
+                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_worldMap,d_playerOwnedCountriesMap);
                                 bomb.execute();
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
                                 //TODO: Add Negotiate/Diplomacy functionality
-                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter());
+                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter(),player,d_players);
                                 diplomacy.execute();
                             }
                         }
