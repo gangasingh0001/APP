@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Exceptions","l":"InvalidCommand"},{"p":"Exceptions","l":"InvalidMap"}];updateSearchResults();
