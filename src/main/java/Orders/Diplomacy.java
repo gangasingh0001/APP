@@ -6,64 +6,69 @@ import Models.Player;
 import Models.WorldMap;
 import Services.PlayerService;
 
+import java.util.ArrayList;
+
 public class Diplomacy implements IOrders{
 
-    /**
-     * worldmap variable
-     */
-    private WorldMap d_WorldMap;
+
 
     /**
      * players information
      */
-    private PlayerService d_PlayerService;
+    private ArrayList<Player> d_Players;
 
     /**
      * target player's name
      */
     private String d_TargetPlayerToNegotiate;
+    private Player d_sourcePlayer;
+    private  Player d_targetPlayer;
 
     /**
      * Parameterized Constructor for negotiate card
      */
-    public Diplomacy(String p_TargetPlayerToNegotiate){
-        Card card = new Card();
-        card.setCardType(CardType.DIPLOMACY);
+    public Diplomacy(String p_TargetPlayerToNegotiate,Player p_sourcePlayer,ArrayList<Player> p_Players){
+//        Card card = new Card();
+//        card.setCardType(CardType.DIPLOMACY);
         d_TargetPlayerToNegotiate = p_TargetPlayerToNegotiate;
+        d_sourcePlayer=p_sourcePlayer;
+        d_Players=p_Players;
     }
 
     @Override
     public void execute() {
+        if (valid())
+        {
+            d_sourcePlayer.getD_diplomacyWith().add(d_TargetPlayerToNegotiate);
+            d_targetPlayer.getD_diplomacyWith().add(d_sourcePlayer.getD_playerName());
+            d_sourcePlayer.removeCard(CardType.DIPLOMACY);
+        }
 
     }
 
     @Override
     public boolean valid() {
-        return false;
-    }
-
-    public boolean validateCard(Player p_player){
-        //check is negotiate card is exist
-        if (!p_player.checkIfCardExists(CardType.DIPLOMACY)){
-            System.err.println("You do not have the Negotiate card!");
-            return false;
-        }
-
-        //check if the card is used on this player
-        if (p_player.getD_playerName().equals(this.d_TargetPlayerToNegotiate)){
-            System.err.println("You cannot play Negotiate card on yourself.");
-            return false;
-        }
-
-        //check if target player is exist
-        for(Player l_player: d_PlayerService.getPlayersList()) {
-            if(!l_player.getD_playerName().equals(this.d_TargetPlayerToNegotiate)) {
-                return false;
+        boolean l_targetPlayerExist=false;
+        for(Player l_player:d_Players)
+        {
+            if(l_player.getD_playerName().equals(d_TargetPlayerToNegotiate))
+            {
+                d_targetPlayer=l_player;
+                l_targetPlayerExist=true;
+                break;
             }
         }
+        if(l_targetPlayerExist==true) return true;
+        else
+        {
+            System.out.println("the player "+d_TargetPlayerToNegotiate+" is not exist");
+            return false;
+        }
 
-        return true;
+
     }
+
+
 
     /**
      * boolean method to check the game state
@@ -80,6 +85,14 @@ public class Diplomacy implements IOrders{
      */
     @Override
     public void printOrder() {
+        if (valid())
+        {
+            System.out.println("player "+d_sourcePlayer.getD_playerName()+" will diplomacy with player "+d_TargetPlayerToNegotiate);
+        }
+        else
+        {
+            System.out.println("the diplomacy card is invalid: "+"player "+d_sourcePlayer.getD_playerName()+" will diplomacy with player "+d_TargetPlayerToNegotiate);
+        }
 
     }
 
