@@ -374,7 +374,7 @@ public class GameEngineController {
      * @param p_command command parameters from players
      */
     public void neighborEditor(Commands p_command){
-        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {z
+        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
             if(d_countryService.addNeighbouringCountry(p_command)) {
                 logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
                 System.out.println("Added Successfully");
