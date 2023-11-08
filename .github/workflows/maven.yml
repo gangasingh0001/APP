@@ -40,7 +40,7 @@ jobs:
         echo "TOKEN=${{ secrets.TOKEN }}" >> $GITHUB_ENV
     - name: Increment Snapshot Version
       env:
-        ACCESS_TOKEN: ${{ secrets.TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.PUSH_GITHUB }}
         USERNAME: ${{ secrets.USERNAME }}
       run: |
         bash increment_version.sh
