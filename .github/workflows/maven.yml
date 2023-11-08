@@ -35,13 +35,16 @@ jobs:
         restore-keys: |
           maven-${{ runner.os }}-
     - name: Increment Snapshot Version
+      env:
+        ACCESS_TOKEN: ${{ secrets.TOKEN }}
+        USERNAME: ${{ secrets.USERNAME }}
       run: |
         bash increment_version.sh
         git config --global user.email "g_s64832@live.concordia.ca"
         git config --global user.name "Ganga Singh"
         git add pom.xml
         git commit -m "Increment snapshot version"
-        git push
+        git push https://$ACCESS_TOKEN@github.com/$USERNAME/APP.git HEAD:dev
     - name: Set environment variables
       run: |
         echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
