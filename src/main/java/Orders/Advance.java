@@ -1,9 +1,7 @@
 package Orders;
 
-import Models.Country;
-import Models.IWorldMap;
-import Models.Player;
-import Models.WorldMap;
+import Constants.ApplicationConstants;
+import Models.*;
 import Services.CountryService;
 import Services.IPlayerService;
 
@@ -78,8 +76,7 @@ public class Advance implements IOrders{
 //                }
 //            }
             d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies()-this.d_numberOfArmiesToAdvance);
-            if(d_countryOwnerMap.get(d_targetCountry).equals(d_SourcePlayer))
-            {
+            if(d_countryOwnerMap.get(d_targetCountry).equals(d_SourcePlayer)) {
                  d_targetCountry.setD_Armies(d_targetCountry.getD_Armies()+this.d_numberOfArmiesToAdvance);
             } else {
                 while (this.d_numberOfArmiesToAdvance != 0 && d_targetCountry.getD_Armies() != 0) {
@@ -90,10 +87,18 @@ public class Advance implements IOrders{
                     if (l_defenceRandom <= 4) d_targetCountry.setD_Armies(d_targetCountry.getD_Armies()-1);
                 }
 
-                if (d_targetCountry.getD_Armies() == 0&&this.d_numberOfArmiesToAdvance!=0)
-                {
-                    d_countryOwnerMap.put(d_targetCountry,d_SourcePlayer);
-                    d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
+                if (d_targetCountry.getD_Armies() == 0 && this.d_numberOfArmiesToAdvance!=0) {
+                    if(!d_targetCountry.isD_NeutralCountry()) {
+                        d_countryOwnerMap.put(d_targetCountry, d_SourcePlayer);
+                        d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
+                        Player d_TargetPlayer = d_countryOwnerMap.get(d_targetCountry);
+                        d_TargetPlayer.removeAcquiredCountry(d_targetCountry);
+                        d_SourcePlayer.addAcquiredCountry(d_targetCountry);
+                        d_countryOwnerMap.put(d_targetCountry, d_SourcePlayer);
+                    } else {
+                        d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies()+this.d_numberOfArmiesToAdvance);
+                        //d_countryOwnerMap.remove(d_targetCountry);
+                    }
                 }
             }
         }
@@ -105,18 +110,17 @@ public class Advance implements IOrders{
      */
     @Override
     public boolean valid() {
-        Boolean sourceCountryFind=false;
-        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
-        {
-        Country temp=entry.getKey();
-        if (temp.getName().equals(d_sourceConuntryName)){
-            d_sourceCountry=temp;
-            sourceCountryFind=true;
-            break;
+        boolean sourceCountryFind=false;
+        for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
+            Country temp=entry.getKey();
+            if (temp.getName().equals(d_sourceConuntryName)){
+                d_sourceCountry=temp;
+                sourceCountryFind=true;
+                break;
+            }
         }
-        }
-        if (sourceCountryFind==false){;System.out.println("source country is not exist");return false;}
-        Boolean targetCountryFind=false;
+        if (!sourceCountryFind){;System.out.println("source country is not exist");return false;}
+        boolean targetCountryFind=false;
         for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
         {
             Country temp=entry.getKey();
@@ -126,7 +130,7 @@ public class Advance implements IOrders{
                 break;
             }
         }
-        if (targetCountryFind==false){System.out.println("target country is not exist");return false;}
+        if (!targetCountryFind){System.out.println("target country is not exist");return false;}
 
 
      if(!d_WorldMap.getNeighborsOfCountry(d_targetCountry).contains(d_sourceCountry))
@@ -164,11 +168,10 @@ public class Advance implements IOrders{
 
     /**
      * override method to get the order name
-     * @return
      */
     @Override
     public String getOrderName() {
-        return "Advance";
+        return ApplicationConstants.ADVANCE;
     }
     @Override
     public String getTargetCountryName() {

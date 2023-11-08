@@ -28,18 +28,23 @@ public class Diplomacy implements IOrders{
      */
     public Diplomacy(String p_TargetPlayerToNegotiate){
         Card card = new Card();
-        card.setCardType(CardType.NEGOTIATE);
+        card.setCardType(CardType.DIPLOMACY);
         d_TargetPlayerToNegotiate = p_TargetPlayerToNegotiate;
     }
 
     @Override
-    public void execute(Player p_player) {
+    public void execute() {
 
+    }
+
+    @Override
+    public boolean valid() {
+        return false;
     }
 
     public boolean validateCard(Player p_player){
         //check is negotiate card is exist
-        if (!p_player.checkIfCardExists(CardType.NEGOTIATE)){
+        if (!p_player.checkIfCardExists(CardType.DIPLOMACY)){
             System.err.println("You do not have the Negotiate card!");
             return false;
         }
@@ -65,10 +70,10 @@ public class Diplomacy implements IOrders{
      * @param p_gameState show the states of game
      * @return if it's a valid game state
      */
-    @Override
-    public boolean valid(int p_gameState) {
-        return false;
-    }
+//    @Override
+//    public boolean valid(int p_gameState) {
+//        return false;
+//    }
 
     /**
      * override method to print the order from players

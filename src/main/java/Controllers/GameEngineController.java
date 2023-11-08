@@ -246,7 +246,8 @@ public class GameEngineController {
      * third phase of the game, read commands from the console
      */
     public void thirdPhase() {
-        while (true) {
+        boolean continueGame = true;
+        while (continueGame) {
             //a phase to collect orders from all the players in round-robin fashion
             issue_order();
             //execute orders from issue_order phase
@@ -289,10 +290,7 @@ public class GameEngineController {
                     }
 
                     case ApplicationConstants.EXIT: {
-                        break;
-                    }
-
-                    case ApplicationConstants.DEPLOY: {
+                        continueGame = false;
                         break;
                     }
 

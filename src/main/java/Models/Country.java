@@ -28,10 +28,18 @@ public class Country {
      */
     private int d_armies;
 
+    public boolean isD_NeutralCountry() {
+        return d_NeutralCountry;
+    }
+
+    public void setD_NeutralCountry(boolean d_NeutralCountry) {
+        this.d_NeutralCountry = d_NeutralCountry;
+    }
+
     /**
      * a list of neutral countries
      */
-    private List<Country> d_NeutralCountry;
+    private boolean d_NeutralCountry;
 
     /**
      * This is a constructor of the country class
@@ -44,7 +52,8 @@ public class Country {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continentId = p_continentId;
-        this.d_armies = 0;
+        this.d_armies = 8;
+        d_NeutralCountry = false;
     }
 
     /**
@@ -100,17 +109,17 @@ public class Country {
      * getter method to get the list of neutral countries
      * @return a list of neutral countries
      */
-    public List<Country> getD_NeutralCountry(){
-        return d_NeutralCountry;
-    }
-
-    public void addNeutralCountry(Country p_NeutralCountry){
-        if (d_NeutralCountry == null){
-            d_NeutralCountry = new ArrayList<>();
-        }
-
-        if (!d_NeutralCountry.contains(p_NeutralCountry)){
-            d_NeutralCountry.add(p_NeutralCountry);
-        }
-    }
+//    public List<Country> getD_NeutralCountry(){
+//        return d_NeutralCountry;
+//    }
+//
+//    public void addNeutralCountry(Country p_NeutralCountry){
+//        if (d_NeutralCountry == null){
+//            d_NeutralCountry = new ArrayList<>();
+//        }
+//
+//        if (!d_NeutralCountry.contains(p_NeutralCountry)){
+//            d_NeutralCountry.add(p_NeutralCountry);
+//        }
+//    }
 }

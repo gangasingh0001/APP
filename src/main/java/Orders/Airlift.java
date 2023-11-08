@@ -56,13 +56,18 @@ public class Airlift implements IOrders
                 {
                     d_countryOwnerMap.put(d_targetCountry,d_SourcePlayer);
                     d_targetCountry.setD_Armies(this.d_numberOfArmiesToAdvance);
+                    Player d_TargetPlayer = d_countryOwnerMap.get(d_targetCountry);
+
+                    d_TargetPlayer.removeAcquiredCountry(d_targetCountry);
+                    d_SourcePlayer.addAcquiredCountry(d_targetCountry);
+                    d_countryOwnerMap.put(d_targetCountry,d_SourcePlayer);
                 }
             }
         }
     }
     @Override
     public boolean valid() {
-        Boolean sourceCountryFind=false;
+        boolean sourceCountryFind=false;
         for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
         {
             Country temp=entry.getKey();
@@ -72,8 +77,8 @@ public class Airlift implements IOrders
                 break;
             }
         }
-        if (sourceCountryFind==false){;System.out.println("source country is not exist");return false;}
-        Boolean targetCountryFind=false;
+        if (!sourceCountryFind){;System.out.println("source country is not exist");return false;}
+        boolean targetCountryFind=false;
         for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet())
         {
             Country temp=entry.getKey();
@@ -83,7 +88,7 @@ public class Airlift implements IOrders
                 break;
             }
         }
-        if (targetCountryFind==false){System.out.println("target country is not exist");return false;}
+        if (!targetCountryFind){System.out.println("target country is not exist");return false;}
         if(d_countryOwnerMap.get(d_sourceCountry).equals(d_SourcePlayer)&&this.d_numberOfArmiesToAdvance<=d_sourceCountry.getD_Armies()-1)
         {
             return true;

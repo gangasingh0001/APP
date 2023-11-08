@@ -18,10 +18,12 @@ public enum CardType {
      */
     AIRLIFT,
 
+    REINFORCEMENT,
+
     /**
-     * negotiate card
+     * diplomacy card
      */
-    NEGOTIATE;
+    DIPLOMACY;
 
     /**
      * This method gives a random card from the enum CardType class

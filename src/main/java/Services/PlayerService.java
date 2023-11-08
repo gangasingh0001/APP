@@ -1,21 +1,15 @@
 package Services;
 
 import Constants.ApplicationConstants;
-import Models.Country;
-import Models.IWorldMap;
-import Models.Player;
-import Orders.Advance;
-import Orders.Deploy;
-import Orders.IOrders;
+import Models.*;
+import Orders.*;
 import Utils.Commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 /**
  * a class used to store players and manipulate players
  */
@@ -126,12 +120,24 @@ public class PlayerService implements IPlayerService{
      *Used to create deploy order for player
      */
     public void issue_order() {
+        //set every country neutral to false
+        for (Map.Entry<Country, Player> entry : d_playerOwnedCountriesMap.entrySet()) {
+            Country country=entry.getKey();
+            country.setD_NeutralCountry(false);
+        }
+
         for(Player player : this.d_players) {
             int defaultNumberOfArmies = player.getD_numberOfArmies();
             while (defaultNumberOfArmies>0) { // Deploy command code
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
                 String l_commandEntered = null;
                 try {
+                    if(!player.getD_PlayerCards().isEmpty() && player.checkIfCardExists(CardType.REINFORCEMENT)) {
+                        System.out.println(player.getD_playerName() + ": Please enter Yes to use "+ CardType.REINFORCEMENT + " card");
+                        l_commandEntered = l_reader.readLine();
+                        if(l_commandEntered.equalsIgnoreCase("yes")) defaultNumberOfArmies+=5;
+                        player.removeCard(CardType.REINFORCEMENT);
+                    }
                     System.out.println(player.getD_playerName() + ": Please enter Deploy order or type 'exit' to quit");
                     l_commandEntered = l_reader.readLine();
                 } catch (IOException l_ioException) {
@@ -156,6 +162,38 @@ public class PlayerService implements IPlayerService{
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
                 String l_commandEntered = null;
                 try {
+                    if(!player.getD_PlayerCards().isEmpty()) {
+//                        List<Card> playerCards = player.getD_PlayerCards();
+//                        Card firstCard = playerCards.getFirst();
+//                        String cardType = firstCard.getCardType().name();
+                        System.out.println(player.getD_playerName() + ": Please enter Yes to use "+ player.getD_PlayerCards().get(0).getCardType().name() + " card");
+                        l_commandEntered = l_reader.readLine();
+                        if(l_commandEntered.equalsIgnoreCase("yes")) {
+                            System.out.println(player.getD_playerName() + ": Please enter command for "+ player.getD_PlayerCards().get(0).getCardType().name() + " card");
+                            l_commandEntered = l_reader.readLine();
+                            //TODO: validate the entered card command
+                            Commands l_command = new Commands(l_commandEntered);
+                            String sourceCountryID = l_command.getL_firstParameter();
+                            String targetCountryID = l_command.getL_secondParameter();
+                            String numOfArmies = l_command.getL_thirdParameter();
+                            if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.AIRLIFT)) {
+                                Airlift airlift = new Airlift(Integer.parseInt(numOfArmies),d_worldMap.findCountryNameById(Integer.parseInt(targetCountryID)),d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
+                                airlift.execute();
+                            } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.BLOCKADE)) {
+                                //TODO: Add blockade functionality
+                                Blockade blockade = new Blockade(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
+                                blockade.execute();
+                            } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.BOMB)) {
+                                //TODO: Add Bomb functionality
+                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
+                                bomb.execute();
+                            } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
+                                //TODO: Add Negotiate/Diplomacy functionality
+                                Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter());
+                                diplomacy.execute();
+                            }
+                        }
+                    }
                     System.out.println(player.getD_playerName().toUpperCase() + ": Please enter Advance order or type 'exit' to quit");
                     l_commandEntered = l_reader.readLine();
                 } catch (IOException l_ioException) {
@@ -179,10 +217,10 @@ public class PlayerService implements IPlayerService{
      *used to execute deploy order
      */
     public void next_order() {
+
         for(Player player: d_players) { //Execute all deploy orders of all players
             for (IOrders obj : player.getD_orderList()) {
-                if (obj instanceof Deploy) {
-                    Deploy deploy = (Deploy) obj;
+                if (obj instanceof Deploy deploy) {
                     deploy.execute();
                 }
             }
@@ -194,8 +232,7 @@ public class PlayerService implements IPlayerService{
             Player currentPlayer = d_players.get(currentPlayerIndex);
             if(!currentPlayer.getD_orderList().isEmpty()) {
                 IOrders obj = currentPlayer.getD_orderList().poll();
-                if (obj instanceof Advance) {
-                    Advance advance = (Advance) obj;
+                if (obj instanceof Advance advance) {
                     advance.execute();
                     if (currentPlayer.getD_orderList().isEmpty()) {
                         allPlayersOrderCompleted++;
@@ -204,6 +241,12 @@ public class PlayerService implements IPlayerService{
             }
             currentPlayerIndex = (currentPlayerIndex + 1) % d_players.size();
         }
-        System.out.println("Success");
+
+        for(Player player: d_players) {
+            if(player.ifAcquiredCountryInThisTurn()) {
+                player.addPlayerCard(new Card(CardType.getRandomCard()));
+                player.clearAcquiredCountriesList();
+            }
+        }
     }
 }
