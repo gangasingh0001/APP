@@ -48,7 +48,7 @@ jobs:
         git config --global user.name "Ganga Singh"
         git add pom.xml
         git commit -m "Increment snapshot version"
-        git push https://$ACCESS_TOKEN@github.com/gangasingh0001/APP.git dev
+#        git push https://$ACCESS_TOKEN@github.com/gangasingh0001/APP.git dev
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Publish to GitHub Packages Apache Maven
