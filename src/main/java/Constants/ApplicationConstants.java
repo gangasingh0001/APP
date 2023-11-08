@@ -4,6 +4,12 @@ package Constants;
  * This is a class with all the defined constants
  */
 public class ApplicationConstants {
+    /**
+ * This is a constructor with all the defined constants
+ */
+    ApplicationConstants(){
+
+    }
 
     /**
      * edit map command from a player

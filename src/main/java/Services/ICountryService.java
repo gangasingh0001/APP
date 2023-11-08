@@ -25,10 +25,6 @@ public interface ICountryService {
      * @return true if the target country exist; else return false
      */
     public boolean isCountryRemoved(Commands p_commands);
-
-    /**
-     * remove the target country from all the neighbor
-     * @param p_countryId
-     */
-    public void removeCountryNeighboursFromAll(Integer p_countryId);
+    public boolean removeNeighbouringCountry(Commands p_commands);
+    public boolean addNeighbouringCountry(Commands p_commands);
 }
