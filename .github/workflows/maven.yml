@@ -35,7 +35,7 @@ jobs:
         restore-keys: |
           maven-${{ runner.os }}-
     - name: Increment Snapshot Version
-      run: mvn versions:set -DnewVersion=1.0.0-SNAPSHOT
+      run: bash increment_version.sh
     - name: Set environment variables
       run: |
         echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
