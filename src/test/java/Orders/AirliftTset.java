@@ -115,7 +115,7 @@ public class AirliftTset
             assertEquals("source country is not exist", bytes.toString().substring(0, "source country is not exist".length()));
             d_test1.getD_orderList().add(new Airlift(5, "H", "W", d_test1, d_countryOwnerMap));
             d_test1.getD_orderList().poll().execute();
-            assertEquals("source country is not exist", bytes.toString().substring("source country is not exist".length() + 2, "source country is not exist".length() + "source country is not exist".length() + 2));
+            assertEquals("source country is not exist", bytes.toString().substring("source country is not exist".length() + 1, "source country is not exist".length() + "source country is not exist".length() + 1));
         }
 
         @Test
@@ -123,7 +123,7 @@ public class AirliftTset
         {
             d_test1.getD_orderList().add(new Airlift(3, "D", "E", d_test1, d_countryOwnerMap));
             d_test1.getD_orderList().poll().execute();
-            assertEquals("Current Country is not belong to Source Player", bytes.toString().substring(0, bytes.toString().length() - 2));
+            assertEquals("Current Country is not belong to Source Player", bytes.toString().substring(0, bytes.toString().length() - 1));
         }
 
         @Test
@@ -131,7 +131,7 @@ public class AirliftTset
         {
             d_test1.getD_orderList().add(new Airlift(10, "D", "S", d_test1, d_countryOwnerMap));
             d_test1.getD_orderList().poll().execute();
-            assertEquals("We Do not Have Enough Arimes yo Attack", bytes.toString().substring(0, bytes.toString().length() - 2));
+            assertEquals("We Do not Have Enough Arimes yo Attack", bytes.toString().substring(0, bytes.toString().length() - 1));
         }
     @Test
     void isExistTargetCountry()
@@ -141,7 +141,7 @@ public class AirliftTset
         assertEquals("target country is not exist",bytes.toString().substring(0,"source country is not exist".length()));
         d_test1.getD_orderList().add(new Airlift( 5, "H", "S", d_test1, d_countryOwnerMap));
         d_test1.getD_orderList().poll().execute();
-        assertEquals("target country is not exist",bytes.toString().substring("source country is not exist".length()+2,"source country is not exist".length()+"source country is not exist".length()+2));
+        assertEquals("target country is not exist",bytes.toString().substring("source country is not exist".length()+1,"source country is not exist".length()+"source country is not exist".length()+1));
     }
 
 }

@@ -114,14 +114,14 @@ public class AdvanceTest
         assertEquals("source country is not exist",bytes.toString().substring(0,"source country is not exist".length()));
         d_test1.getD_orderList().add(new Advance( "W", "H", 5, d_test1,  d_testmap, d_countryOwnerMap));
         d_test1.getD_orderList().poll().execute();
-        assertEquals("source country is not exist",bytes.toString().substring("source country is not exist".length()+2,"source country is not exist".length()+"source country is not exist".length()+2));
+        assertEquals("source country is not exist",bytes.toString().substring("source country is not exist".length()+1,"source country is not exist".length()+"source country is not exist".length()+1));
     }
     @Test
     void isSourceCountryandTargetCountryConnected()
     {
         d_test1.getD_orderList().add(new Advance( "A", "E", 3, d_test1,  d_testmap, d_countryOwnerMap));
         d_test1.getD_orderList().poll().execute();
-        assertEquals("Two countries is not connected",bytes.toString().substring(0,bytes.toString().length()-2));
+        assertEquals("Two countries is not connected",bytes.toString().substring(0,bytes.toString().length()-1));
         d_test1.getD_orderList().add(new Advance( "A", "F", 3, d_test1,  d_testmap, d_countryOwnerMap));
         assertEquals(true, d_test1.getD_orderList().poll().valid());
     }
@@ -130,14 +130,14 @@ public class AdvanceTest
     {
         d_test1.getD_orderList().add(new Advance( "E", "D", 3, d_test1,  d_testmap, d_countryOwnerMap));
         d_test1.getD_orderList().poll().execute();
-        assertEquals("Current Country is not belong to Source Player",bytes.toString().substring(0,bytes.toString().length()-2));
+        assertEquals("Current Country is not belong to Source Player",bytes.toString().substring(0,bytes.toString().length()-1));
     }
     @Test
     void isSourceCountryhasEnoughArmies()
     {
         d_test1.getD_orderList().add(new Advance( "S", "D", 10, d_test1,  d_testmap, d_countryOwnerMap));
         d_test1.getD_orderList().poll().execute();
-        assertEquals("We Do not Have Enough Arimes yo Attack",bytes.toString().substring(0,bytes.toString().length()-2));
+        assertEquals("We Do not Have Enough Arimes yo Attack",bytes.toString().substring(0,bytes.toString().length()-1));
     }
    @Test
    void isExistTargetCountry()
@@ -147,7 +147,7 @@ public class AdvanceTest
        assertEquals("target country is not exist",bytes.toString().substring(0,"source country is not exist".length()));
        d_test1.getD_orderList().add(new Advance( "S", "H", 5, d_test1,  d_testmap, d_countryOwnerMap));
        d_test1.getD_orderList().poll().execute();
-       assertEquals("target country is not exist",bytes.toString().substring("source country is not exist".length()+2,"source country is not exist".length()+"source country is not exist".length()+2));
+       assertEquals("target country is not exist",bytes.toString().substring("source country is not exist".length()+1,"source country is not exist".length()+"source country is not exist".length()+1));
    }
     @Test
     void isDiplomacyValid()
