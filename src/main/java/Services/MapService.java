@@ -21,16 +21,26 @@ public class MapService implements IMapService{
      */
     IWorldMap d_worldMap;
 
-    /**
-     *  the constructor for Mapservice
-     * @param p_worldMap
-     */
 
+    /**
+     * get logging records
+     */
     private Logger d_logger;
+
+    /**
+     * MapSerivce constructor with logger parameter
+     * @param p_logger logging records
+     * @param p_worldMap worldmap parameter
+     */
     public MapService(Logger p_logger,IWorldMap p_worldMap) {
         d_logger = p_logger;
         d_worldMap = p_worldMap;
     }
+
+    /**
+     * default constructor for MapService
+     * @param p_worldMap worldmap parameter
+     */
     public MapService(IWorldMap p_worldMap) {
         d_worldMap = p_worldMap;
     }
@@ -67,11 +77,13 @@ public class MapService implements IMapService{
 
                         if ("continents".equals(currentSection)) {
                             // Create and add a continent
+                            d_logger.severe("Reading continents...");
                             String name = parts[0];
                             Continent continent = new Continent(continentIndex++, name,Integer.parseInt(parts[1]), parts[2]);
                             d_worldMap.addContinent(continent);
                         } else if ("countries".equals(currentSection)) {
                             // Create and add a country
+                            d_logger.severe("Reading countries...");
                             int id =Integer.parseInt(parts[0]);
                             String name = parts[1];
                             int continentId = Integer.parseInt(parts[2]);
@@ -79,6 +91,7 @@ public class MapService implements IMapService{
                             d_worldMap.addCountry(country);
                         } else if ("borders".equals(currentSection)) {
                             // Add borders (neighbors) to a country
+                            d_logger.severe("Reading country neighbours...");
                             int id =Integer.parseInt(parts[0]);
                             Country country = d_worldMap.getCountries().get(id - 1); // Assuming ids start from 1
                             List<Country> neighbors = new ArrayList<>();
@@ -92,6 +105,7 @@ public class MapService implements IMapService{
                 }
             }
         } catch (FileNotFoundException e) {
+            d_logger.severe("File not found");
             throw new FileNotFoundException("File not found");
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,6 +126,7 @@ public class MapService implements IMapService{
                 writer.write(str);
             }   
         } catch (IOException e) {
+            d_logger.severe("An error occurred while writing to the file: " + e.getMessage());
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
@@ -121,14 +136,17 @@ public class MapService implements IMapService{
      * @return true if all the country connected together, else return false
      */
     public boolean validateGraph() {
+        d_logger.severe("Check if the graph is a validate graph...");
         // Step 1: Check if every country has at least one neighbor
         if (!checkEveryCountryHasNeighbors()) {
+            d_logger.severe("Validation Error: Not every country has neighbors.");
             System.out.println("Validation Error: Not every country has neighbors.");
             return false;
         }
 
         // Step 2: Check if the graph is connected
         if (!checkGraphConnected()) {
+            d_logger.severe("Validation Error: The graph is not connected.");
             System.out.println("Validation Error: The graph is not connected.");
             return false;
         }
@@ -141,12 +159,15 @@ public class MapService implements IMapService{
      * @return if every country has neighbor then return true else return false
      */
     private boolean checkEveryCountryHasNeighbors() {
+        d_logger.severe("Check if the every country has neighbours...");
         for (Country l_country : d_worldMap.getCountries()) {
             List<Country> neighbors = d_worldMap.getNeighborsOfCountry(l_country);
             if (neighbors.isEmpty()) {
+                d_logger.severe(l_country + " has no neighbours.");
                 return false; // Country has no neighbors
             }
         }
+        d_logger.severe("All countries have neighbours.");
         return true; // All countries have neighbors
     }
 
@@ -155,6 +176,7 @@ public class MapService implements IMapService{
      * @return true if all the countries are connected
      */
     private boolean checkGraphConnected() {
+        d_logger.severe("Check if the graph is connected...");
         Set<Country> visitedCountries = new HashSet<>();
         Queue<Country> queue = new LinkedList<>();
 
@@ -173,7 +195,7 @@ public class MapService implements IMapService{
                 }
             }
         }
-
+        d_logger.severe("After check, the graph is connected.");
         // If all countries are visited, the graph is connected
         return visitedCountries.size() == d_worldMap.getCountries().size();
     }
