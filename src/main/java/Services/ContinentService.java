@@ -4,6 +4,7 @@ import Models.Continent;
 import Models.IWorldMap;
 import Utils.Commands;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * a class used to manipulate continent
@@ -17,15 +18,31 @@ public class ContinentService implements IContinentService{
      * used to store map
      */
     IWorldMap d_worldMap;
+    /**
+     * get logging records
+     */
+    private Logger d_logger;
 
     /**
      * used to initial ContinentService
-     * @param _mapService Used to manipulate map
-     * @param _worldMap Used to store map
+     * @param p_mapService Used to manipulate map
+     * @param p_worldMap Used to store map
      */
-    public ContinentService(IMapService _mapService, IWorldMap _worldMap) {
-        d_mapService = _mapService;
-        d_worldMap = _worldMap;
+    public ContinentService(IMapService p_mapService, IWorldMap p_worldMap) {
+        d_mapService = p_mapService;
+        d_worldMap = p_worldMap;
+    }
+
+    /**
+     * continentService constructor with loggings
+     * @param p_mapService Used to manipulate map
+     * @param p_worldMap Used to store map
+     * @param p_logger logging records
+     */
+    public ContinentService(IMapService p_mapService, IWorldMap p_worldMap, Logger p_logger) {
+        d_mapService = p_mapService;
+        d_worldMap = p_worldMap;
+        d_logger = p_logger;
     }
 
     /**
@@ -52,6 +69,7 @@ public class ContinentService implements IContinentService{
         if(continentToRemoveObj!=null) {
             d_worldMap.removeAllCountriesWithContinentID(continentToRemoveObj.getId());
             d_worldMap.removeContinent(continentToRemoveObj);
+            d_logger.severe(continentToRemoveObj.getName() + " successfully removed!");
             return true;
         }
         return false;
@@ -63,6 +81,7 @@ public class ContinentService implements IContinentService{
      */
     public void addContinent(Commands p_continent){
         Continent continent = new Continent(d_worldMap.getContinents().size() + 1, p_continent.getL_secondParameter(), Integer.parseInt(p_continent.getL_thirdParameter()), "");
+        d_logger.severe(continent.getName() + " successfully added.");
         d_worldMap.addContinent(continent);
     }
 }
