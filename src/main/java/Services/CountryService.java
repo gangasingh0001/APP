@@ -2,6 +2,8 @@ package Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 import Models.Continent;
 import Models.Country;
 import Models.IWorldMap;
@@ -27,6 +29,11 @@ public class CountryService implements ICountryService{
     IWorldMap worldMap;
 
     /**
+     * get logging records
+     */
+    private Logger d_logger;
+
+    /**
      * used to initial CountryService
      * @param _mapService used to manipulate map
      * @param _worldMap used to store map
@@ -34,6 +41,18 @@ public class CountryService implements ICountryService{
     public CountryService(IMapService _mapService, IWorldMap _worldMap) {
         mapService = _mapService;
         worldMap = _worldMap;
+    }
+
+    /**
+     * used to initial CountryService
+     * @param p_mapService used to manipulate map
+     * @param p_worldMap used to store map
+     * @param p_logger logging records
+     */
+    public CountryService(IMapService p_mapService, IWorldMap p_worldMap, Logger p_logger) {
+        mapService = p_mapService;
+        worldMap = p_worldMap;
+        d_logger = p_logger;
     }
 
     /**
@@ -59,6 +78,7 @@ public class CountryService implements ICountryService{
             }
         }
         if(isValidContinent) {
+            d_logger.severe(" Country " + p_commands.getL_secondParameter() + " successfully added!");
             worldMap.addCountry(country);
         }
         return isValidContinent;
@@ -78,6 +98,7 @@ public class CountryService implements ICountryService{
             }
         }
         if(countryToRemoveObj!=null) {
+            d_logger.severe("Country " + countryToRemoveObj.getName() + " successfully removed!");
             worldMap.removeCountry(countryToRemoveObj);
             return true;
         }
@@ -86,7 +107,7 @@ public class CountryService implements ICountryService{
 
     /**
      * remove all the country connected with current country
-     * @param p_countryId the name of country needed to be removed
+     * @param p_commands the name of country needed to be removed
      */
     public boolean removeNeighbouringCountry(Commands p_commands){
         Country countryFromRemoveObj = null;
@@ -104,12 +125,18 @@ public class CountryService implements ICountryService{
             }
         }
         if(countryToRemoveObj!=null && countryFromRemoveObj!=null) {
-            worldMap.removeBorder(countryFromRemoveObj, countryToRemoveObj);;
+            worldMap.removeBorder(countryFromRemoveObj, countryToRemoveObj);
+            d_logger.severe("All neighbour countries of " + countryFromRemoveObj.getName() + " are successfully removed!");
             return true;
         }
         return false;
     }
 
+    /**
+     * add neighbour countries to current country
+     * @param p_commands the name of country needed to be added
+     * @return true if neighbour country is added else false
+     */
     public boolean addNeighbouringCountry(Commands p_commands){
         Country countryFromRemoveObj = null;
         List <Country> countryToRemoveObj = new ArrayList<>();
@@ -127,7 +154,8 @@ public class CountryService implements ICountryService{
             }
         }
         if(countryToRemoveObj!=null && countryFromRemoveObj!=null) {
-            worldMap.addBorder(countryFromRemoveObj, countryToRemoveObj);;
+            worldMap.addBorder(countryFromRemoveObj, countryToRemoveObj);
+            d_logger.severe(countryFromRemoveObj.getName() + " is successfully added as a neighbour country!");
             return true;
         }
         return false;
