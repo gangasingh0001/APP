@@ -6,7 +6,7 @@
     <groupId>org</groupId>
     <artifactId>app</artifactId>
     <packaging>pom</packaging>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.7-SNAPSHOT</version>
     <profiles>
         <profile>
             <id>github</id>
@@ -96,7 +96,7 @@
                     <version>3.1.2</version> <!-- Use the version of Surefire you prefer -->
                     <configuration>
                         <includes>
-                            <include>**/*test.java</include>
+                            <include>**/*Test.java</include>
                         </includes>
                     </configuration>
                 </plugin>
