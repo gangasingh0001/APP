@@ -1,14 +1,12 @@
 package Orders;
 
-import Constants.ApplicationConstants;
 import Models.Country;
 import Models.Player;
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The command class of deploy order
+ * This is the Deploy class which implements IOrders interface
  */
 public class Deploy implements IOrders{
     /**
@@ -20,11 +18,20 @@ public class Deploy implements IOrders{
      */
     private String d_targetCountryName ;
     /**
-     * The ID of country the armies deployed to
+     * teh id of target country
      */
     private String d_targetCountryID ;
+    /**
+     * teh player who create this order
+     */
     private Player d_sourcePlayer;
+    /**
+     * the hashmap between Country and player who owned this country
+     */
     private HashMap<Country,Player> d_countryOwnerMap;
+    /**
+     * the country the armies deploy to
+     */
     private Country d_targetCountry;
     /**
      *Parameterized Constructor for Deploy
@@ -95,7 +102,7 @@ public class Deploy implements IOrders{
      }
      else
      {
-         System.out.println("");
+         System.out.println("the current deploy order is invalid");
      }
     }
 
