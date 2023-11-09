@@ -15,6 +15,12 @@ public class InvalidCommand extends Exception {
 		// super(p_message);
 		System.out.println(p_message);
 	}
+
+	/**
+	 * InvalidCommand function is used to 
+	 * @return message when exception is caught in
+	 * case command is invalid.
+	 */
 	public boolean printOutput() {	
 		return true;
 	}

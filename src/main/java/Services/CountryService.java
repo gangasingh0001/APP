@@ -1,5 +1,6 @@
 package Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import Models.Continent;
 import Models.Country;
@@ -69,7 +70,6 @@ public class CountryService implements ICountryService{
      * @return true  if that country exist and remove that country, else return false
      */
     public boolean isCountryRemoved(Commands p_commands){
-        System.out.println(p_commands.getL_firstParameter() + p_commands.getL_secondParameter());
         Country countryToRemoveObj = null;
         for(Country country: worldMap.getCountries()) {
             if(country.getName().equals(p_commands.getL_secondParameter())) {
@@ -88,6 +88,48 @@ public class CountryService implements ICountryService{
      * remove all the country connected with current country
      * @param p_countryId the name of country needed to be removed
      */
-    public void removeCountryNeighboursFromAll(Integer p_countryId){
+    public boolean removeNeighbouringCountry(Commands p_commands){
+        Country countryFromRemoveObj = null;
+        List <Country> countryToRemoveObj = new ArrayList<>();
+        for(Country country: worldMap.getCountries()) {
+            if(country.getId()==Integer.parseInt(p_commands.getL_secondParameter())) {
+                countryFromRemoveObj = country;
+                break;
+            }
+        }
+        for(Country country: worldMap.getCountries()) {
+            if(country.getId()==Integer.parseInt(p_commands.getL_thirdParameter())) {
+                countryToRemoveObj.add(country);
+                break;
+            }
+        }
+        if(countryToRemoveObj!=null && countryFromRemoveObj!=null) {
+            worldMap.removeBorder(countryFromRemoveObj, countryToRemoveObj);;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addNeighbouringCountry(Commands p_commands){
+        Country countryFromRemoveObj = null;
+        List <Country> countryToRemoveObj = new ArrayList<>();
+        for(Country country: worldMap.getCountries()) {
+            if(country.getId()==Integer.parseInt(p_commands.getL_secondParameter())) {
+                countryFromRemoveObj = country;
+                countryToRemoveObj = worldMap.getNeighborsOfCountry(countryFromRemoveObj);
+                break;
+            }
+        }
+        for(Country country: worldMap.getCountries()) {
+            if(country.getId()==Integer.parseInt(p_commands.getL_thirdParameter())) {
+                countryToRemoveObj.add(country);
+                break;
+            }
+        }
+        if(countryToRemoveObj!=null && countryFromRemoveObj!=null) {
+            worldMap.addBorder(countryFromRemoveObj, countryToRemoveObj);;
+            return true;
+        }
+        return false;
     }
 }

@@ -41,6 +41,8 @@ public interface IWorldMap {
      */
     public void addBorder(Country p_country, List<Country> p_neighborCountries);
 
+    public void removeBorder(Country p_country, List<Country> p_neighborCountries);
+
     /**
      * add method to add a new continent to the map
      * @param p_continent continent class

@@ -99,7 +99,7 @@ public class PlayerService implements IPlayerService{
     public boolean isPlayerRemoved(Commands p_command) {
         Player l_playerToRemoveObj = null;
         for(Player player: this.d_players) {
-            if(player.getD_playerName().equals(p_command.getL_thirdParameter())) {
+            if(player.getD_playerName().equals(p_command.getL_secondParameter())) {
                 l_playerToRemoveObj = player;
                 break;
             }
@@ -161,6 +161,7 @@ public class PlayerService implements IPlayerService{
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
                 String l_commandEntered = null;
                 try {
+                    System.out.println(player.getD_playerName().toUpperCase() + ": Please enter deploy order / type 'exit' to quit");
                     if(!player.getD_PlayerCards().isEmpty() && player.checkIfCardExists(CardType.REINFORCEMENT)) {
                         System.out.println(player.getD_playerName() + ": Please enter Yes to use "+ CardType.REINFORCEMENT + " card");
                         l_commandEntered = l_reader.readLine();
@@ -171,7 +172,6 @@ public class PlayerService implements IPlayerService{
                         player.removeCard(CardType.REINFORCEMENT);
                         logger.severe("Reinforcement card is removed！");
                     }
-                    System.out.println(player.getD_playerName() + ": Please enter Deploy order or type 'exit' to quit");
                     l_commandEntered = l_reader.readLine();
                     logger.severe(l_commandEntered);
                 } catch (IOException l_ioException) {

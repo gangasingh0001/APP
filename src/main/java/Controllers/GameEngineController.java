@@ -375,7 +375,7 @@ public class GameEngineController {
      */
     public void neighborEditor(Commands p_command){
         if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
-            if(d_countryService.addCountry(p_command)) {
+            if(d_countryService.addNeighbouringCountry(p_command)) {
                 logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
                 System.out.println("Added Successfully");
             }else {
@@ -383,7 +383,7 @@ public class GameEngineController {
                 System.out.println("Invalid Input");
             }
         } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
-            if(d_countryService.isCountryRemoved(p_command)) {
+            if(d_countryService.removeNeighbouringCountry(p_command)) {
                 logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
                 System.out.println("Removed Successfully");
             }else {

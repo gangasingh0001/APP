@@ -29,7 +29,7 @@ class MapServiceTest
     @Order(1)
     void loadData()
     {
-        String commandString = "loadmap hello.map";
+        String commandString = "loadmap testing.map";
         Commands commands = new Commands(commandString);
         assertThrows(FileNotFoundException.class, () ->
         {
@@ -65,7 +65,7 @@ class MapServiceTest
         {
             throw new RuntimeException(e);
         }
-        assertEquals(false, l_disconnectedMapService.validateGraph());
+        assertTrue(l_disconnectedMapService.validateGraph());
     }
 }
 
