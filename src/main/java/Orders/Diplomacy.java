@@ -1,41 +1,45 @@
 package Orders;
 
-import Models.Card;
 import Models.CardType;
 import Models.Player;
-import Models.WorldMap;
-import Services.PlayerService;
-
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * This is the Diplomacy class which implements IOrders interface
+ */
 public class Diplomacy implements IOrders{
-
-
-
     /**
-     * players information
+     * all players information
      */
     private ArrayList<Player> d_Players;
-
     /**
      * target player's name
      */
     private String d_TargetPlayerToNegotiate;
-    private Player d_sourcePlayer;
-    private  Player d_targetPlayer;
-
     /**
+     * the player creating this order
+     */
+    private Player d_sourcePlayer;
+    /**
+     * the player who source player negotiate with
+     */
+    private  Player d_targetPlayer;
+    /**
+
      * get logging records
      */
     private Logger d_logger;
 
     /**
      * Parameterized Constructor for negotiate card
+     * execute this order
+     * @param p_TargetPlayerToNegotiate the player who source player negotiate with
+     * @param p_sourcePlayer the player creating this order
+     * @param p_Players all players information
      */
-    public Diplomacy(String p_TargetPlayerToNegotiate,Player p_sourcePlayer,ArrayList<Player> p_Players){
-//        Card card = new Card();
-//        card.setCardType(CardType.DIPLOMACY);
+    public Diplomacy(String p_TargetPlayerToNegotiate,Player p_sourcePlayer,ArrayList<Player> p_Players)
+    {
         d_TargetPlayerToNegotiate = p_TargetPlayerToNegotiate;
         d_sourcePlayer=p_sourcePlayer;
         d_Players=p_Players;
@@ -49,14 +53,15 @@ public class Diplomacy implements IOrders{
      * @param p_logger logging records
      */
     public Diplomacy(String p_TargetPlayerToNegotiate,Player p_sourcePlayer,ArrayList<Player> p_Players, Logger p_logger){
-//        Card card = new Card();
-//        card.setCardType(CardType.DIPLOMACY);
         d_TargetPlayerToNegotiate = p_TargetPlayerToNegotiate;
         d_sourcePlayer=p_sourcePlayer;
         d_Players=p_Players;
         d_logger = p_logger;
     }
 
+    /**
+     * execute the current order
+     */
     @Override
     public void execute() {
         if (valid())
@@ -66,9 +71,11 @@ public class Diplomacy implements IOrders{
             d_targetPlayer.getD_diplomacyWith().add(d_sourcePlayer.getD_playerName());
             d_sourcePlayer.removeCard(CardType.DIPLOMACY);
         }
-
     }
-
+    /**
+     * check if the game state valid to execute the current order
+     * @return if it's valid game state
+     */
     @Override
     public boolean valid() {
         d_logger.severe("Check if Diplomacy card is valid...");
@@ -89,22 +96,7 @@ public class Diplomacy implements IOrders{
             System.out.println("Player "+d_TargetPlayerToNegotiate+" is not exist");
             return false;
         }
-
-
     }
-
-
-
-    /**
-     * boolean method to check the game state
-     * @param p_gameState show the states of game
-     * @return if it's a valid game state
-     */
-//    @Override
-//    public boolean valid(int p_gameState) {
-//        return false;
-//    }
-
     /**
      * override method to print the order from players
      */
@@ -120,9 +112,7 @@ public class Diplomacy implements IOrders{
             d_logger.severe("The diplomacy card is invalid: "+"player "+d_sourcePlayer.getD_playerName()+" will not diplomacy with player "+d_TargetPlayerToNegotiate);
             System.out.println("The diplomacy card is invalid: "+"player "+d_sourcePlayer.getD_playerName()+" will not diplomacy with player "+d_TargetPlayerToNegotiate);
         }
-
     }
-
     /**
      * override method to get the order name
      * @return order name

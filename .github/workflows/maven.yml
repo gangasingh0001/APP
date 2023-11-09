@@ -27,6 +27,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Clear Maven Cache
+      run: |
+        rm -rf $HOME/.m2/repository
     - name: Cache Maven dependencies
       uses: actions/cache@v2
       with:
@@ -38,19 +41,10 @@ jobs:
       run: |
         echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
         echo "TOKEN=${{ secrets.TOKEN }}" >> $GITHUB_ENV
-    - name: Increment Snapshot Version
-      env:
-        ACCESS_TOKEN: ${{ secrets.PUSH_GITHUB }}
-        USERNAME: ${{ secrets.USERNAME }}
-      run: |
-        bash increment_version.sh
-        git config --global user.email "g_s64832@live.concordia.ca"
-        git config --global user.name "Ganga Singh"
-        git add pom.xml
-        git commit -m "Increment snapshot version"
-#        git push https://$ACCESS_TOKEN@github.com/gangasingh0001/APP.git dev
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: test with Maven
+      run: mvn install surefire:test package --file pom.xml
     - name: Publish to GitHub Packages Apache Maven
       run: mvn clean install deploy -s $GITHUB_WORKSPACE/settings.xml
       env:

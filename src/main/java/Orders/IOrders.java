@@ -8,8 +8,6 @@ import Models.Player;
 public interface IOrders {
     /**
      * Execute the current order
-     *
-     * @param player
      */
     public void execute();
 
@@ -23,7 +21,6 @@ public interface IOrders {
 
     /**
      * print out the current command
-     *
      */
 
     public void printOrder();

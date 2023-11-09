@@ -1,15 +1,13 @@
 package Orders;
 
-import Constants.ApplicationConstants;
 import Models.Country;
 import Models.Player;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * The command class of deploy order
+ * This is the Deploy class which implements IOrders interface
  */
 public class Deploy implements IOrders{
     /**
@@ -27,11 +25,20 @@ public class Deploy implements IOrders{
     private Logger d_logger;
 
     /**
-     * The ID of country the armies deployed to
+     * teh id of target country
      */
     private String d_targetCountryID ;
+    /**
+     * teh player who create this order
+     */
     private Player d_sourcePlayer;
+    /**
+     * the hashmap between Country and player who owned this country
+     */
     private HashMap<Country,Player> d_countryOwnerMap;
+    /**
+     * the country the armies deploy to
+     */
     private Country d_targetCountry;
     /**
      *Parameterized Constructor for Deploy
@@ -46,7 +53,6 @@ public class Deploy implements IOrders{
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_countryOwnerMap = p_countryOwnerMap;
     }
-
     /**
      * Parameterized Constructor for Deploy and logging records
      * @param p_numberOfArmiesToDeploy The number of armies ued to deploy
@@ -83,7 +89,6 @@ public class Deploy implements IOrders{
         assert country != null;
         country.setD_Armies(country.getD_Armies()+deploy.getNumberOfArmies());
     }
-
     /**
      * valid the current game state
      * @return boolean
@@ -113,7 +118,6 @@ public class Deploy implements IOrders{
         }
         return true;
     }
-
     /**
      * Print out the current order
      */
@@ -129,7 +133,6 @@ public class Deploy implements IOrders{
             System.out.println("the current order is invalid");
             }
     }
-
     /**
      * return the type of this order
      * @return type of current order
@@ -138,7 +141,6 @@ public class Deploy implements IOrders{
     public String getOrderName() {
         return "Deploy";
     }
-
     /**
      * the country name deploy to
      * @return the country name deploy to
@@ -147,21 +149,17 @@ public class Deploy implements IOrders{
     public String getTargetCountryName() {
         return d_targetCountryName;
     }
-
     /**
      * get the country ID deploy to
      * @return the country ID deploy to
      */
-
     public String getTargetCountryID() {
         return d_targetCountryID;
     }
-
     /**
      * get the number of armies we need to deploy
      * @return the number of armies we need to deploy
      */
-
     public int getNumberOfArmies() {
         return d_numberOfArmiesToDeploy;
     }
