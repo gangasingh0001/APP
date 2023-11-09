@@ -42,7 +42,6 @@ public class Advance implements IOrders{
      * the hashmap between Country and player who owned this country
      */
     private HashMap<Country,Player> d_countryOwnerMap;
-
     /**
      * constructor for Advance order
      * @param p_sourceConuntryName teh name of country attacking
@@ -123,13 +122,11 @@ public class Advance implements IOrders{
             }
         }
         if (!targetCountryFind){System.out.println("target country is not exist");return false;}
-
-
      if(!d_WorldMap.getNeighborsOfCountry(d_targetCountry).contains(d_sourceCountry))
      {
          System.out.println("Two countries is not connected");
      }
-        if (d_SourcePlayer.getD_diplomacyWith().contains(d_countryOwnerMap.get(d_targetCountry)))
+        if (d_SourcePlayer.getD_diplomacyWith().contains(d_countryOwnerMap.get(d_targetCountry).getD_playerName()))
         {
             System.out.println("the advance order is invalid, because two player has diplomacy");
             return false;
@@ -148,7 +145,6 @@ public class Advance implements IOrders{
          System.out.println("We Do not Have Enough Arimes yo Attack");
          return false;
      }
-
     }
     /**
      * override method to print the order from players
@@ -161,7 +157,6 @@ public class Advance implements IOrders{
             System.out.println(d_SourcePlayer.getD_playerName()+" will attack country "+d_targetCountry.getName()+" form country "+d_sourceCountry.getName()+" with the number of arimes "+d_numberOfArmiesToAdvance);
         }
     }
-
     /**
      * override method to get the order name
      */
@@ -169,7 +164,6 @@ public class Advance implements IOrders{
     public String getOrderName() {
         return ApplicationConstants.ADVANCE;
     }
-
     /**
      * get Target Country Name
      * @return Target Country Name
@@ -178,7 +172,6 @@ public class Advance implements IOrders{
     public String getTargetCountryName() {
         return d_targetCountryName;
     }
-
     /**
      * get Target Country ID
      * @return Target Country ID
@@ -187,7 +180,6 @@ public class Advance implements IOrders{
     public String getTargetCountryID() {
         return d_targetCountryName;
     }
-
     /**
      * get Number Of Armies
      * @return Number Of Armies
