@@ -3,22 +3,51 @@ package Orders;
 import Models.CardType;
 import Models.Country;
 import Models.Player;
-import Services.CountryService;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This is the Airlift class which implements IOrders interface
+ */
 public class Airlift implements IOrders
 {
+    /**
+     * the number of armies used to attack
+     */
     private int d_numberOfArmiesToAdvance;
+    /**
+     * the name of country attacked
+     */
     private String d_targetCountryName ;
+    /**
+     * the name of country attacking
+     */
     private String d_sourceConuntryName;
+    /**
+     * the player attacking
+     */
     private Player d_SourcePlayer;
+    /**
+     * the country attacking
+     */
     private Country d_sourceCountry;
+    /**
+     * the country attacked
+     */
     private Country d_targetCountry;
+    /**
+     * the hashmap between Country and player who owned this country
+     */
     private HashMap<Country,Player> d_countryOwnerMap;
-
+    /**
+     * constructor for Airlift order
+     * @param p_numberOfArmiesToDeploy the number of armies used to attack
+     * @param p_targetCountryName  the name of country attacked
+     * @param p_sourceConuntryName  the name of country attacking
+     * @param p_sourcePlayer the player attacking
+     * @param p_countryOwnerMap  the hashmap between Country and player who owned this country
+     */
     public Airlift(int p_numberOfArmiesToDeploy, String p_targetCountryName, String p_sourceConuntryName, Player p_sourcePlayer, HashMap<Country,Player> p_countryOwnerMap) {
         d_numberOfArmiesToAdvance=p_numberOfArmiesToDeploy;
         d_targetCountryName=p_targetCountryName;
@@ -27,20 +56,15 @@ public class Airlift implements IOrders
         d_countryOwnerMap=p_countryOwnerMap;
         d_SourcePlayer.removeCard(CardType.AIRLIFT);
     }
+
+    /**
+     * execute Airlift order
+     */
     @Override
     public void execute() {
 
         if (valid())
         {
-//            for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
-//                Country country = entry.getKey();
-//                if(country.getName().equals(d_sourceConuntryName)) {
-//                    d_targetCountry = country;
-//                }
-//                if(country.getName().equals(d_sourceConuntryName)) {
-//                    d_sourceCountry = country;
-//                }
-//            }
             d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies()-this.d_numberOfArmiesToAdvance);
             if(d_countryOwnerMap.get(d_targetCountry).equals(d_SourcePlayer))
             {
@@ -67,6 +91,11 @@ public class Airlift implements IOrders
             }
         }
     }
+
+    /**
+     *  check if the game state is valid
+     * @return if it's a valid game state
+     */
     @Override
     public boolean valid() {
         boolean sourceCountryFind=false;
@@ -112,6 +141,10 @@ public class Airlift implements IOrders
         }
 
     }
+
+    /**
+     * print out order information
+     */
     @Override
     public void printOrder() {
         if (!valid())System.out.println("the current order is invalid");
@@ -121,21 +154,37 @@ public class Airlift implements IOrders
         }
     }
 
+    /**
+     * get the type name of current order
+     * @return the name of this order
+     */
     @Override
     public String getOrderName() {
         return "Airlift";
     }
 
+    /**
+     * get target Country Name
+     * @return  target Country Name
+     */
     @Override
     public String getTargetCountryName() {
         return d_targetCountryName;
     }
 
+    /**
+     * get Target Country ID
+     * @return Target Country ID
+     */
     @Override
     public String getTargetCountryID() {
         return d_targetCountryName;
     }
 
+    /**
+     * get the number Of Armies To Advance
+     * @return number Of Armies To Advance
+     */
     @Override
     public int getNumberOfArmies() {
         return d_numberOfArmiesToAdvance;

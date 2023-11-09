@@ -1,39 +1,42 @@
 package Orders;
 
 import Models.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is the Blockade class which implements IOrders interface
+ */
 public class Blockade implements IOrders{
 
     /**
-     * worldmap variable
-     */
-    private WorldMap d_WorldMap;
-
-    /**
-     * target country
+     * source country
      */
     private Country d_sourceCountry;
 
     /**
-     * country ID
+     * the player who create this order
+     */
+    private Player d_player;
+    /**
+     * the name of country blockaded
      */
 
-    private Player d_player;
-
     private String d_sourceCountryName;
+    /**
+     * the hashmap between Country and player who owned this country
+     */
 
     private HashMap<Country,Player> d_countryOwnerMap;
 
     /**
      * Parameterized Constructor for blockade card
-     * @param p_sourceConuntryName target country ID
+     * @param p_sourceConuntryName the name of country blockaded
+     * @param p_player  the player who create this order
+     * @param p_countryOwnerMap the hashmap between Country and player who owned this country
      */
     public Blockade(String p_sourceConuntryName, Player p_player, HashMap<Country,Player> p_countryOwnerMap){
-//        Card card = new Card();
-//        card.setCardType(CardType.BLOCKADE);
+
         d_sourceCountryName = p_sourceConuntryName;
         d_player = p_player;
         d_countryOwnerMap = p_countryOwnerMap;
@@ -42,23 +45,15 @@ public class Blockade implements IOrders{
 
     /**
      * method to apply blockade to a country
-     * parameter of player object
      */
     @Override
     public void execute() {
-        //while (!d_player.getD_PlayerCards().isEmpty()){
             if (valid()){
                 d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies() * 3);
                 d_sourceCountry.setD_NeutralCountry(true);
                 d_player.removeCard(CardType.BLOCKADE);
-               // break;
             }
-
-       // }
     }
-
-
-
     /**
      * boolean method to check the game state
      * @return if it's a valid game state
@@ -85,9 +80,8 @@ public class Blockade implements IOrders{
             return true;
         }
     }
-
     /**
-     * override method to print the order from players
+     * override method to print the order
      */
     @Override
     public void printOrder() {
