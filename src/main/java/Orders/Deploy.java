@@ -46,7 +46,6 @@ public class Deploy implements IOrders{
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_countryOwnerMap = p_countryOwnerMap;
     }
-
     /**
      *  Execute this Deploy order
      */
@@ -64,7 +63,6 @@ public class Deploy implements IOrders{
         assert country != null;
         country.setD_Armies(country.getD_Armies()+deploy.getNumberOfArmies());
     }
-
     /**
      * valid the current game state
      * @return boolean
@@ -90,7 +88,6 @@ public class Deploy implements IOrders{
         }
         return true;
     }
-
     /**
      * Print out the current order
      */
@@ -105,7 +102,6 @@ public class Deploy implements IOrders{
          System.out.println("the current deploy order is invalid");
      }
     }
-
     /**
      * return the type of this order
      * @return type of current order
@@ -114,7 +110,6 @@ public class Deploy implements IOrders{
     public String getOrderName() {
         return "Deploy";
     }
-
     /**
      * the country name deploy to
      * @return the country name deploy to
@@ -123,21 +118,17 @@ public class Deploy implements IOrders{
     public String getTargetCountryName() {
         return d_targetCountryName;
     }
-
     /**
      * get the country ID deploy to
      * @return the country ID deploy to
      */
-
     public String getTargetCountryID() {
         return d_targetCountryID;
     }
-
     /**
      * get the number of armies we need to deploy
      * @return the number of armies we need to deploy
      */
-
     public int getNumberOfArmies() {
         return d_numberOfArmiesToDeploy;
     }
