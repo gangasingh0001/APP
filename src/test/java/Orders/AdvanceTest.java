@@ -94,8 +94,6 @@ public class AdvanceTest
         d_players=new ArrayList<>();
         d_players.add(d_test1);
         d_players.add(d_test2);
-
-
     }
     @After
     public void tearDown()
