@@ -34,6 +34,9 @@ jobs:
         key: maven-${{ runner.os }}-${{ hashFiles('**/*.xml') }}
         restore-keys: |
           maven-${{ runner.os }}-
+    - name: Clear Maven Cache
+      run: |
+        rm -rf $HOME/.m2/repository
     - name: Set environment variables
       run: |
         echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
