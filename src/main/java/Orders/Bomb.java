@@ -5,6 +5,7 @@ import Models.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * This is a bomb class which implements the bomb order card
@@ -24,7 +25,13 @@ public class Bomb implements IOrders {
      */
     private String d_targetCountryName ;
 
+    /**
+     * get logging records
+     */
+    private Logger d_logger;
+
     private Player d_player;
+
     /**
      * Parameterized Constructor for bomb card
      */
@@ -37,6 +44,14 @@ public class Bomb implements IOrders {
         d_playerOwnedCountriesMap=p_playerOwnedCountriesMap;
     }
 
+    public Bomb(String p_sourceConuntryName, Player p_player, IWorldMap p_worldMap,HashMap<Country, Player> p_playerOwnedCountriesMap, Logger p_logger){
+        d_targetCountryName = p_sourceConuntryName;
+        d_player = p_player;
+        d_worldMap=p_worldMap;
+        d_playerOwnedCountriesMap=p_playerOwnedCountriesMap;
+        d_logger = p_logger;
+    }
+
     /**
      * override method of execute orders from players
      * bomb method to check conditions, if all met
@@ -47,7 +62,9 @@ public class Bomb implements IOrders {
 
         //while (!d_player.getD_PlayerCards().isEmpty()){
             if (valid()){
+                d_logger.severe("Bomb card is playing!");
                 int l_newArmies = d_TargetCountry.getD_Armies() / 2;
+                d_logger.severe("Target country now have " + l_newArmies + " armies.");
                 d_TargetCountry.setD_Armies(l_newArmies);
                 d_player.removeCard(CardType.BOMB);
                 //break;
@@ -58,7 +75,7 @@ public class Bomb implements IOrders {
 
     @Override
     public boolean valid() {
-
+        d_logger.severe("Check if Bomb card is valid...");
         boolean targetCountryFind=false;
         for (Map.Entry<Country, Player> entry : d_playerOwnedCountriesMap.entrySet())
         {
@@ -69,7 +86,10 @@ public class Bomb implements IOrders {
                 break;
             }
         }
-        if (!targetCountryFind){System.out.println("target country is not exist");return false;}
+        if (!targetCountryFind){
+            d_logger.severe("Target country is not exist");
+            System.out.println("Target country is not exist");
+            return false;}
         boolean isConnectedwithSourcePlayerCountry=false;
         for (Map.Entry<Country, Player> entry : d_playerOwnedCountriesMap.entrySet())
         {
@@ -77,12 +97,16 @@ public class Bomb implements IOrders {
             Player l_player=entry.getValue();
             if (l_player.equals(d_player)&&d_worldMap.getNeighborsOfCountry(l_country).contains(d_TargetCountry))
             {
+                d_logger.severe("Target country is the neighbour of source country.");
                 isConnectedwithSourcePlayerCountry=true;
                 break;
             }
 
         }
-        if (!isConnectedwithSourcePlayerCountry){System.out.println("target country is not connected with source player's countries");return false;}
+        if (!isConnectedwithSourcePlayerCountry){
+            d_logger.severe("Target country is not connected with source player's countries");
+            System.out.println("Target country is not connected with source player's countries");
+            return false;}
         return true;
     }
 

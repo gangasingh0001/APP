@@ -4,6 +4,7 @@ import Models.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Blockade implements IOrders{
 
@@ -28,15 +29,32 @@ public class Blockade implements IOrders{
     private HashMap<Country,Player> d_countryOwnerMap;
 
     /**
+     * get logging records
+     */
+    private Logger d_logger;
+
+    /**
      * Parameterized Constructor for blockade card
      * @param p_sourceConuntryName target country ID
      */
     public Blockade(String p_sourceConuntryName, Player p_player, HashMap<Country,Player> p_countryOwnerMap){
-//        Card card = new Card();
-//        card.setCardType(CardType.BLOCKADE);
         d_sourceCountryName = p_sourceConuntryName;
         d_player = p_player;
         d_countryOwnerMap = p_countryOwnerMap;
+    }
+
+    /**
+     * Blockade card constructor with logging records
+     * @param p_sourceConuntryName source country name
+     * @param p_player player
+     * @param p_countryOwnerMap country owned map
+     * @param p_logger logging records
+     */
+    public Blockade(String p_sourceConuntryName, Player p_player, HashMap<Country,Player> p_countryOwnerMap, Logger p_logger){
+        d_sourceCountryName = p_sourceConuntryName;
+        d_player = p_player;
+        d_countryOwnerMap = p_countryOwnerMap;
+        d_logger = p_logger;
     }
 
 
@@ -48,7 +66,9 @@ public class Blockade implements IOrders{
     public void execute() {
         //while (!d_player.getD_PlayerCards().isEmpty()){
             if (valid()){
+                d_logger.severe("Blockade card is playing!");
                 d_sourceCountry.setD_Armies(d_sourceCountry.getD_Armies() * 3);
+                d_logger.severe("Target country " + d_sourceCountry + " now is a neutral country and now has " + d_sourceCountry.getD_Armies() * 3 + " armies.");
                 d_sourceCountry.setD_NeutralCountry(true);
                 d_player.removeCard(CardType.BLOCKADE);
                // break;
@@ -65,6 +85,7 @@ public class Blockade implements IOrders{
      */
     @Override
     public boolean valid() {
+        d_logger.severe("Check if blockade card is valid...");
         boolean sourceCountryFind=false;
         for (Map.Entry<Country, Player> entry : d_countryOwnerMap.entrySet()) {
             Country l_country=entry.getKey();
@@ -74,10 +95,15 @@ public class Blockade implements IOrders{
                 break;
             }
         }
-        if (!sourceCountryFind){;System.out.println("source country"+d_sourceCountryName+" is not exist");return false;}
+        if (!sourceCountryFind){
+            d_logger.severe("source country"+d_sourceCountryName+" is not exist");
+            System.out.println("source country"+d_sourceCountryName+" is not exist");
+            return false;
+        }
         if(!d_countryOwnerMap.get(d_sourceCountry).equals(d_player))
         {
-            System.out.println("the country "+d_sourceCountryName+" is not belong to "+d_player.getD_playerName()+"so blockade is not valid");
+            d_logger.severe("The country "+d_sourceCountryName+" is not belong to "+d_player.getD_playerName()+", so blockade is not valid");
+            System.out.println("The country "+d_sourceCountryName+" is not belong to "+d_player.getD_playerName()+", so blockade is not valid");
             return false;
         }
         else
@@ -91,13 +117,16 @@ public class Blockade implements IOrders{
      */
     @Override
     public void printOrder() {
+        d_logger.severe("Blockade card validating...");
      if (valid())
      {
+         d_logger.severe("Player "+d_player.getD_playerName()+" will blockade "+d_sourceCountryName);
         System.out.println("player "+d_player.getD_playerName()+" will blockade "+d_sourceCountryName);
      }
      else
      {
-         System.out.println("the blockade is not valid");
+         d_logger.severe("The blockade card is not valid");
+         System.out.println("the blockade card is not valid");
      }
     }
 
