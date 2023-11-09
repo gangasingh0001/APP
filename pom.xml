@@ -95,7 +95,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.1.2</version> <!-- Use the version of Surefire you prefer -->
                     <configuration>
-                        <testSourceDirectory>src/main/test/java/</testSourceDirectory>
+                        <testSourceDirectory>src/main/test/java</testSourceDirectory>
                         <includes>
                             <include>**/*Test.java</include>
                         </includes>
