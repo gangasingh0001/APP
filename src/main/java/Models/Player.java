@@ -3,6 +3,7 @@ package Models;
 import Constants.ApplicationConstants;
 import Orders.Deploy;
 import Orders.IOrders;
+import Strategy.OrderStrategy;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -21,6 +22,8 @@ public class Player {
      * player name
      */
     private String d_name;
+
+    private OrderStrategy orderStrategy;
 
     public List<String> getD_diplomacyWith()
     {
@@ -154,6 +157,16 @@ public class Player {
     public void clearAcquiredCountriesList() {
         if(this.countryAcquired != null ){
             countryAcquired.clear();
+        }
+    }
+
+    public void setOrderStrategy(OrderStrategy strategy) {
+        this.orderStrategy = strategy;
+    }
+
+    public void issueOrder() {
+        if(orderStrategy != null) {
+            orderStrategy.issueOrder(this);
         }
     }
 }
