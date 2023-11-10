@@ -1,5 +1,9 @@
 package Services;
 
+import Cards.Airlift;
+import Cards.Blockade;
+import Cards.Bomb;
+import Cards.Diplomacy;
 import Constants.ApplicationConstants;
 import Models.*;
 import Orders.*;
@@ -298,5 +302,10 @@ public class PlayerService implements IPlayerService{
                 player.clearAcquiredCountriesList();
             }
         }
+    }
+
+    private Country findStrongestCountry(List<Country> countries) {
+        // Find the country with the maximum number of armies
+        return Collections.max(countries, Comparator.comparing(Country::getD_Armies));
     }
 }

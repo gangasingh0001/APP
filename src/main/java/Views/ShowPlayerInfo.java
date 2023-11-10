@@ -32,22 +32,6 @@ public class ShowPlayerInfo {
      */
     public void displayPlayerInfo() {
         System.out.println("Player Information:");
-//        for(Player player: d_playerService.getPlayersList()) {
-//            System.out.println("+-----------------------+");
-//            System.out.println("| Player Name           |");
-//            System.out.println("+-----------------------+");
-//            System.out.printf("| %-21s |\n", player.getD_playerName());
-//            System.out.println("+-----------------------+");
-//
-//            System.out.println("\nCountries Owned:");
-//            System.out.println("+----------------------------------------------------------------------------+");
-//            System.out.println("| Country ID            | Country Name          | Number of Armies           |");
-//            System.out.println("+----------------------------------------------------------------------------+");
-//            for (Country country : player.getD_coutriesOwned()) {
-//                System.out.printf("| %-21s | %-21s | %-26s |\n",country.getId(), country.getName(),country.getD_Armies());
-//            }
-//            System.out.println("+----------------------------------------------------------------------------+");
-//        }
         Map<Player, StringBuilder> playerCountryTable = new HashMap<>();
 
         for (Map.Entry<Country, Player> entry : d_playerService.getD_playerOwnedCountriesMap().entrySet()) {

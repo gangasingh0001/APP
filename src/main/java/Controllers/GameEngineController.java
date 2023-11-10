@@ -355,18 +355,18 @@ public class GameEngineController {
      * @param p_command command parameters from players
      */
     public void continentEditor(Commands p_command){
-        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
-            logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
-            d_continentService.addContinent(p_command);
-        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
-            if(d_continentService.isContinentRemoved(p_command)) {
-                logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
-                System.out.println("Removed Successfully");
-            }else{
-                logger.severe("Invalid Continent...");
-                System.out.println("Invalid Continent");
-            }
-        }
+//        if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.ADD)) {
+//            logger.severe("Command " + p_command.getL_secondParameter() + " " + p_command.getL_thirdParameter() + " added successfully.");
+//            d_continentService.addContinent(p_command);
+//        } else if(p_command.getL_firstParameter().equals("-"+ApplicationConstants.REMOVE)) {
+//            if(d_continentService.isContinentRemoved(p_command)) {
+//                logger.severe("Command " + p_command.getL_secondParameter() + " removed successfully.");
+//                System.out.println("Removed Successfully");
+//            }else{
+//                logger.severe("Invalid Continent...");
+//                System.out.println("Invalid Continent");
+//            }
+//        }
     }
 
     /**

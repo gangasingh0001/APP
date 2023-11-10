@@ -3,6 +3,7 @@ package Services;
 import Constants.ApplicationConstants;
 import Models.*;
 import Utils.Commands;
+import Views.ShowMap;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,10 +28,15 @@ public class MapService implements IMapService{
      * @param p_worldMap
      */
 
+    ShowMap d_mapView;
+
+    private boolean mapEditingAllowed = true;
+
     private Logger d_logger;
     public MapService(Logger p_logger,IWorldMap p_worldMap) {
         d_logger = p_logger;
         d_worldMap = p_worldMap;
+        d_mapView  = new ShowMap(d_worldMap);
     }
     public MapService(IWorldMap p_worldMap) {
         d_worldMap = p_worldMap;
@@ -40,7 +46,11 @@ public class MapService implements IMapService{
      * used to get the map information from text file and store all the information into worldMap instance
      * @param d_commands including loadmap (the name of map)mapname
      */
-    public void loadData(String[] params) throws FileNotFoundException {
+    public void loadData(String[] params) {
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
         //String[] params = d_commands.getL_parameters();// split the command by " "
         String currentDirectory = System.getProperty("user.dir");
         File file = new File(currentDirectory);
@@ -93,7 +103,7 @@ public class MapService implements IMapService{
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File not found");
+             new FileNotFoundException("File not found");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -102,6 +112,10 @@ public class MapService implements IMapService{
     }
 
     public void mapEditor(String fileName){
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
         String filePath = "./src/main/java/Data/Maps/" + fileName;
         File file = new File(filePath);
         if (!file.exists()) {
@@ -117,6 +131,10 @@ public class MapService implements IMapService{
      * save map in to a txt file
      */
     public void saveMap(Commands commands){
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
         String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write the text to the file
@@ -190,29 +208,12 @@ public class MapService implements IMapService{
         return visitedCountries.size() == d_worldMap.getCountries().size();
     }
 
-    public boolean isContinentRemoved(String continentName){
-        Continent continentToRemoveObj = null;
-        for(Continent continent: d_worldMap.getContinents()) {
-            if(continent.getName().equals(continentName)) {
-                continentToRemoveObj = continent;
-                break;
-            }
-        }
-        if(continentToRemoveObj!=null) {
-            d_worldMap.removeAllCountriesWithContinentID(continentToRemoveObj.getId());
-            d_worldMap.removeContinent(continentToRemoveObj);
-            return true;
-        }
-        return false;
+    public void showMap() {
+        d_mapView.show();
     }
 
-    /**
-     * add new continent to the mapQ1
-     * @param p_continent the name of new continent
-     */
-    public void addContinent(Commands p_continent){
-        Continent continent = new Continent(d_worldMap.getContinents().size() + 1, p_continent.getL_secondParameter(), Integer.parseInt(p_continent.getL_thirdParameter()), "");
-        d_worldMap.addContinent(continent);
+    public void disableMapEditing() {
+        mapEditingAllowed = false;
     }
 
 }

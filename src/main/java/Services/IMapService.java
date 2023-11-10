@@ -27,7 +27,5 @@ public interface IMapService {
      */
     public boolean validateGraph();
 
-    public boolean isContinentRemoved(String continentName);
-
-    public void addContinent(Commands p_continent);
+    public void showMap();
 }

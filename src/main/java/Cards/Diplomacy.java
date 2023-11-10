@@ -1,13 +1,15 @@
-package Orders;
+package Cards;
 
 import Models.CardType;
 import Models.Player;
+import Orders.IOrders;
+
 import java.util.ArrayList;
 
 /**
  * This is the Diplomacy class which implements IOrders interface
  */
-public class Diplomacy implements IOrders{
+public class Diplomacy implements IOrders {
     /**
      * all players information
      */

@@ -1,7 +1,7 @@
 package Services;
 
-import java.io.IOException;
+import Utils.Commands;
 
 public interface InputService {
-    String readLine() throws IOException;
+    Commands readLine();
 }

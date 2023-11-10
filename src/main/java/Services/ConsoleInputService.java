@@ -1,5 +1,7 @@
 package Services;
 
+import Utils.Commands;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,8 +15,12 @@ public class ConsoleInputService implements InputService {
     }
 
     @Override
-    public String readLine() throws IOException {
-        return reader.readLine();
+    public Commands readLine() {
+        try {
+            return new Commands(reader.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Remember to close the BufferedReader when it's no longer needed

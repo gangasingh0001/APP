@@ -1,5 +1,6 @@
 package Orders;
 
+import Cards.Diplomacy;
 import Models.Country;
 import Models.IWorldMap;
 import Models.Player;

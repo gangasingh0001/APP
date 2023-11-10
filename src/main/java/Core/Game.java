@@ -1,13 +1,10 @@
 package Core;
 
+import Constants.ApplicationConstants;
 import Models.Player;
 import Models.WorldMap;
-import Phase.GamePhase;
-import Phase.FirstPhase;
-import Phase.SecondPhase;
-import Phase.ThirdPhase;
-import Services.MapService;
-import Utils.Commands;
+import Phase.*;
+import Services.*;
 
 import java.util.List;
 
@@ -18,6 +15,8 @@ public class Game {
     private int currentPlayerIndex;
     private GamePhase currentPhase;
     private MapService mapService;
+    private InputService inputService;
+    private OutputService outputService;
 
     // Constructor
     public Game(List<Player> players, WorldMap gameMap) {
@@ -26,25 +25,19 @@ public class Game {
         this.gameMap = gameMap;
         this.currentPlayerIndex = 0;
         this.mapService = new MapService(gameMap);
-        this.currentPhase = new FirstPhase(this.mapService); // or any initial phase
-    }
-
-    public void processCommand(String command) {
-        // Command processing logic
-        // This can change the currentPhase based on certain commands or game state
+        this.inputService = new ConsoleInputService();
+        this.outputService = new ConsoleOutputService();
+        this.currentPhase = new InitializationPhase(this.mapService, new ContinentService(mapService,gameMap), new CountryService(mapService,gameMap)); // or any initial phase
     }
 
     public void play() {
         while (!gameOver) {
-            currentPhase.processCommand(p_commands);
+            outputService.print(ApplicationConstants.ENTER_COMMAND);
+            currentPhase.processCommand(inputService.readLine());
             updatePhase();
             gameOver = checkEndConditions();
         }
         displayResults();
-    }
-
-    public void initializeGame() {
-        // Load map, initialize players, set strategies, etc.
     }
 
     private void updatePhase() {
@@ -61,6 +54,14 @@ public class Game {
         // Display the end-of-game results
     }
 
+    public void secondPhase() {
+    }
+
+    public void thirdPhase() {
+    }
+
+    public void endGame() {
+    }
     // Additional methods such as adding players, setting up the map, etc.
     // Getters and Setters
 }

@@ -98,5 +98,6 @@ public class ApplicationConstants {
     public static final String ADVANCE = "advance";
     public static final String LOG = "log";
     public static final String AGGRESSIVE = "aggressive";
+    public static final String ENTER_COMMAND = "Enter Command";
 
 }

@@ -17,14 +17,14 @@ public interface IContinentService {
      * add new continent
      * @param p_continent the name of new continent
      */
-    public void addContinent(Commands p_continent);
+    public void addContinent(String continentName, int continentValue, String color);
 
     /**
      * first check if the continent need to be removed is exist,if it is exist the removed
      * this continent and the country inside the current continent and return true,
      * else return false
-     * @param p_commands the name of continent need to be removed
+     * @param continentName the name of continent need to be removed
      * @return if removed successful return true else return false
      */
-    public boolean isContinentRemoved(Commands p_commands);
+    public boolean isContinentRemoved(String continentName);
 }

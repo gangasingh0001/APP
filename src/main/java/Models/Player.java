@@ -3,7 +3,7 @@ package Models;
 import Constants.ApplicationConstants;
 import Orders.Deploy;
 import Orders.IOrders;
-import Strategy.OrderStrategy;
+import Strategy.PlayerStrategy;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public class Player {
      */
     private final String d_name;
 
-    private OrderStrategy orderStrategy;
+    private PlayerStrategy orderStrategy;
 
     public List<String> getD_diplomacyWith()
     {
@@ -51,19 +51,6 @@ public class Player {
     }
 
     private List<Country> countryAcquired;
-
-    /**
-     * player constructor
-     * @param p_playerName player name
-     */
-    public Player(String p_playerName, OrderStrategy p_strategy) {
-        this.d_name = p_playerName;
-        d_orderList = new LinkedList<>();
-        d_diplomacyWith=new ArrayList<>();
-        this.d_PlayerCards = new ArrayList<>();
-        this.countryAcquired = new ArrayList<>();
-        this.orderStrategy = p_strategy;
-    }
 
     /**
      * getter method to get number of armies
@@ -101,6 +88,19 @@ public class Player {
      * a list of cards for the player
      */
     private List<Card> d_PlayerCards;
+
+    /**
+     * player constructor
+     * @param p_playerName player name
+     */
+    public Player(String p_playerName, PlayerStrategy p_strategy) {
+        this.d_name = p_playerName;
+        d_orderList = new LinkedList<>();
+        d_diplomacyWith=new ArrayList<>();
+        this.d_PlayerCards = new ArrayList<>();
+        this.countryAcquired = new ArrayList<>();
+        this.orderStrategy = p_strategy;
+    }
 
     /**
      * getter method to get this player's cards
@@ -158,7 +158,7 @@ public class Player {
         }
     }
 
-    public void setOrderStrategy(OrderStrategy strategy) {
+    public void setOrderStrategy(PlayerStrategy strategy) {
         this.orderStrategy = strategy;
     }
 

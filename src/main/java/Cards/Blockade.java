@@ -1,13 +1,15 @@
-package Orders;
+package Cards;
 
 import Models.*;
+import Orders.IOrders;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * This is the Blockade class which implements IOrders interface
  */
-public class Blockade implements IOrders{
+public class Blockade implements IOrders {
 
     /**
      * source country

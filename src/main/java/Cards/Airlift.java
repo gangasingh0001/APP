@@ -1,8 +1,10 @@
-package Orders;
+package Cards;
 
 import Models.CardType;
 import Models.Country;
 import Models.Player;
+import Orders.IOrders;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
