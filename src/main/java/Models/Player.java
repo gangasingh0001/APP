@@ -5,7 +5,6 @@ import Orders.Deploy;
 import Orders.IOrders;
 import Strategy.OrderStrategy;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -21,7 +20,7 @@ public class Player {
     /**
      * player name
      */
-    private String d_name;
+    private final String d_name;
 
     private OrderStrategy orderStrategy;
 
@@ -52,19 +51,18 @@ public class Player {
     }
 
     private List<Country> countryAcquired;
-    /**
-     * number of armies assigned by players each turn
-     */
-    private int d_numberOfArmies = ApplicationConstants.DEFAULTARMIES;
 
     /**
      * player constructor
      * @param p_playerName player name
      */
-    public Player(String p_playerName) {
+    public Player(String p_playerName, OrderStrategy p_strategy) {
         this.d_name = p_playerName;
         d_orderList = new LinkedList<>();
         d_diplomacyWith=new ArrayList<>();
+        this.d_PlayerCards = new ArrayList<>();
+        this.countryAcquired = new ArrayList<>();
+        this.orderStrategy = p_strategy;
     }
 
     /**
@@ -72,7 +70,7 @@ public class Player {
      * @return number of armies
      */
     public int getD_numberOfArmies() {
-        return d_numberOfArmies;
+        return ApplicationConstants.DEFAULTARMIES;
     }
 
     /**
@@ -102,13 +100,13 @@ public class Player {
     /**
      * a list of cards for the player
      */
-    private ArrayList<Card> d_PlayerCards = new ArrayList<>();
+    private List<Card> d_PlayerCards;
 
     /**
      * getter method to get this player's cards
      * @return a list of cards for the player
      */
-    public ArrayList<Card> getD_PlayerCards() {
+    public List<Card> getD_PlayerCards() {
         return d_PlayerCards;
     }
 
@@ -123,11 +121,11 @@ public class Player {
 
     /**
      * remove the card after using it
+     *
      * @param p_CardType card type
-     * @return true if the used card is removed otherwise false
      */
-    public boolean removeCard(CardType p_CardType){
-        return d_PlayerCards.remove(new Card(p_CardType));
+    public void removeCard(CardType p_CardType){
+        d_PlayerCards.remove(new Card(p_CardType));
     }
 
     /**

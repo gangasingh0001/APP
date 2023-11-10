@@ -1,4 +1,10 @@
 package Strategy;
 
-public class RandomStrategy {
+import Models.Player;
+
+public class RandomStrategy implements OrderStrategy{
+    @Override
+    public void issueOrder(Player player) {
+
+    }
 }

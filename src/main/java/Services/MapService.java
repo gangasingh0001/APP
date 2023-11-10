@@ -1,5 +1,6 @@
 package Services;
 
+import Constants.ApplicationConstants;
 import Models.*;
 import Utils.Commands;
 
@@ -39,8 +40,8 @@ public class MapService implements IMapService{
      * used to get the map information from text file and store all the information into worldMap instance
      * @param d_commands including loadmap (the name of map)mapname
      */
-    public void loadData(Commands d_commands) throws FileNotFoundException {
-        String[] params = d_commands.getL_parameters();// split the command by " "
+    public void loadData(String[] params) throws FileNotFoundException {
+        //String[] params = d_commands.getL_parameters();// split the command by " "
         String currentDirectory = System.getProperty("user.dir");
         File file = new File(currentDirectory);
         try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1])))
@@ -100,6 +101,17 @@ public class MapService implements IMapService{
         }
     }
 
+    public void mapEditor(String fileName){
+        String filePath = "./src/main/java/Data/Maps/" + fileName;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * save map in to a txt file
@@ -176,6 +188,31 @@ public class MapService implements IMapService{
 
         // If all countries are visited, the graph is connected
         return visitedCountries.size() == d_worldMap.getCountries().size();
+    }
+
+    public boolean isContinentRemoved(String continentName){
+        Continent continentToRemoveObj = null;
+        for(Continent continent: d_worldMap.getContinents()) {
+            if(continent.getName().equals(continentName)) {
+                continentToRemoveObj = continent;
+                break;
+            }
+        }
+        if(continentToRemoveObj!=null) {
+            d_worldMap.removeAllCountriesWithContinentID(continentToRemoveObj.getId());
+            d_worldMap.removeContinent(continentToRemoveObj);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * add new continent to the mapQ1
+     * @param p_continent the name of new continent
+     */
+    public void addContinent(Commands p_continent){
+        Continent continent = new Continent(d_worldMap.getContinents().size() + 1, p_continent.getL_secondParameter(), Integer.parseInt(p_continent.getL_thirdParameter()), "");
+        d_worldMap.addContinent(continent);
     }
 
 }

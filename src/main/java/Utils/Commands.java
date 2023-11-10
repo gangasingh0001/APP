@@ -125,8 +125,7 @@ public class Commands {
                         return false;
                 }
             }
-            case ApplicationConstants.EDITCOUNTRY:
-            if (l_parameters.length < 2) {
+            case ApplicationConstants.EDITCOUNTRY: if (l_parameters.length < 2) {
                     new InvalidCommand("Invalid command format for " + l_command);
                     return false;
                 }

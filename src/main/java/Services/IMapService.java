@@ -12,7 +12,7 @@ public interface IMapService {
      * load map
      * @param commands the name of command and the name of map
      */
-    public void loadData(Commands commands) throws FileNotFoundException;
+    public void loadData(String[] params) throws FileNotFoundException;
 
     /**
      * save the map into txt file
@@ -27,4 +27,7 @@ public interface IMapService {
      */
     public boolean validateGraph();
 
+    public boolean isContinentRemoved(String continentName);
+
+    public void addContinent(Commands p_continent);
 }
