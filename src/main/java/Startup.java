@@ -1,5 +1,4 @@
 import Constants.ApplicationConstants;
-import Controllers.GameEngineController;
 import Logger.ILogging;
 import Logger.Logging;
 import Models.IWorldMap;
@@ -30,8 +29,8 @@ public class Startup {
         //define and initiate a PlayerService instance to ingrate player's input commands from the console
         IPlayerService playerService = new PlayerService(logger,l_mapService,l_worldMap);
         //define and initiate a controller which receives commands and redirect them to their respective services
-        GameEngineController l_game = new GameEngineController(l_mapService,playerService,l_worldMap);
-        //to stark the game
-        l_game.initGame(logger);
+//        GameEngineController l_game = new GameEngineController(l_mapService,playerService,l_worldMap);
+//        //to stark the game
+//        l_game.initGame(logger);
     }
 }

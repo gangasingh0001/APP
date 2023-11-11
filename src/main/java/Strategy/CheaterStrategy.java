@@ -27,4 +27,12 @@ public class CheaterStrategy implements PlayerStrategy {
     public void moveArmies(Player player) {
 
     }
+
+    /**
+     *
+     */
+    @Override
+    public void execute() {
+
+    }
 }

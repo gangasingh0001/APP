@@ -5,7 +5,7 @@ import Services.CountryService;
 import Services.MapService;
 import Utils.Commands;
 
-public class InitializationPhase extends GamePhase implements PhaseObserver{
+public class InitializationPhase extends GamePhase{
 
     private final MapService d_mapService;
     private final ContinentService d_continentService;

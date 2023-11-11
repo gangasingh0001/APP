@@ -27,4 +27,12 @@ public class RandomStrategy implements PlayerStrategy {
     public void moveArmies(Player player) {
 
     }
+
+    /**
+     *
+     */
+    @Override
+    public void execute() {
+
+    }
 }

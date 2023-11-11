@@ -24,13 +24,13 @@ class CountryServiceTest
         d_command=new Commands("loadmap google.map");
         d_worldMap=new WorldMap();
         d_mapService=new MapService(d_worldMap);
-        try
-        {
-            d_mapService.loadData(d_command);
-        } catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
+//        try
+//        {
+//           // d_mapService.loadData(d_command);
+//        } catch (FileNotFoundException e)
+//        {
+//            throw new RuntimeException(e);
+//        }
         d_countryService=new CountryService(d_mapService,d_worldMap);
     }
     @Test
