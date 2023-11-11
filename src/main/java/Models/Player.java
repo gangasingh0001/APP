@@ -164,7 +164,7 @@ public class Player {
 
     public void issueOrder() {
         if(orderStrategy != null) {
-            orderStrategy.issueOrder(this);
+//            orderStrategy.issueOrder(this);
         }
     }
 }

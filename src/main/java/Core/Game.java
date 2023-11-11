@@ -41,11 +41,6 @@ public class Game {
         displayResults();
     }
 
-//    private void updatePhase() {
-//        // Logic to update the current phase based on the game state
-//        // For example, move from planning phase to execution phase
-//    }
-
     private boolean checkEndConditions() {
         // Check for game-over conditions
         return false; // Replace with actual game-over logic

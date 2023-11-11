@@ -91,8 +91,8 @@ public class PlayerService implements IPlayerService{
      * @param p_command should provide playerID
      */
     public void addPlayer(Commands p_command) {
-        Player player = new Player(p_command.getL_secondParameter());
-        this.d_players.add(player);
+//        Player player = new Player(p_command.getL_secondParameter());
+//        this.d_players.add(player);
     }
 
     /**
