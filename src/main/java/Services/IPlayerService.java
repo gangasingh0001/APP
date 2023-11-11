@@ -2,7 +2,7 @@ package Services;
 
 import Models.Country;
 import Models.Player;
-import Utils.Commands;
+import Middleware.Middleware;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,14 +22,14 @@ public interface IPlayerService {
      *  add new players to ArrayList<Player>
      * @param p_commands command used to add new players
      */
-    public void addPlayer(Commands p_commands);
+    public void addPlayer(Middleware p_commands);
 
     /**
      * check the current parameter is player, if it is player then removr it form player list
      * @param p_commands
      * @return boolean
      */
-    public boolean isPlayerRemoved(Commands p_commands);
+    public boolean isPlayerRemoved(Middleware p_commands);
 
     /**
      * used to create deploy order

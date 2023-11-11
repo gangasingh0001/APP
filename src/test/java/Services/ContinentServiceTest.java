@@ -1,18 +1,5 @@
 package Services;
 
-import Models.Continent;
-import Models.IWorldMap;
-import Models.WorldMap;
-import Utils.Commands;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class ContinentServiceTest
 {
 //    IMapService d_mapService;

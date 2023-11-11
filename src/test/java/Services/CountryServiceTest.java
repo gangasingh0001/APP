@@ -1,12 +1,10 @@
 package Services;
 
 import Models.*;
-import Utils.Commands;
-import org.junit.Before;
+import Middleware.Middleware;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,11 @@ class CountryServiceTest
     IMapService d_mapService;
     IWorldMap d_worldMap;
     ICountryService d_countryService;
-    Commands d_command;
+    Middleware d_command;
     @BeforeEach
     public void setup()
     {
-        d_command=new Commands("loadmap google.map");
+        d_command=new Middleware("loadmap google.map");
         d_worldMap=new WorldMap();
         d_mapService=new MapService(d_worldMap);
 //        try
@@ -89,11 +87,11 @@ class CountryServiceTest
     @Test
     void addCountry()
     {
-        Commands l_addCountry_1=new Commands("editcountry -add England 1");
+        Middleware l_addCountry_1=new Middleware("editcountry -add England 1");
         l_addCountry_1.validateCommand();
         d_countryService.addCountry(l_addCountry_1);
         assertEquals(38,d_countryService.getCountryList().size());
-        Commands l_addCountry_2=new Commands("editcountry -add French 2");
+        Middleware l_addCountry_2=new Middleware("editcountry -add French 2");
         l_addCountry_2.validateCommand();
         d_countryService.addCountry(l_addCountry_2);
         assertEquals(39,d_countryService.getCountryList().size());
@@ -102,10 +100,10 @@ class CountryServiceTest
     @Test
     void isCountryRemoved()
     {
-        Commands l_removeCountry=new Commands("editcountry -remove England");
+        Middleware l_removeCountry=new Middleware("editcountry -remove England");
         l_removeCountry.validateCommand();
         assertEquals(false,d_countryService.isCountryRemoved(l_removeCountry));
-        Commands l_removeCountry_2=new Commands("editcountry -remove Schweiz");
+        Middleware l_removeCountry_2=new Middleware("editcountry -remove Schweiz");
         l_removeCountry_2.validateCommand();
         assertEquals(true,d_countryService.isCountryRemoved(l_removeCountry_2));
         assertEquals(36,d_countryService.getCountryList().size());

@@ -5,15 +5,11 @@ import Models.Country;
 import Models.IWorldMap;
 import Models.Player;
 import Models.WorldMap;
-import Utils.Commands;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
+import Middleware.Middleware;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -219,7 +215,7 @@ class PlayerServiceTest {
     @Test
     void cannotAssignMoreThan5(){
         String l_commandString = "deploy 12 6";
-        Commands l_commands = new Commands(l_commandString);
+        Middleware l_commands = new Middleware(l_commandString);
         l_commands.validateCommand();
         assertFalse(Integer.parseInt(String.valueOf(l_commands.getL_secondParameter())) <= ApplicationConstants.DEFAULTARMIES);
     }

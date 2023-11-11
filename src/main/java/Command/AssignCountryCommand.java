@@ -1,14 +1,13 @@
 package Command;
 
-import Constants.ApplicationConstants;
 import Services.PlayerService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class AssignCountryCommand implements Command{
-    private final Commands d_command;
+    private final Middleware d_command;
     private final PlayerService d_playerService;
 
-    public AssignCountryCommand(PlayerService playerService, Commands command) {
+    public AssignCountryCommand(PlayerService playerService, Middleware command) {
         this.d_playerService = playerService;
         this.d_command = command;
     }

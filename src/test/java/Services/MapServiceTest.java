@@ -1,15 +1,6 @@
 package Services;
 
-import Models.IWorldMap;
-import Models.WorldMap;
-import Utils.Commands;
 import org.junit.jupiter.api.*;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.io.FileNotFoundException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class MapServiceTest

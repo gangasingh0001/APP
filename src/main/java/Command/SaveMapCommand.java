@@ -1,15 +1,15 @@
 package Command;
 
 import Services.MapService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 import java.io.File;
 
 public class SaveMapCommand implements Command {
     private final MapService mapService;
-    private final Commands command;
+    private final Middleware command;
 
-    public SaveMapCommand(MapService mapService, Commands command) {
+    public SaveMapCommand(MapService mapService, Middleware command) {
         this.mapService = mapService;
         this.command = command;
     }

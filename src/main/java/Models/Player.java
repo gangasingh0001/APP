@@ -23,6 +23,7 @@ public class Player {
     private final String d_name;
 
     private PlayerStrategy orderStrategy;
+    private Boolean humanPlayer;
 
     public List<String> getD_diplomacyWith()
     {
@@ -102,6 +103,15 @@ public class Player {
         this.orderStrategy = p_strategy;
     }
 
+    public Player(String p_playerName, Boolean humanPlayer) {
+        this.d_name = p_playerName;
+        d_orderList = new LinkedList<>();
+        d_diplomacyWith=new ArrayList<>();
+        this.d_PlayerCards = new ArrayList<>();
+        this.countryAcquired = new ArrayList<>();
+        this.humanPlayer = humanPlayer;
+    }
+
     /**
      * getter method to get this player's cards
      * @return a list of cards for the player
@@ -166,5 +176,9 @@ public class Player {
         if(orderStrategy != null) {
 //            orderStrategy.issueOrder(this);
         }
+    }
+
+    public Boolean getIsHumanPlayer() {
+        return humanPlayer;
     }
 }

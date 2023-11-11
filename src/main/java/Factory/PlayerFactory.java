@@ -8,12 +8,13 @@ import Strategy.CheaterStrategy;
 import Strategy.RandomStrategy;
 
 public class PlayerFactory {
-    public Player createPlayer(String p_playerName, String type) {
+    public Player createPlayer(String p_playerName, int type) {
         return switch (type) {
-            case ApplicationConstants.AGGRESSIVE -> new Player(p_playerName, new AggressiveStrategy());
-            case "defensive" -> new Player(p_playerName, new BenevolentStrategy()); //TODO: Change "defensice" string with applicationConstant"
-            case "Cheater" -> new Player(p_playerName, new CheaterStrategy()); //TODO: Change "Cheater" string with applicationConstant"
-            case "Random" -> new Player(p_playerName, new RandomStrategy()); //TODO: Change "Random" string with applicationConstant"
+            case 1 -> new Player(p_playerName, new AggressiveStrategy());
+            case 2 -> new Player(p_playerName, new BenevolentStrategy());
+            case 3 -> new Player(p_playerName, new CheaterStrategy());
+            case 4 -> new Player(p_playerName, new RandomStrategy());
+            case 5 -> new Player(p_playerName, true);
             default -> throw new IllegalArgumentException("Unknown player type: " + type);
         };
     }

@@ -2,13 +2,13 @@ package Command;
 
 import Constants.ApplicationConstants;
 import Services.ContinentService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class EditContinentCommand implements Command {
     private final ContinentService continentService;
-    private final Commands command;
+    private final Middleware command;
 
-    public EditContinentCommand(ContinentService continentService, Commands command) {
+    public EditContinentCommand(ContinentService continentService, Middleware command) {
         this.continentService = continentService;
         this.command = command;
     }

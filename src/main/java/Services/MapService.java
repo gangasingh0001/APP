@@ -1,8 +1,7 @@
 package Services;
 
-import Constants.ApplicationConstants;
 import Models.*;
-import Utils.Commands;
+import Middleware.Middleware;
 import Views.ShowMap;
 
 import java.io.*;
@@ -130,7 +129,7 @@ public class MapService implements IMapService{
     /**
      * save map in to a txt file
      */
-    public void saveMap(Commands commands){
+    public void saveMap(Middleware commands){
         if (!mapEditingAllowed) {
             System.out.println("Map editing is not allowed.");
             return;

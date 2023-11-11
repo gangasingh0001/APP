@@ -1,12 +1,13 @@
-package Utils;
+package Middleware;
 
 import Constants.ApplicationConstants;
 import Exceptions.InvalidCommand;
+import Utils.Utils;
 
 /**
  * a class used to store every word in the input command
  */
-public class Commands {
+public class Middleware {
     /**
      * the first word of input command
      */
@@ -33,7 +34,7 @@ public class Commands {
      * initial command object
      * @param p_command the input command from consel
      */
-    public Commands(String p_command ){
+    public Middleware(String p_command ){
         // if (p_command == " " || p_command == null || p_command.trim().isEmpty()) {
         //     new InvalidCommand("Command cannot be null or empty.");
         //     return;

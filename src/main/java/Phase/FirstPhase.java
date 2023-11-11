@@ -2,29 +2,24 @@ package Phase;
 
 import Command.*;
 import Constants.ApplicationConstants;
-import Core.Game;
 import Services.ContinentService;
 import Services.CountryService;
 import Services.MapService;
-import Utils.Commands;
-
-import java.io.File;
+import Middleware.Middleware;
 
 public class FirstPhase extends GamePhase {
     private final CommandProcessor commandProcessor;
     private final MapService mapService;
     private final ContinentService d_continentService;
     private final CountryService d_countryService;
-    private final Game d_game;
-    public FirstPhase(Game p_game, MapService mapService, ContinentService dContinentService, CountryService countryService) {
-        this.d_game = p_game;
+    public FirstPhase(MapService mapService, ContinentService dContinentService, CountryService countryService) {
         this.commandProcessor = new CommandProcessor(mapService, dContinentService, countryService);;
         this.mapService = mapService;
         d_continentService = dContinentService;
         this.d_countryService = countryService;
     }
     @Override
-    public void processCommand(Commands p_command) {
+    public void processCommand(Middleware p_command) {
         // Implementation for first phase command processing
         switch (p_command.getL_rootCommand()) {
             //read different commands then perform regarding methods
@@ -56,7 +51,7 @@ public class FirstPhase extends GamePhase {
                 break;
             }
             case ApplicationConstants.EXIT: {
-                d_game.secondPhase();
+                notifyPhaseComplete();
                 break;
             }
             default: {
