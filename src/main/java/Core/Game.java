@@ -17,6 +17,7 @@ public class Game {
     private MapService mapService;
     private InputService inputService;
     private OutputService outputService;
+    private Game game;
 
     // Constructor
     public Game(List<Player> players, WorldMap gameMap) {
@@ -34,16 +35,16 @@ public class Game {
         while (!gameOver) {
             outputService.print(ApplicationConstants.ENTER_COMMAND);
             currentPhase.processCommand(inputService.readLine());
-            updatePhase();
+            //updatePhase();
             gameOver = checkEndConditions();
         }
         displayResults();
     }
 
-    private void updatePhase() {
-        // Logic to update the current phase based on the game state
-        // For example, move from planning phase to execution phase
-    }
+//    private void updatePhase() {
+//        // Logic to update the current phase based on the game state
+//        // For example, move from planning phase to execution phase
+//    }
 
     private boolean checkEndConditions() {
         // Check for game-over conditions
