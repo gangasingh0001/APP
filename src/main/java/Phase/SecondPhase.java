@@ -2,24 +2,21 @@ package Phase;
 
 import Command.*;
 import Constants.ApplicationConstants;
-import Core.Game;
 import Services.MapService;
 import Services.PlayerService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class SecondPhase extends GamePhase{
     private final CommandProcessor commandProcessor;
     private final MapService mapService;
     private final PlayerService d_playerService;
-    private final Game d_game;
-    public SecondPhase(Game p_game, MapService mapService, PlayerService p_playerService) {
-        this.d_game = p_game;
+    public SecondPhase(MapService mapService, PlayerService p_playerService) {
         this.d_playerService = p_playerService;
         this.mapService = mapService;
         this.commandProcessor = new CommandProcessor(mapService,p_playerService);;
     }
     @Override
-    public void processCommand(Commands p_command) {
+    public void processCommand(Middleware p_command) {
         // Implementation for Second phase command processing
         switch (p_command.getL_rootCommand()) {
             //read different commands then perform regarding methods
@@ -39,7 +36,7 @@ public class SecondPhase extends GamePhase{
                 break;
             }
             case ApplicationConstants.EXIT: {
-                d_game.thirdPhase();
+                notifyPhaseComplete();
                 break;
             }
             default: {

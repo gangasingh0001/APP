@@ -2,13 +2,13 @@ package Command;
 
 import Constants.ApplicationConstants;
 import Services.CountryService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class EditNeighbourCommand implements Command {
     private final CountryService countryService;
-    private final Commands command;
+    private final Middleware command;
 
-    public EditNeighbourCommand(CountryService countryService, Commands command) {
+    public EditNeighbourCommand(CountryService countryService, Middleware command) {
         this.countryService = countryService;
         this.command = command;
     }

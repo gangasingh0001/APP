@@ -1,7 +1,9 @@
 package Services;
 
-import Utils.Commands;
+import Middleware.Middleware;
 
 public interface InputService {
-    Commands readLine();
+    Middleware readCommand();
+    int readInt();
+    String readLine();
 }

@@ -7,7 +7,7 @@ import Cards.Diplomacy;
 import Constants.ApplicationConstants;
 import Models.*;
 import Orders.*;
-import Utils.Commands;
+import Middleware.Middleware;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,7 +90,7 @@ public class PlayerService implements IPlayerService{
      * add players to the arraylist<Player> in PlayerService
      * @param p_command should provide playerID
      */
-    public void addPlayer(Commands p_command) {
+    public void addPlayer(Middleware p_command) {
 //        Player player = new Player(p_command.getL_secondParameter());
 //        this.d_players.add(player);
     }
@@ -100,7 +100,7 @@ public class PlayerService implements IPlayerService{
      * @param p_command should include the name player removed
      * @return if remove successful then return true, else return false
      */
-    public boolean isPlayerRemoved(Commands p_command) {
+    public boolean isPlayerRemoved(Middleware p_command) {
         Player l_playerToRemoveObj = null;
         for(Player player: this.d_players) {
             if(player.getD_playerName().equals(p_command.getL_secondParameter())) {
@@ -181,7 +181,7 @@ public class PlayerService implements IPlayerService{
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
                 }
-                Commands l_command = new Commands(l_commandEntered);
+                Middleware l_command = new Middleware(l_commandEntered);
                 boolean deployFlag = false;
                 if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     int countryID = Integer.parseInt(l_command.getL_firstParameter());
@@ -213,7 +213,7 @@ public class PlayerService implements IPlayerService{
                             logger.severe(player.getD_playerName() + " selects card: " + player.getD_PlayerCards().get(0).getCardType().name());
                             l_commandEntered = l_reader.readLine();
                             //TODO: validate the entered card command
-                            Commands l_command = new Commands(l_commandEntered);
+                            Middleware l_command = new Middleware(l_commandEntered);
                             String sourceCountryID = l_command.getL_firstParameter();
                             String targetCountryID = l_command.getL_secondParameter();
                             String numOfArmies = l_command.getL_thirdParameter();
@@ -251,7 +251,7 @@ public class PlayerService implements IPlayerService{
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
                 }
-                Commands l_command = new Commands(l_commandEntered);
+                Middleware l_command = new Middleware(l_commandEntered);
                 if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     String countryNameFrom = l_command.getL_firstParameter();
                     String countryNameTo = l_command.getL_secondParameter();

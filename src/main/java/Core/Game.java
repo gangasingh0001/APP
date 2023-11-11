@@ -8,7 +8,7 @@ import Services.*;
 
 import java.util.List;
 
-public class Game {
+public class Game implements PhaseObserver{
     private boolean gameOver;
     private List<Player> players;
     private WorldMap gameMap;
@@ -17,7 +17,7 @@ public class Game {
     private MapService mapService;
     private InputService inputService;
     private OutputService outputService;
-    private Game game;
+    private PlayerService playerService;
 
     // Constructor
     public Game(List<Player> players, WorldMap gameMap) {
@@ -34,30 +34,36 @@ public class Game {
     public void play() {
         while (!gameOver) {
             outputService.print(ApplicationConstants.ENTER_COMMAND);
-            currentPhase.processCommand(inputService.readLine());
-            //updatePhase();
+            currentPhase.processCommand(inputService.readCommand());
             gameOver = checkEndConditions();
         }
         displayResults();
     }
 
     private boolean checkEndConditions() {
-        // Check for game-over conditions
-        return false; // Replace with actual game-over logic
+        if(players.size()==1) return true;
+        return false;
     }
 
     private void displayResults() {
-        // Display the end-of-game results
+        //TODO: Display the end-of-game results
     }
 
-    public void secondPhase() {
-    }
+    @Override
+    public void onPhaseComplete() {
+        if (currentPhase instanceof InitializationPhase) {
+            currentPhase = new FirstPhase(mapService,new ContinentService(mapService,gameMap),new CountryService(mapService,gameMap));
+        } else if (currentPhase instanceof FirstPhase) {
+            playerService = new PlayerService(mapService,gameMap);
+            currentPhase = new SecondPhase(mapService,playerService);
+        } else if (currentPhase instanceof SecondPhase) {
+            currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
+        } else if (currentPhase instanceof ThirdPhase) {
+            currentPhase = new GamePlayPhase();
+        } else if (currentPhase instanceof GamePlayPhase) {
+            currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
+        }
 
-    public void thirdPhase() {
+        currentPhase.setObserver(this);
     }
-
-    public void endGame() {
-    }
-    // Additional methods such as adding players, setting up the map, etc.
-    // Getters and Setters
 }

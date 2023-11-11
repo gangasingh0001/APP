@@ -1,16 +1,18 @@
 package Phase;
 
-import Services.ContinentService;
-import Services.CountryService;
-import Services.MapService;
-import Services.PlayerService;
-import Utils.Commands;
-
-import java.util.ArrayList;
-import java.util.List;
+import Middleware.Middleware;
 
 public abstract class GamePhase {
-    public abstract void processCommand(Commands p_command);
+    private PhaseObserver observer;
+    public void setObserver(PhaseObserver observer) {
+        this.observer = observer;
+    }
+    protected void notifyPhaseComplete() {
+        if(observer!=null) {
+            observer.onPhaseComplete();
+        }
+    }
+    public abstract void processCommand(Middleware p_command);
 
 }
 

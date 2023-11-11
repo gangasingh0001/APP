@@ -1,15 +1,14 @@
 package Command;
 
 import Constants.ApplicationConstants;
-import Services.ContinentService;
 import Services.PlayerService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class AddPlayerCommand implements Command{
-    private final Commands d_command;
+    private final Middleware d_command;
     private final PlayerService d_playerService;
 
-    public AddPlayerCommand(PlayerService playerService, Commands command) {
+    public AddPlayerCommand(PlayerService playerService, Middleware command) {
         this.d_playerService = playerService;
         this.d_command = command;
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import Models.Continent;
 import Models.Country;
 import Models.IWorldMap;
-import Utils.Commands;
+import Middleware.Middleware;
 
 /**
  * a class used to manipulate countries in game map
@@ -50,7 +50,7 @@ public class CountryService implements ICountryService{
      * @param p_commands the name of country needed to added
      * @return true  if the continent of that country exist then add that country, else return false
      */
-    public boolean addCountry(Commands p_commands){
+    public boolean addCountry(Middleware p_commands){
         Country country = new Country(worldMap.getCountries().size() + 1, p_commands.getL_secondParameter(), Integer.parseInt(p_commands.getL_thirdParameter()));
         boolean isValidContinent = false;
         for(Continent continent: worldMap.getContinents()) {
@@ -69,7 +69,7 @@ public class CountryService implements ICountryService{
      * @param p_commands the name of country needed to remove
      * @return true  if that country exist and remove that country, else return false
      */
-    public boolean isCountryRemoved(Commands p_commands){
+    public boolean isCountryRemoved(Middleware p_commands){
         Country countryToRemoveObj = null;
         for(Country country: worldMap.getCountries()) {
             if(country.getName().equals(p_commands.getL_secondParameter())) {
@@ -88,7 +88,7 @@ public class CountryService implements ICountryService{
      * remove all the country connected with current country
      * @param p_countryId the name of country needed to be removed
      */
-    public boolean removeNeighbouringCountry(Commands p_commands){
+    public boolean removeNeighbouringCountry(Middleware p_commands){
         Country countryFromRemoveObj = null;
         List <Country> countryToRemoveObj = new ArrayList<>();
         for(Country country: worldMap.getCountries()) {
@@ -110,7 +110,7 @@ public class CountryService implements ICountryService{
         return false;
     }
 
-    public boolean addNeighbouringCountry(Commands p_commands){
+    public boolean addNeighbouringCountry(Middleware p_commands){
         Country countryFromRemoveObj = null;
         List <Country> countryToRemoveObj = new ArrayList<>();
         for(Country country: worldMap.getCountries()) {

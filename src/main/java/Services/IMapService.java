@@ -1,6 +1,6 @@
 package Services;
 
-import Utils.Commands;
+import Middleware.Middleware;
 
 import java.io.FileNotFoundException;
 
@@ -18,7 +18,7 @@ public interface IMapService {
      * save the map into txt file
      */
 
-    public void saveMap(Commands commands);
+    public void saveMap(Middleware commands);
 
 
     /**

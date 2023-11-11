@@ -3,7 +3,7 @@ package Phase;
 import Services.ContinentService;
 import Services.CountryService;
 import Services.MapService;
-import Utils.Commands;
+import Middleware.Middleware;
 
 public class InitializationPhase extends GamePhase{
 
@@ -19,7 +19,7 @@ public class InitializationPhase extends GamePhase{
      * @param p_commands
      */
     @Override
-    public void processCommand(Commands p_commands) {
+    public void processCommand(Middleware p_commands) {
 
     }
 }
