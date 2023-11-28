@@ -4,9 +4,9 @@ import Constants.ApplicationConstants;
 import Models.IWorldMap;
 import Models.Player;
 import Models.WorldMap;
+import Enum.GameMode;
 import Phase.*;
 import Services.*;
-
 import java.util.List;
 
 public class Game implements PhaseObserver{
@@ -59,6 +59,7 @@ public class Game implements PhaseObserver{
         } else if (currentPhase instanceof FirstPhase) {
             playerService = new PlayerService(mapService,gameMap);
             currentPhase = new SecondPhase(mapService,playerService);
+            currentPhase.init();
         } else if (currentPhase instanceof SecondPhase) {
             currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
         } else if (currentPhase instanceof ThirdPhase) {
