@@ -41,7 +41,7 @@ public class Middleware {
         // }
         // else{
             getRootCommandWord(p_command);
-            // validateCommand();
+            validateCommand();
         // }
     }
 

@@ -23,6 +23,13 @@ public class FirstPhase extends GamePhase {
         // Implementation for first phase command processing
         switch (p_command.getL_rootCommand()) {
             //read different commands then perform regarding methods
+            case ApplicationConstants.LOADMAP:
+                commandProcessor.processCommand(new LoadMapCommand(mapService, p_command.getL_parameters()));
+                break;
+            case ApplicationConstants.SHOWMAP: {
+                commandProcessor.processCommand(new ShowMapCommand(mapService));
+                break;
+            }
             case ApplicationConstants.EDITMAP:
                 String fileName = p_command.getL_firstParameter();
                 commandProcessor.processCommand(new EditMapCommand(mapService,fileName));
@@ -30,26 +37,18 @@ public class FirstPhase extends GamePhase {
             case ApplicationConstants.EDITCONTINENT:
                 commandProcessor.processCommand(new EditContinentCommand(d_continentService,p_command));
                 break;
-            case ApplicationConstants.SAVEMAP:
-                commandProcessor.processCommand(new SaveMapCommand(mapService, p_command));
-                break;
-            case ApplicationConstants.LOADMAP:
-                commandProcessor.processCommand(new LoadMapCommand(mapService, p_command.getL_parameters()));
-                break;
-            case ApplicationConstants.VALIDATEMAP:
-                commandProcessor.processCommand(new ValidateMapCommand(mapService));
-                break;
             case ApplicationConstants.EDITCOUNTRY:
                 commandProcessor.processCommand(new EditCountryCommand(d_countryService, p_command));
                 break;
             case ApplicationConstants.EDITNEIGHBOR:
                 commandProcessor.processCommand(new EditNeighbourCommand(d_countryService, p_command));
                 break;
-
-            case ApplicationConstants.SHOWMAP: {
-                mapService.showMap(); //TODO:
+            case ApplicationConstants.VALIDATEMAP:
+                commandProcessor.processCommand(new ValidateMapCommand(mapService));
                 break;
-            }
+            case ApplicationConstants.SAVEMAP:
+                commandProcessor.processCommand(new SaveMapCommand(mapService, p_command));
+                break;
             case ApplicationConstants.EXIT: {
                 notifyPhaseComplete();
                 break;

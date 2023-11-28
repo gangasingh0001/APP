@@ -30,10 +30,12 @@ public class Game implements PhaseObserver{
         this.inputService = new ConsoleInputService();
         this.outputService = new ConsoleOutputService();
         this.currentPhase = new InitializationPhase(this.mapService, new ContinentService(mapService,gameMap), new CountryService(mapService,gameMap)); // or any initial phase
+        this.currentPhase.setObserver(this);
     }
 
     public void play() {
         while (!gameOver) {
+            outputService.print(currentPhase.getClass().getName()+":");
             outputService.print(ApplicationConstants.ENTER_COMMAND);
             currentPhase.processCommand(inputService.readCommand());
             gameOver = checkEndConditions();

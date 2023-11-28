@@ -4,6 +4,7 @@ import Middleware.Middleware;
 
 public abstract class GamePhase {
     private PhaseObserver observer;
+
     public void setObserver(PhaseObserver observer) {
         this.observer = observer;
     }
