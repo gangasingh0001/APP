@@ -1,6 +1,7 @@
 package Core;
 
 import Constants.ApplicationConstants;
+import Models.IWorldMap;
 import Models.Player;
 import Models.WorldMap;
 import Phase.*;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Game implements PhaseObserver{
     private boolean gameOver;
     private List<Player> players;
-    private WorldMap gameMap;
+    private IWorldMap gameMap;
     private int currentPlayerIndex;
     private GamePhase currentPhase;
     private MapService mapService;
@@ -20,7 +21,7 @@ public class Game implements PhaseObserver{
     private PlayerService playerService;
 
     // Constructor
-    public Game(List<Player> players, WorldMap gameMap) {
+    public Game(List<Player> players, IWorldMap gameMap) {
         this.gameOver = false;
         this.players = players;
         this.gameMap = gameMap;
