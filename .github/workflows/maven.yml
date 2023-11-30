@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "final" ]
+    branches: [ "refactoring-ganga-new" ]
   pull_request:
-    branches: [ "final" ]
+    branches: [ "refactoring-ganga-new" ]
 
 jobs:
   build:
