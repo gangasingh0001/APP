@@ -2,10 +2,7 @@ package Factory;
 
 import Constants.ApplicationConstants;
 import Models.Player;
-import Strategy.AggressiveStrategy;
-import Strategy.BenevolentStrategy;
-import Strategy.CheaterStrategy;
-import Strategy.RandomStrategy;
+import Strategy.*;
 
 public class PlayerFactory {
     public Player createPlayer(String p_playerName, int type) {
@@ -14,7 +11,7 @@ public class PlayerFactory {
             case 2 -> new Player(p_playerName, new BenevolentStrategy());
             case 3 -> new Player(p_playerName, new CheaterStrategy());
             case 4 -> new Player(p_playerName, new RandomStrategy());
-            case 5 -> new Player(p_playerName, true);
+//            case 5 -> new Player(p_playerName,new HumanStrategy());
             default -> throw new IllegalArgumentException("Unknown player type: " + type);
         };
     }

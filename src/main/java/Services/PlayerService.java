@@ -8,6 +8,7 @@ import Constants.ApplicationConstants;
 import Models.*;
 import Orders.*;
 import Middleware.Middleware;
+import Strategy.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -91,8 +92,22 @@ public class PlayerService implements IPlayerService{
      * @param p_command should provide playerID
      */
     public void addPlayer(Middleware p_command) {
-//        Player player = new Player(p_command.getL_secondParameter());
-//        this.d_players.add(player);
+        if(p_command.getL_thirdParameter().equals(ApplicationConstants.AGGRESSIVE)) {
+            Player player = new Player(p_command.getL_secondParameter(), new AggressiveStrategy());
+            this.d_players.add(player);
+        } else if(p_command.getL_thirdParameter().equals(ApplicationConstants.BENEVOLENT)) {
+            Player player = new Player(p_command.getL_secondParameter(), new BenevolentStrategy());
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.HUMAN)) {
+            Player player = new Player(p_command.getL_secondParameter(), new HumanStrategy(this));
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.CHEATER)) {
+            Player player = new Player(p_command.getL_secondParameter(), new CheaterStrategy());
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.RANDOM)) {
+            Player player = new Player(p_command.getL_secondParameter(), new RandomStrategy());
+            this.d_players.add(player);
+        }
     }
 
     /**
@@ -123,7 +138,7 @@ public class PlayerService implements IPlayerService{
     public void assignCountries() {
         List<Country> l_countryList = d_worldMap.getCountries();
         Collections.shuffle(l_countryList);
-        logger.severe("The list of countries is shuffled...");
+//        logger.severe("The list of countries is shuffled...");
         int currentItemIndex = 0;
         int n = this.d_players.size(); // Number of arrays to distribute items into
         int itemsPerArray = l_countryList.size() / n;
@@ -131,7 +146,7 @@ public class PlayerService implements IPlayerService{
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < itemsPerArray; j++) {
                 d_playerOwnedCountriesMap.put(l_countryList.get(currentItemIndex),this.d_players.get(i));
-                logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(i).getD_playerName());
+//                logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(i).getD_playerName());
 //                this.d_players.get(i).addCountriesOwned(l_countryList.get(currentItemIndex));
 //                l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(i));
                 currentItemIndex++;
@@ -141,7 +156,7 @@ public class PlayerService implements IPlayerService{
         // Distribute any remaining items
         while (currentItemIndex < l_countryList.size()) {
             d_playerOwnedCountriesMap.put(l_countryList.get(currentItemIndex),this.d_players.get(currentItemIndex % n));
-            logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(currentItemIndex % n).getD_playerName());
+//            logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(currentItemIndex % n).getD_playerName());
 //            this.d_players.get(currentItemIndex % n).addCountriesOwned(l_countryList.get(currentItemIndex));
 //            l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(currentItemIndex % n));
             currentItemIndex++;

@@ -41,7 +41,7 @@ public class Middleware {
         // }
         // else{
             getRootCommandWord(p_command);
-            // validateCommand();
+            validateCommand();
         // }
     }
 
@@ -201,12 +201,28 @@ public class Middleware {
                 return true;
             }
             case ApplicationConstants.GAMEPLAYER: {
-                if (l_parameters.length < 2) {
+                if (l_parameters.length < 3) {
                     new InvalidCommand("Invalid command format for GamePlayer, \ntry: 'gameplayer -add/-remove playername'");
                     return false;
                 }
                 switch (l_parameters[1]) {
                     case "-" + ApplicationConstants.ADD:
+                    {
+                        l_firstParameter = l_parameters[1];
+                        if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {
+                            l_secondParameter = l_parameters[2];
+                            if (l_parameters.length >= 3 && !l_parameters[3].isEmpty()){
+                                l_thirdParameter = l_parameters[3];
+                            }else {
+                                new InvalidCommand("Invalid command parameter for Add/Remove.");
+                                return false;
+                            }
+                            return true;
+                        } else {
+                            new InvalidCommand("Invalid command parameter for Add/Remove.");
+                            return false;
+                        }
+                    }
                     case "-" + ApplicationConstants.REMOVE: {
                         l_firstParameter = l_parameters[1];
                         if (l_parameters.length >= 3 && !l_parameters[2].isEmpty()) {

@@ -4,9 +4,9 @@ import Constants.ApplicationConstants;
 import Models.IWorldMap;
 import Models.Player;
 import Models.WorldMap;
+import Enum.GameMode;
 import Phase.*;
 import Services.*;
-
 import java.util.List;
 
 public class Game implements PhaseObserver{
@@ -30,10 +30,12 @@ public class Game implements PhaseObserver{
         this.inputService = new ConsoleInputService();
         this.outputService = new ConsoleOutputService();
         this.currentPhase = new InitializationPhase(this.mapService, new ContinentService(mapService,gameMap), new CountryService(mapService,gameMap)); // or any initial phase
+        this.currentPhase.setObserver(this);
     }
 
     public void play() {
         while (!gameOver) {
+            outputService.print(currentPhase.getClass().getName()+":");
             outputService.print(ApplicationConstants.ENTER_COMMAND);
             currentPhase.processCommand(inputService.readCommand());
             gameOver = checkEndConditions();
@@ -57,14 +59,16 @@ public class Game implements PhaseObserver{
         } else if (currentPhase instanceof FirstPhase) {
             playerService = new PlayerService(mapService,gameMap);
             currentPhase = new SecondPhase(mapService,playerService);
+            currentPhase.init();
         } else if (currentPhase instanceof SecondPhase) {
-            currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
-        } else if (currentPhase instanceof ThirdPhase) {
-            currentPhase = new GamePlayPhase();
-        } else if (currentPhase instanceof GamePlayPhase) {
-            currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
+            currentPhase = new GamePlayPhase(playerService, players);
+            //currentPhase = new GamePlayPhase(mapService,playerService, inputService, outputService, players);
         }
-
+//        else if (currentPhase instanceof ThirdPhase) {
+////            currentPhase = new GamePlayPhase();
+//        } else if (currentPhase instanceof GamePlayPhase) {
+//            currentPhase = new ThirdPhase(mapService,playerService, inputService, outputService, players);
+//        }
         currentPhase.setObserver(this);
     }
 }

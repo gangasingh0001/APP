@@ -27,15 +27,12 @@ public class MapService implements IMapService{
      * @param p_worldMap
      */
 
-    ShowMap d_mapView;
-
     private boolean mapEditingAllowed = true;
 
     private Logger d_logger;
     public MapService(Logger p_logger,IWorldMap p_worldMap) {
         d_logger = p_logger;
         d_worldMap = p_worldMap;
-        d_mapView  = new ShowMap(d_worldMap);
     }
     public MapService(IWorldMap p_worldMap) {
         d_worldMap = p_worldMap;
@@ -101,6 +98,7 @@ public class MapService implements IMapService{
                     }
                 }
             }
+//            d_mapView  = new ShowMap(d_worldMap);
         } catch (FileNotFoundException e) {
              new FileNotFoundException("File not found");
         } catch (IOException e) {
@@ -208,7 +206,7 @@ public class MapService implements IMapService{
     }
 
     public void showMap() {
-        d_mapView.show();
+        new ShowMap(d_worldMap).show();
     }
 
     public void disableMapEditing() {
