@@ -67,7 +67,7 @@ public class Player {
      */
     public void add_deployInOrderList(Deploy p_object) {
         this.d_orderList.add(p_object);
-    }
+    }//this.d_orderList.add(strategy.deploy());
 
     /**
      * getter method to get a list of player orders
