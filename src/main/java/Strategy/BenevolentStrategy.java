@@ -98,7 +98,7 @@ public class BenevolentStrategy implements PlayerStrategy {
      *
      */
     @Override
-    public void execute() {
+    public void execute(Player player) {
 
     }
 }
