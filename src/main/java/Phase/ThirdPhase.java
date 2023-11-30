@@ -44,10 +44,10 @@ public class ThirdPhase extends GamePhase {
                 notifyPhaseComplete();
                 break;
             }
-            case ApplicationConstants.SELECTION: {
-                initializePlayers();
-                break;
-            }
+//            case ApplicationConstants.SELECTION: {
+//                //initializePlayers();
+//                break;
+//            }
             default: {
                 System.out.println("\nInvalid Command for Phase 2.");
                 break;
@@ -55,37 +55,42 @@ public class ThirdPhase extends GamePhase {
         }
     }
 
-    public void initializePlayers() {
-        outputService.print("Enter number of players:");
-        int numberOfPlayers = inputService.readInt();
-        for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.println("Select strategy for player " + (i + 1) + " (1: Aggressive, 2: Benevolent, 3: Cheater, 4:Random, 5: Human):");
-            int choice = inputService.readInt();
+    @Override
+    public void init() {
 
-            switch (choice) {
-                case 1:
-                    players.add(new PlayerFactory().createPlayer(null,1)); //TODO: Craete random name
-                    break;
-                case 2:
-                    players.add(new PlayerFactory().createPlayer(null,2)); //TODO: Craete random name
-                    break;
-                case 3:
-                    players.add(new PlayerFactory().createPlayer(null,3)); //TODO: Craete random name
-                    break;
-                case 4:
-                    players.add(new PlayerFactory().createPlayer(null,4)); //TODO: Craete random name
-                    break;
-                case 5:
-                    outputService.print("Enter player name");
-                    players.add(new PlayerFactory().createPlayer(inputService.readLine(),5)); //TODO: Craete random name
-                    break;
-
-                // Add more cases for additional strategies
-                default:
-                    System.out.println("Invalid choice, defaulting to Aggressive.");
-                    players.add(new PlayerFactory().createPlayer(null,1)); //TODO: Craete random name
-                    break;
-            }
-        }
     }
+
+//    public void initializePlayers() {
+//        outputService.print("Enter number of players:");
+//        int numberOfPlayers = inputService.readInt();
+//        for (int i = 0; i < numberOfPlayers; i++) {
+//            System.out.println("Select strategy for player " + (i + 1) + " (1: Aggressive, 2: Benevolent, 3: Cheater, 4:Random, 5: Human):");
+//            int choice = inputService.readInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    players.add(new PlayerFactory().createPlayer(null,1)); //TODO: Craete random name
+//                    break;
+//                case 2:
+//                    players.add(new PlayerFactory().createPlayer(null,2)); //TODO: Craete random name
+//                    break;
+//                case 3:
+//                    players.add(new PlayerFactory().createPlayer(null,3)); //TODO: Craete random name
+//                    break;
+//                case 4:
+//                    players.add(new PlayerFactory().createPlayer(null,4)); //TODO: Craete random name
+//                    break;
+//                case 5:
+//                    outputService.print("Enter player name");
+//                    players.add(new PlayerFactory().createPlayer(inputService.readLine(),5)); //TODO: Craete random name
+//                    break;
+//
+//                // Add more cases for additional strategies
+//                default:
+//                    System.out.println("Invalid choice, defaulting to Aggressive.");
+//                    players.add(new PlayerFactory().createPlayer(null,1)); //TODO: Craete random name
+//                    break;
+//            }
+//        }
+//    }
 }
