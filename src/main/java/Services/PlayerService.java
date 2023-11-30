@@ -23,6 +23,12 @@ public class PlayerService implements IPlayerService{
      * a class used to store game map and manipulate game map
      */
     IMapService d_mapService;
+
+    public IWorldMap getD_worldMap()
+    {
+        return d_worldMap;
+    }
+
     /**
      * world map pointer to the game map in d_mapService, we only have one map instance, and it is created in
      * d_mapService class, but in this class we will use map instance in d_mapService to initial the worldMap attribute in
@@ -234,7 +240,6 @@ public class PlayerService implements IPlayerService{
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
                                 //TODO: Add Negotiate/Diplomacy functionality
                                 Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter(),player,d_players);
-//                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
                                 logger.severe(player.getD_playerName() + " is using Bomb card!");
                                 diplomacy.execute();
                             }

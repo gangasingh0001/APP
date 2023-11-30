@@ -2,13 +2,25 @@ package Strategy;
 
 import Models.Country;
 import Models.Player;
+import Orders.IOrders;
+import Services.PlayerService;
 
 public class AggressiveStrategy implements PlayerStrategy {
+
+    //Player d_player;
+    PlayerService d_playerService;
+    public  AggressiveStrategy(PlayerService l_playerService){
+        //this.d_player=l_player;
+        this.d_playerService=l_playerService;
+
+    }
+
     @Override
     public void deploy(Player player) {
 //        Country strongestCountry = findStrongestCountry(player.getCountries());
 //        int armiesToDeploy = player.getD_numberOfArmies();
 //        player.deployArmies(strongestCountry, armiesToDeploy);
+        //return null;
     }
 
     @Override
@@ -26,6 +38,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 //                break;
 //            }
 //        }
+        //return null;
     }
 
     @Override
@@ -40,13 +53,16 @@ public class AggressiveStrategy implements PlayerStrategy {
 //                player.moveArmies(sourceCountry, strongestCountry, armiesToMove);
 //            }
 //        }
+        //return null;
     }
 
-    /**
-     *
-     */
     @Override
-    public void execute() {
+    public void execute(Player player)
+    {
 
     }
+
+
+
+
 }
