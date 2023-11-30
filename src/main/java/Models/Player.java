@@ -174,7 +174,7 @@ public class Player {
 
     public void issueOrder() {
         if(orderStrategy != null) {
-            orderStrategy.execute();
+            orderStrategy.execute(this);
         }
     }
 

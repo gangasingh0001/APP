@@ -89,6 +89,10 @@ public class PlayerService implements IPlayerService{
         return d_players;
     }
 
+    public boolean removePlayer(Player player) {
+        return d_players.remove(player);
+    }
+
     public HashMap<Country,Player> getD_playerOwnedCountriesMap() {
         return d_playerOwnedCountriesMap;
     }
@@ -99,19 +103,19 @@ public class PlayerService implements IPlayerService{
      */
     public void addPlayer(Middleware p_command) {
         if(p_command.getL_thirdParameter().equals(ApplicationConstants.AGGRESSIVE)) {
-            Player player = new Player(p_command.getL_secondParameter(), new AggressiveStrategy());
+            Player player = new Player(p_command.getL_secondParameter(), new AggressiveStrategy(this));
             this.d_players.add(player);
         } else if(p_command.getL_thirdParameter().equals(ApplicationConstants.BENEVOLENT)) {
-            Player player = new Player(p_command.getL_secondParameter(), new BenevolentStrategy());
+            Player player = new Player(p_command.getL_secondParameter(), new BenevolentStrategy(this));
             this.d_players.add(player);
         } if(p_command.getL_thirdParameter().equals(ApplicationConstants.HUMAN)) {
             Player player = new Player(p_command.getL_secondParameter(), new HumanStrategy(this));
             this.d_players.add(player);
         } if(p_command.getL_thirdParameter().equals(ApplicationConstants.CHEATER)) {
-            Player player = new Player(p_command.getL_secondParameter(), new CheaterStrategy());
+            Player player = new Player(p_command.getL_secondParameter(), new CheaterStrategy(this));
             this.d_players.add(player);
         } if(p_command.getL_thirdParameter().equals(ApplicationConstants.RANDOM)) {
-            Player player = new Player(p_command.getL_secondParameter(), new RandomStrategy());
+            Player player = new Player(p_command.getL_secondParameter(), new RandomStrategy(this));
             this.d_players.add(player);
         }
     }

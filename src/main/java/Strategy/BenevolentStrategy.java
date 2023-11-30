@@ -2,6 +2,7 @@ package Strategy;
 
 import Models.Country;
 import Models.Player;
+import Services.PlayerService;
 
 import java.util.*;
 
@@ -13,6 +14,12 @@ import java.util.*;
  */
 public class BenevolentStrategy implements PlayerStrategy {
 
+    PlayerService d_playerService;
+    public  BenevolentStrategy(PlayerService l_playerService){
+        //this.d_player=l_player;
+        this.d_playerService=l_playerService;
+
+    }
     /**
      * @param p_player
      */

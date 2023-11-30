@@ -53,7 +53,7 @@ public class HumanStrategy implements PlayerStrategy {
      *
      */
     @Override
-    public void execute() {
+    public void execute(Player player) {
         d_playerService.issue_order();
     }
 

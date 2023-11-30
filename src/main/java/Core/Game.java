@@ -61,7 +61,7 @@ public class Game implements PhaseObserver{
             currentPhase = new SecondPhase(mapService,playerService);
             currentPhase.init();
         } else if (currentPhase instanceof SecondPhase) {
-            currentPhase = new GamePlayPhase(playerService, players);
+            currentPhase = new GamePlayPhase(playerService);
             //currentPhase = new GamePlayPhase(mapService,playerService, inputService, outputService, players);
         }
 //        else if (currentPhase instanceof ThirdPhase) {
