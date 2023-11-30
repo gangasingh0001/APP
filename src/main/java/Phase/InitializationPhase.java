@@ -22,4 +22,9 @@ public class InitializationPhase extends GamePhase{
     public void processCommand(Middleware p_commands) {
         notifyPhaseComplete();
     }
+
+    @Override
+    public void init() {
+
+    }
 }

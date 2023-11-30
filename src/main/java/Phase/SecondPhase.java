@@ -12,6 +12,7 @@ public class SecondPhase extends GamePhase{
     private final PlayerService d_playerService;
     private OutputService outputService;
     private InputService inputService;
+    private int playerCount;
     public SecondPhase(MapService mapService, PlayerService p_playerService) {
         this.d_playerService = p_playerService;
         this.mapService = mapService;
@@ -32,15 +33,28 @@ public class SecondPhase extends GamePhase{
                 commandProcessor.processCommand(new ValidateMapCommand(mapService));
                 break;
             case ApplicationConstants.GAMEPLAYER: {
-                commandProcessor.processCommand(new AddPlayerCommand(d_playerService,p_command));
+                if(playerCount<this.noOfPlayers){
+                    commandProcessor.processCommand(new AddPlayerCommand(d_playerService,p_command));
+                    playerCount++;
+                }else{
+                    outputService.print("no more players can be added");
+                }
                 break;
             }
             case ApplicationConstants.ASSIGNCOUNTRIES: {
-                commandProcessor.processCommand(new AssignCountryCommand(d_playerService,p_command));
+                if(playerCount==this.noOfPlayers) {
+                    commandProcessor.processCommand(new AssignCountryCommand(d_playerService, p_command));
+                }else{
+                    outputService.print("no of players not correct");
+                }
                 break;
             }
             case ApplicationConstants.EXIT: {
-                notifyPhaseComplete();
+                if(playerCount == this.noOfPlayers){
+                    notifyPhaseComplete();
+                }else{
+                    outputService.print("no of players does not match the player added");
+                }
                 break;
             }
             default: {
@@ -65,8 +79,9 @@ public class SecondPhase extends GamePhase{
                 break;
             case SINGLE_PLAYER:
                 // Start single-player mode logic
-//                Integer noOfPlayers = inputService.readInt();
-                System.out.println("Single player mode started");
+                outputService.print("Enter number of players");
+                this.noOfPlayers = inputService.readInt();
+                outputService.print("Single player mode started");
                 break;
             default:
                 System.out.println("Invalid game mode");

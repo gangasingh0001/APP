@@ -5,6 +5,7 @@ import Enum.GameMode;
 public abstract class GamePhase {
     private PhaseObserver observer;
     protected GameMode gameMode;
+    protected int noOfPlayers;
     public void setObserver(PhaseObserver observer) {
         this.observer = observer;
     }

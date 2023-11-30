@@ -59,4 +59,7 @@ public class FirstPhase extends GamePhase {
             }
         }
     }
+
+    @Override
+    public void init() {}
 }
