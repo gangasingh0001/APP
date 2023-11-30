@@ -98,6 +98,11 @@ public class ApplicationConstants {
     public static final String DEPLOY = "deploy";
     public static final String ADVANCE = "advance";
     public static final String LOG = "log";
+    public static final String HUMAN = "human";
+    public static final String AGGRESSIVE = "aggressive";
+    public static final String CHEATER = "cheater";
+    public static final String RANDOM = "random";
+    public static final String BENEVOLENT = "benevolant";
     public static final String ENTER_COMMAND = "Enter Command";
 
 }
