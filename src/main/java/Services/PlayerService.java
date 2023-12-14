@@ -1,9 +1,14 @@
 package Services;
 
+import Cards.Airlift;
+import Cards.Blockade;
+import Cards.Bomb;
+import Cards.Diplomacy;
 import Constants.ApplicationConstants;
 import Models.*;
 import Orders.*;
-import Utils.Commands;
+import Middleware.Middleware;
+import Strategy.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +24,12 @@ public class PlayerService implements IPlayerService{
      * a class used to store game map and manipulate game map
      */
     IMapService d_mapService;
+
+    public IWorldMap getD_worldMap()
+    {
+        return d_worldMap;
+    }
+
     /**
      * world map pointer to the game map in d_mapService, we only have one map instance, and it is created in
      * d_mapService class, but in this class we will use map instance in d_mapService to initial the worldMap attribute in
@@ -78,6 +89,10 @@ public class PlayerService implements IPlayerService{
         return d_players;
     }
 
+    public boolean removePlayer(Player player) {
+        return d_players.remove(player);
+    }
+
     public HashMap<Country,Player> getD_playerOwnedCountriesMap() {
         return d_playerOwnedCountriesMap;
     }
@@ -86,9 +101,23 @@ public class PlayerService implements IPlayerService{
      * add players to the arraylist<Player> in PlayerService
      * @param p_command should provide playerID
      */
-    public void addPlayer(Commands p_command) {
-        Player player = new Player(p_command.getL_secondParameter());
-        this.d_players.add(player);
+    public void addPlayer(Middleware p_command) {
+        if(p_command.getL_thirdParameter().equals(ApplicationConstants.AGGRESSIVE)) {
+            Player player = new Player(p_command.getL_secondParameter(), new AggressiveStrategy(this));
+            this.d_players.add(player);
+        } else if(p_command.getL_thirdParameter().equals(ApplicationConstants.BENEVOLENT)) {
+            Player player = new Player(p_command.getL_secondParameter(), new BenevolentStrategy(this));
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.HUMAN)) {
+            Player player = new Player(p_command.getL_secondParameter(), new HumanStrategy(this));
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.CHEATER)) {
+            Player player = new Player(p_command.getL_secondParameter(), new CheaterStrategy(this));
+            this.d_players.add(player);
+        } if(p_command.getL_thirdParameter().equals(ApplicationConstants.RANDOM)) {
+            Player player = new Player(p_command.getL_secondParameter(), new RandomStrategy(this));
+            this.d_players.add(player);
+        }
     }
 
     /**
@@ -96,7 +125,7 @@ public class PlayerService implements IPlayerService{
      * @param p_command should include the name player removed
      * @return if remove successful then return true, else return false
      */
-    public boolean isPlayerRemoved(Commands p_command) {
+    public boolean isPlayerRemoved(Middleware p_command) {
         Player l_playerToRemoveObj = null;
         for(Player player: this.d_players) {
             if(player.getD_playerName().equals(p_command.getL_secondParameter())) {
@@ -119,7 +148,7 @@ public class PlayerService implements IPlayerService{
     public void assignCountries() {
         List<Country> l_countryList = d_worldMap.getCountries();
         Collections.shuffle(l_countryList);
-        logger.severe("The list of countries is shuffled...");
+//        logger.severe("The list of countries is shuffled...");
         int currentItemIndex = 0;
         int n = this.d_players.size(); // Number of arrays to distribute items into
         int itemsPerArray = l_countryList.size() / n;
@@ -127,7 +156,7 @@ public class PlayerService implements IPlayerService{
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < itemsPerArray; j++) {
                 d_playerOwnedCountriesMap.put(l_countryList.get(currentItemIndex),this.d_players.get(i));
-                logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(i).getD_playerName());
+//                logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(i).getD_playerName());
 //                this.d_players.get(i).addCountriesOwned(l_countryList.get(currentItemIndex));
 //                l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(i));
                 currentItemIndex++;
@@ -137,7 +166,7 @@ public class PlayerService implements IPlayerService{
         // Distribute any remaining items
         while (currentItemIndex < l_countryList.size()) {
             d_playerOwnedCountriesMap.put(l_countryList.get(currentItemIndex),this.d_players.get(currentItemIndex % n));
-            logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(currentItemIndex % n).getD_playerName());
+//            logger.severe(l_countryList.get(currentItemIndex).toString() + " is assigned to " + this.d_players.get(currentItemIndex % n).getD_playerName());
 //            this.d_players.get(currentItemIndex % n).addCountriesOwned(l_countryList.get(currentItemIndex));
 //            l_countryList.get(currentItemIndex).setD_ownedBy(this.d_players.get(currentItemIndex % n));
             currentItemIndex++;
@@ -177,7 +206,7 @@ public class PlayerService implements IPlayerService{
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
                 }
-                Commands l_command = new Commands(l_commandEntered);
+                Middleware l_command = new Middleware(l_commandEntered);
                 boolean deployFlag = false;
                 if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     int countryID = Integer.parseInt(l_command.getL_firstParameter());
@@ -209,7 +238,7 @@ public class PlayerService implements IPlayerService{
                             logger.severe(player.getD_playerName() + " selects card: " + player.getD_PlayerCards().get(0).getCardType().name());
                             l_commandEntered = l_reader.readLine();
                             //TODO: validate the entered card command
-                            Commands l_command = new Commands(l_commandEntered);
+                            Middleware l_command = new Middleware(l_commandEntered);
                             String sourceCountryID = l_command.getL_firstParameter();
                             String targetCountryID = l_command.getL_secondParameter();
                             String numOfArmies = l_command.getL_thirdParameter();
@@ -230,7 +259,6 @@ public class PlayerService implements IPlayerService{
                             } else if(player.getD_PlayerCards().get(0).getCardType().equals(CardType.DIPLOMACY)) {
                                 //TODO: Add Negotiate/Diplomacy functionality
                                 Diplomacy diplomacy = new Diplomacy(l_command.getL_firstParameter(),player,d_players);
-//                                Bomb bomb = new Bomb(d_worldMap.findCountryNameById(Integer.parseInt(sourceCountryID)),player,d_playerOwnedCountriesMap);
                                 logger.severe(player.getD_playerName() + " is using Bomb card!");
                                 diplomacy.execute();
                             }
@@ -247,7 +275,7 @@ public class PlayerService implements IPlayerService{
                 } catch (IOException l_ioException) {
                     l_ioException.printStackTrace();
                 }
-                Commands l_command = new Commands(l_commandEntered);
+                Middleware l_command = new Middleware(l_commandEntered);
                 if (l_command.validateCommand() && !l_command.getL_rootCommand().equals(ApplicationConstants.EXIT)) {
                     String countryNameFrom = l_command.getL_firstParameter();
                     String countryNameTo = l_command.getL_secondParameter();
@@ -298,5 +326,10 @@ public class PlayerService implements IPlayerService{
                 player.clearAcquiredCountriesList();
             }
         }
+    }
+
+    private Country findStrongestCountry(List<Country> countries) {
+        // Find the country with the maximum number of armies
+        return Collections.max(countries, Comparator.comparing(Country::getD_Armies));
     }
 }

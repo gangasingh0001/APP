@@ -3,9 +3,8 @@ package Models;
 import Constants.ApplicationConstants;
 import Orders.Deploy;
 import Orders.IOrders;
-import Strategy.OrderStrategy;
+import Strategy.PlayerStrategy;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -21,9 +20,10 @@ public class Player {
     /**
      * player name
      */
-    private String d_name;
+    private final String d_name;
 
-    private OrderStrategy orderStrategy;
+    private PlayerStrategy orderStrategy;
+//    private Boolean humanPlayer;
 
     public List<String> getD_diplomacyWith()
     {
@@ -52,27 +52,13 @@ public class Player {
     }
 
     private List<Country> countryAcquired;
-    /**
-     * number of armies assigned by players each turn
-     */
-    private int d_numberOfArmies = ApplicationConstants.DEFAULTARMIES;
-
-    /**
-     * player constructor
-     * @param p_playerName player name
-     */
-    public Player(String p_playerName) {
-        this.d_name = p_playerName;
-        d_orderList = new LinkedList<>();
-        d_diplomacyWith=new ArrayList<>();
-    }
 
     /**
      * getter method to get number of armies
      * @return number of armies
      */
     public int getD_numberOfArmies() {
-        return d_numberOfArmies;
+        return ApplicationConstants.DEFAULTARMIES;
     }
 
     /**
@@ -81,7 +67,7 @@ public class Player {
      */
     public void add_deployInOrderList(Deploy p_object) {
         this.d_orderList.add(p_object);
-    }
+    }//this.d_orderList.add(strategy.deploy());
 
     /**
      * getter method to get a list of player orders
@@ -102,13 +88,35 @@ public class Player {
     /**
      * a list of cards for the player
      */
-    private ArrayList<Card> d_PlayerCards = new ArrayList<>();
+    private List<Card> d_PlayerCards;
+
+    /**
+     * player constructor
+     * @param p_playerName player name
+     */
+    public Player(String p_playerName, PlayerStrategy p_strategy) {
+        this.d_name = p_playerName;
+        d_orderList = new LinkedList<>();
+        d_diplomacyWith=new ArrayList<>();
+        this.d_PlayerCards = new ArrayList<>();
+        this.countryAcquired = new ArrayList<>();
+        this.orderStrategy = p_strategy;
+    }
+
+//    public Player(String p_playerName, Boolean humanPlayer) {
+//        this.d_name = p_playerName;
+//        d_orderList = new LinkedList<>();
+//        d_diplomacyWith=new ArrayList<>();
+//        this.d_PlayerCards = new ArrayList<>();
+//        this.countryAcquired = new ArrayList<>();
+//        this.humanPlayer = humanPlayer;
+//    }
 
     /**
      * getter method to get this player's cards
      * @return a list of cards for the player
      */
-    public ArrayList<Card> getD_PlayerCards() {
+    public List<Card> getD_PlayerCards() {
         return d_PlayerCards;
     }
 
@@ -123,11 +131,11 @@ public class Player {
 
     /**
      * remove the card after using it
+     *
      * @param p_CardType card type
-     * @return true if the used card is removed otherwise false
      */
-    public boolean removeCard(CardType p_CardType){
-        return d_PlayerCards.remove(new Card(p_CardType));
+    public void removeCard(CardType p_CardType){
+        d_PlayerCards.remove(new Card(p_CardType));
     }
 
     /**
@@ -160,13 +168,17 @@ public class Player {
         }
     }
 
-    public void setOrderStrategy(OrderStrategy strategy) {
+    public void setOrderStrategy(PlayerStrategy strategy) {
         this.orderStrategy = strategy;
     }
 
     public void issueOrder() {
         if(orderStrategy != null) {
-            orderStrategy.issueOrder(this);
+            orderStrategy.execute(this);
         }
     }
+
+//    public Boolean getIsHumanPlayer() {
+//        return humanPlayer;
+//    }
 }

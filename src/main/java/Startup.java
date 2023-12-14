@@ -1,5 +1,5 @@
 import Constants.ApplicationConstants;
-import Controllers.GameEngineController;
+import Core.Game;
 import Logger.ILogging;
 import Logger.Logging;
 import Models.IWorldMap;
@@ -10,6 +10,7 @@ import Services.MapService;
 import Services.PlayerService;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
+import Controllers.GameController;
 /**
  *This is the Startup(main) class to start the game
  */
@@ -23,15 +24,15 @@ public class Startup {
         Logger logger = Logger.getLogger(ApplicationConstants.LOG);
         logging = new Logging(ApplicationConstants.LOG);
         logger = logging.attachFileHandlerToLogger(logger);
-        //define and initiate a map instance to store map information
+        // define and initiate a map instance to store map information
         IWorldMap l_worldMap = new WorldMap();
-        //define and initiate commands and business logics to ingrate commands with the map
+        // define and initiate commands and business logics to ingrate commands with the map
         IMapService l_mapService = new MapService(l_worldMap);
-        //define and initiate a PlayerService instance to ingrate player's input commands from the console
+        // define and initiate a PlayerService instance to ingrate player's input commands from the console
         IPlayerService playerService = new PlayerService(logger,l_mapService,l_worldMap);
-        //define and initiate a controller which receives commands and redirect them to their respective services
-        GameEngineController l_game = new GameEngineController(l_mapService,playerService,l_worldMap);
-        //to stark the game
-        l_game.initGame(logger);
+        // define and initiate a controller which receives commands and redirect them to their respective services
+        GameController l_game = new GameController(new Game(playerService.getPlayersList(), l_worldMap));
+        //to start the game
+        l_game.start();
     }
 }

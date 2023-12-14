@@ -2,19 +2,17 @@ package Factory;
 
 import Constants.ApplicationConstants;
 import Models.Player;
-import Strategy.AggressiveStrategy;
-import Strategy.BenevolentStrategy;
+import Strategy.*;
 
 public class PlayerFactory {
-    public Player createPlayer(String type) {
-        switch (type) {
-            case ApplicationConstants.AGGRESSIVE:
-                return new Player(new AggressiveStrategy());
-            case "defensive":
-                return new Player(new BenevolentStrategy());
-            // Add more cases for different player types
-            default:
-                throw new IllegalArgumentException("Unknown player type: " + type);
-        }
+    public void createPlayer(String p_playerName, int type) {
+//        return switch (type) {
+////            case 1 -> new Player(p_playerName, new AggressiveStrategy());
+////            case 2 -> new Player(p_playerName, new BenevolentStrategy());
+////            case 3 -> new Player(p_playerName, new CheaterStrategy());
+////            case 4 -> new Player(p_playerName, new RandomStrategy());
+////            case 5 -> new Player(p_playerName,new HumanStrategy());
+//            default -> throw new IllegalArgumentException("Unknown player type: " + type);
+//        };
     }
 }

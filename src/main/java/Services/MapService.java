@@ -1,7 +1,8 @@
 package Services;
 
 import Models.*;
-import Utils.Commands;
+import Middleware.Middleware;
+import Views.ShowMap;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class MapService implements IMapService{
      * @param p_worldMap
      */
 
+    private boolean mapEditingAllowed = true;
+
     private Logger d_logger;
     public MapService(Logger p_logger,IWorldMap p_worldMap) {
         d_logger = p_logger;
@@ -39,8 +42,12 @@ public class MapService implements IMapService{
      * used to get the map information from text file and store all the information into worldMap instance
      * @param d_commands including loadmap (the name of map)mapname
      */
-    public void loadData(Commands d_commands) throws FileNotFoundException {
-        String[] params = d_commands.getL_parameters();// split the command by " "
+    public void loadData(String[] params) {
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
+        //String[] params = d_commands.getL_parameters();// split the command by " "
         String currentDirectory = System.getProperty("user.dir");
         File file = new File(currentDirectory);
         try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()+"/src/main/java/Data/Maps/"+params[1])))
@@ -91,8 +98,9 @@ public class MapService implements IMapService{
                     }
                 }
             }
+//            d_mapView  = new ShowMap(d_worldMap);
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File not found");
+             new FileNotFoundException("File not found");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -100,11 +108,30 @@ public class MapService implements IMapService{
         }
     }
 
+    public void mapEditor(String fileName){
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
+        String filePath = "./src/main/java/Data/Maps/" + fileName;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * save map in to a txt file
      */
-    public void saveMap(Commands commands){
+    public void saveMap(Middleware commands){
+        if (!mapEditingAllowed) {
+            System.out.println("Map editing is not allowed.");
+            return;
+        }
         String filePath = "./src/main/java/Data/Maps/" + commands.getL_firstParameter();
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write the text to the file
@@ -176,6 +203,14 @@ public class MapService implements IMapService{
 
         // If all countries are visited, the graph is connected
         return visitedCountries.size() == d_worldMap.getCountries().size();
+    }
+
+    public void showMap() {
+        new ShowMap(d_worldMap).show();
+    }
+
+    public void disableMapEditing() {
+        mapEditingAllowed = false;
     }
 
 }
